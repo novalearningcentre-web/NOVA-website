@@ -1,0 +1,720 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const currentYear = new Date().getFullYear();
+
+const navItems = [
+	{ name: 'Beranda', href: '/' },
+	{ name: 'Tentang Kami', href: '/about' },
+	{ name: 'Program', href: '/programs' },
+	{ name: 'Fasilitas', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Kontak', href: '/contact' },
+];
+
+const learningRhythms = [
+	{
+		name: 'Explore',
+		sessions: '4 sesi / bulan',
+		frequency: '1× per minggu',
+		description: 'Cocok untuk belajar rutin dengan ritme yang lebih ringan.',
+		color: 'blue',
+		icon: 'compass',
+	},
+	{
+		name: 'Grow',
+		sessions: '8 sesi / bulan',
+		frequency: '2× per minggu',
+		description: 'Pilihan paling seimbang untuk perkembangan yang lebih konsisten.',
+		popular: true,
+		color: 'yellow',
+		icon: 'sprout',
+	},
+	{
+		name: 'Accelerate',
+		sessions: '12 sesi / bulan',
+		frequency: '3× per minggu',
+		description: 'Untuk target belajar yang lebih intensif dan terarah.',
+		color: 'navy',
+		icon: 'rocket',
+	},
+];
+
+const programs = [
+	{
+		title: 'Kurikulum Nasional',
+		label: 'Academic',
+		description:
+			'Pendampingan akademik dari PAUD–TK, SD, SMP hingga SMA untuk mendukung pelajaran sekolah dan perkembangan belajar yang konsisten.',
+		icon: 'book',
+	},
+	{
+		title: 'International Curriculum',
+		label: 'Academic',
+		description:
+			'Academic support untuk International Early Years, Cambridge Primary, Lower Secondary, IGCSE, hingga A Level / IB DP.',
+		icon: 'globe',
+	},
+	{
+		title: 'Coding & Digital',
+		label: 'Technology',
+		description:
+			'Creative coding, game & animation, Python, web, app, data, dan AI sesuai jenjang siswa.',
+		icon: 'code',
+	},
+	{
+		title: 'Robotics & Engineering',
+		label: 'Technology',
+		description:
+			'Belajar robotics, engineering, IoT, hingga project-based learning melalui aktivitas membangun dan menguji.',
+		icon: 'robot',
+	},
+	{
+		title: 'Drawing & Art',
+		label: 'Creative',
+		description:
+			'Mulai dari eksplorasi seni anak, creative drawing, hingga illustration dan portfolio untuk siswa yang lebih besar.',
+		icon: 'art',
+	},
+	{
+		title: 'Mandarin Studio',
+		label: 'Language',
+		description:
+			'Program Mandarin dari early learners, foundations, communicator, academic support hingga HSK preparation.',
+		icon: 'language',
+	},
+];
+
+const classFormats = [
+	{
+		title: 'Regular / Small Cohort',
+		size: 'Kelompok kecil',
+		description:
+			'Belajar bersama beberapa siswa dengan interaksi aktif dan biaya yang lebih efisien.',
+	},
+	{
+		title: 'Semi-Private',
+		size: '2–3 siswa',
+		description:
+			'Pendampingan lebih dekat dibanding regular class, tetapi tetap memiliki partner belajar.',
+		highlight: true,
+	},
+	{
+		title: 'Private',
+		size: '1 siswa',
+		description:
+			'Pendampingan 1-on-1 dengan fokus penuh pada kebutuhan, target, dan kecepatan belajar siswa.',
+	},
+];
+
+const footerLinks = [
+	{ name: 'Beranda', href: '/' },
+	{ name: 'Tentang Kami', href: '/about' },
+	{ name: 'Program', href: '/programs' },
+	{ name: 'Fasilitas', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Kontak', href: '/contact' },
+];
+---
+
+<Layout
+	title="Program | NOVA Learning Centre"
+	description="Pilihan paket dan program NOVA Learning Centre: academic support, coding, robotics, art, Mandarin, semi-private, dan private class."
+>
+	<!-- NAVBAR -->
+	<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+		<nav
+			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
+			aria-label="Navigasi utama"
+		>
+			<a href="/" class="flex items-center" aria-label="NOVA Learning Centre">
+				<img
+					src="/images/primary-logo-icon.png"
+					alt="NOVA Learning Centre"
+					class="h-10 w-10 object-contain sm:hidden"
+				/>
+
+				<img
+					src="/images/primary-logo.png"
+					alt="NOVA Learning Centre"
+					class="hidden h-11 w-auto object-contain sm:block"
+				/>
+			</a>
+
+			<div class="hidden items-center gap-7 lg:flex">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class:list={[
+								'text-sm font-semibold transition',
+								item.href === '/programs'
+									? 'text-[#0F2747]'
+									: 'text-slate-600 hover:text-[#A87300]',
+							]}
+						>
+							{item.name}
+						</a>
+					))
+				}
+			</div>
+
+			<a
+				href="/contact"
+				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722] lg:inline-flex"
+			>
+				Konsultasi Gratis
+			</a>
+
+			<button
+				id="mobile-menu-button"
+				type="button"
+				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
+				aria-label="Buka menu navigasi"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
+			>
+				<svg
+					width="23"
+					height="23"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M4 7h16"></path>
+					<path d="M4 12h16"></path>
+					<path d="M4 17h16"></path>
+				</svg>
+			</button>
+		</nav>
+
+		<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
+			<div class="flex flex-col gap-4">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
+						>
+							{item.name}
+						</a>
+					))
+				}
+
+				<a
+					href="/contact"
+					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
+				>
+					Konsultasi Gratis
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<!-- HERO -->
+		<section class="bg-white">
+			<div class="mx-auto max-w-7xl px-6 pb-14 pt-20 lg:px-8 lg:pb-18 lg:pt-24">
+				<div class="max-w-4xl">
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+						Program NOVA
+					</p>
+
+					<h1
+						class="mt-5 text-5xl font-bold leading-[1.04] tracking-[-0.05em] text-[#0F2747] sm:text-6xl lg:text-[70px]"
+					>
+						Pilih ritme belajar.
+						<span class="text-[#A87300]">Lalu pilih programnya.</span>
+					</h1>
+
+					<p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+						Sederhana: tentukan seberapa sering ingin belajar, kemudian
+						pilih bidang yang sesuai dengan kebutuhan dan minat siswa.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- PACKAGES -->
+		<section class="border-y border-slate-200 bg-[#F7F8FC] py-20">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="mx-auto max-w-3xl text-center">
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+						01 · Pilih Ritme Belajar
+					</p>
+
+					<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
+						Seberapa sering ingin belajar?
+					</h2>
+
+					<p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600">
+						Semua paket menggunakan program yang sama. Perbedaannya hanya pada
+						frekuensi sesi setiap bulan.
+					</p>
+				</div>
+
+				<div class="mt-12 grid gap-5 lg:grid-cols-3">
+					{
+						learningRhythms.map((rhythm) => (
+							<article
+								class:list={[
+									'group relative overflow-hidden border-2 bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl',
+									rhythm.color === 'blue' &&
+										'border-[#8FB7E8] hover:shadow-[#8FB7E8]/20',
+									rhythm.color === 'yellow' &&
+										'border-[#F3BC34] hover:shadow-[#F3BC34]/25',
+									rhythm.color === 'navy' &&
+										'border-[#0F2747] hover:shadow-[#0F2747]/20',
+								]}
+							>
+								<div
+									class:list={[
+										'h-2 w-full',
+										rhythm.color === 'blue' && 'bg-[#8FB7E8]',
+										rhythm.color === 'yellow' && 'bg-[#F3BC34]',
+										rhythm.color === 'navy' && 'bg-[#0F2747]',
+									]}
+									aria-hidden="true"
+								>
+								</div>
+
+								<div class="p-7">
+									<div class="flex items-start justify-between gap-5">
+										<div
+											class:list={[
+												'flex h-12 w-12 shrink-0 items-center justify-center border',
+												rhythm.color === 'blue' &&
+													'border-[#8FB7E8] bg-[#8FB7E8]/12 text-[#315F95]',
+												rhythm.color === 'yellow' &&
+													'border-[#F3BC34] bg-[#F3BC34]/14 text-[#A87300]',
+												rhythm.color === 'navy' &&
+													'border-[#0F2747] bg-[#0F2747]/7 text-[#0F2747]',
+											]}
+										>
+											{rhythm.icon === 'compass' && (
+												<svg
+													width="24"
+													height="24"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="1.8"
+													aria-hidden="true"
+												>
+													<circle cx="12" cy="12" r="9"></circle>
+													<path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z"></path>
+												</svg>
+											)}
+
+											{rhythm.icon === 'sprout' && (
+												<svg
+													width="24"
+													height="24"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="1.8"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													aria-hidden="true"
+												>
+													<path d="M12 22V12"></path>
+													<path d="M7 12c-3.2 0-5-2.3-5-6 3.7 0 6 1.8 6 5"></path>
+													<path d="M12 12c0-4.2 2.5-7 8-7 0 5-2.7 8-8 8"></path>
+												</svg>
+											)}
+
+											{rhythm.icon === 'rocket' && (
+												<svg
+													width="24"
+													height="24"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="1.8"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													aria-hidden="true"
+												>
+													<path d="M4.5 16.5c-1 1-1.5 3-1.5 4.5 1.5 0 3.5-.5 4.5-1.5"></path>
+													<path d="m9 15-3-3 5-7c2-2 5-2 8-2 0 3 0 6-2 8l-8 4Z"></path>
+													<circle cx="15" cy="7" r="1.5"></circle>
+												</svg>
+											)}
+										</div>
+
+										{rhythm.popular && (
+											<span class="border border-[#0F2747] bg-[#0F2747] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white">
+												Most Popular
+											</span>
+										)}
+									</div>
+
+									<h3 class="mt-6 text-2xl font-bold text-[#0F2747]">
+										{rhythm.name}
+									</h3>
+
+									<div class="mt-5 grid grid-cols-2 border-y border-slate-200">
+										<div class="border-r border-slate-200 py-4 pr-4">
+											<p class="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
+												Per Bulan
+											</p>
+
+											<p class="mt-1 text-lg font-bold text-[#0F2747]">
+												{rhythm.sessions}
+											</p>
+										</div>
+
+										<div class="py-4 pl-4">
+											<p class="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
+												Frekuensi
+											</p>
+
+											<p class="mt-1 text-lg font-bold text-[#0F2747]">
+												{rhythm.frequency}
+											</p>
+										</div>
+									</div>
+
+									<p class="mt-5 text-sm leading-7 text-slate-600">
+										{rhythm.description}
+									</p>
+
+									<div
+										class:list={[
+											'mt-6 h-1.5 w-16 transition-all duration-300 group-hover:w-24',
+											rhythm.color === 'blue' && 'bg-[#8FB7E8]',
+											rhythm.color === 'yellow' && 'bg-[#F3BC34]',
+											rhythm.color === 'navy' && 'bg-[#0F2747]',
+										]}
+										aria-hidden="true"
+									>
+									</div>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- PROGRAM OVERVIEW -->
+		<section class="bg-white py-24">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="max-w-3xl">
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+						02 · Pilih Program
+					</p>
+
+					<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
+						Program sesuai kebutuhan dan minat.
+					</h2>
+
+					<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+						Tidak perlu membaca daftar panjang. Berikut gambaran utama
+						program yang tersedia di NOVA.
+					</p>
+				</div>
+
+				<div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+					{
+						programs.map((program) => (
+							<article class="group rounded-[26px] border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34]/60 hover:shadow-xl">
+								<div class="flex items-start justify-between gap-5">
+									<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747] text-[#F3BC34]">
+										{program.icon === 'book' && (
+											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+												<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
+											</svg>
+										)}
+
+										{program.icon === 'globe' && (
+											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<circle cx="12" cy="12" r="9"></circle>
+												<path d="M3 12h18"></path>
+												<path d="M12 3a15 15 0 0 1 0 18"></path>
+												<path d="M12 3a15 15 0 0 0 0 18"></path>
+											</svg>
+										)}
+
+										{program.icon === 'code' && (
+											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<path d="m8 9-4 3 4 3"></path>
+												<path d="m16 9 4 3-4 3"></path>
+												<path d="m14 5-4 14"></path>
+											</svg>
+										)}
+
+										{program.icon === 'robot' && (
+											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<rect x="5" y="7" width="14" height="12" rx="2"></rect>
+												<path d="M9 11h.01"></path>
+												<path d="M15 11h.01"></path>
+												<path d="M9 15h6"></path>
+												<path d="M12 3v4"></path>
+											</svg>
+										)}
+
+										{program.icon === 'art' && (
+											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<path d="M12 22a10 10 0 1 0 0-20c-1.7 0-3 1.3-3 3 0 1.1.9 2 2 2h1a2 2 0 0 1 0 4H9a4 4 0 0 0-4 4c0 3.9 3.1 7 7 7Z"></path>
+												<circle cx="7.5" cy="10.5" r=".5" fill="currentColor"></circle>
+												<circle cx="10" cy="6.5" r=".5" fill="currentColor"></circle>
+												<circle cx="14" cy="5.5" r=".5" fill="currentColor"></circle>
+												<circle cx="17" cy="8.5" r=".5" fill="currentColor"></circle>
+											</svg>
+										)}
+
+										{program.icon === 'language' && (
+											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<path d="M4 5h7"></path>
+												<path d="M7.5 3v2"></path>
+												<path d="M5 9c2.5 0 4.5-1.3 6-4"></path>
+												<path d="M5 5c1.2 3.2 3.3 5.4 6 6"></path>
+												<path d="m13 19 4-9 4 9"></path>
+												<path d="M14.5 16h5"></path>
+											</svg>
+										)}
+									</div>
+
+									<span class="rounded-full bg-[#F3BC34]/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#A87300]">
+										{program.label}
+									</span>
+								</div>
+
+								<h3 class="mt-6 text-xl font-bold text-[#0F2747]">
+									{program.title}
+								</h3>
+
+								<p class="mt-3 text-sm leading-7 text-slate-600">
+									{program.description}
+								</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CLASS FORMAT -->
+		<section class="bg-[#F7F8FC] py-24">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
+					<div>
+						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+							03 · Pilih Format Kelas
+						</p>
+
+						<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
+							Regular, Semi-Private, atau Private?
+						</h2>
+
+						<p class="mt-5 max-w-md text-base leading-7 text-slate-600">
+							Perbedaan utamanya ada pada jumlah siswa dan intensitas
+							pendampingan dari pengajar.
+						</p>
+					</div>
+
+					<div class="grid gap-4 md:grid-cols-3">
+						{
+							classFormats.map((format) => (
+								<article
+									class:list={[
+										'rounded-[24px] border p-6',
+										format.highlight
+											? 'border-[#F3BC34] bg-[#F3BC34]'
+											: 'border-slate-200 bg-white',
+									]}
+								>
+									<p
+										class:list={[
+											'text-xs font-bold uppercase tracking-[0.17em]',
+											format.highlight ? 'text-[#0F2747]/55' : 'text-[#A87300]',
+										]}
+									>
+										{format.size}
+									</p>
+
+									<h3 class="mt-3 text-xl font-bold text-[#0F2747]">
+										{format.title}
+									</h3>
+
+									<p
+										class:list={[
+											'mt-4 text-sm leading-7',
+											format.highlight ? 'text-[#0F2747]/70' : 'text-slate-600',
+										]}
+									>
+										{format.description}
+									</p>
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="bg-[#0F2747] py-20 text-white">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+					<div>
+						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
+							Masih bingung memilih?
+						</p>
+
+						<h2 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
+							Ceritakan kebutuhan siswa. Tim NOVA akan bantu arahkan.
+						</h2>
+					</div>
+
+					<div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
+						<a
+							href="/contact"
+							class="inline-flex items-center justify-center rounded-xl bg-[#F3BC34] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
+						>
+							Konsultasi Program
+						</a>
+
+						<a
+							href="/facilities"
+							class="inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3.5 font-semibold text-white transition hover:border-white"
+						>
+							Lihat Fasilitas
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- FOOTER -->
+	<footer class="bg-[#091D36] text-white">
+		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
+				<div>
+					<a href="/" aria-label="NOVA Learning Centre">
+						<img
+							src="/images/primary-logo.png"
+							alt="NOVA Learning Centre"
+							class="h-14 w-auto brightness-0 invert"
+						/>
+					</a>
+
+					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
+						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
+						sepanjang hayat melalui kelas tatap muka dan e-learning.
+					</p>
+
+					<p class="mt-6 text-sm font-semibold text-[#F3BC34]">
+						Learn with purpose. Grow with confidence.
+					</p>
+				</div>
+
+				<div>
+					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
+						Navigasi
+					</h3>
+
+					<div class="mt-6 grid gap-3">
+						{
+							footerLinks.map((item) => (
+								<a href={item.href} class="text-sm text-blue-100 transition hover:text-white">
+									{item.name}
+								</a>
+							))
+						}
+					</div>
+				</div>
+
+				<div>
+					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
+						Hubungi Kami
+					</h3>
+
+					<div class="mt-6 space-y-5 text-sm text-blue-100">
+						<div>
+							<p class="font-semibold text-white">Lokasi</p>
+							<p class="mt-1 leading-6">Kelapa Gading, Jakarta Utara</p>
+						</div>
+
+						<div>
+							<p class="font-semibold text-white">Email</p>
+							<a
+								href="mailto:halo@novalearningcentre.id"
+								class="mt-1 block break-all transition hover:text-white"
+							>
+								halo@novalearningcentre.id
+							</a>
+						</div>
+
+						<a
+							href="/contact"
+							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
+						>
+							Hubungi NOVA
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
+			>
+				<p>© {currentYear} NOVA Learning Centre. All rights reserved.</p>
+
+				<div class="flex gap-5">
+					<a href="/privacy" class="transition hover:text-white">
+						Kebijakan Privasi
+					</a>
+
+					<a href="/terms" class="transition hover:text-white">
+						Syarat & Ketentuan
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</Layout>
+
+<script>
+	const mobileMenuButton =
+		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
+	const mobileMenu =
+		document.querySelector<HTMLElement>('#mobile-menu');
+	const mobileNavLinks =
+		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+
+	const closeMobileMenu = () => {
+		mobileMenu?.classList.add('hidden');
+		mobileMenuButton?.setAttribute('aria-expanded', 'false');
+	};
+
+	mobileMenuButton?.addEventListener('click', () => {
+		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
+		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
+	});
+
+	mobileNavLinks.forEach((link) => {
+		link.addEventListener('click', closeMobileMenu);
+	});
+</script>
+
+<style>
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			scroll-behavior: auto !important;
+		}
+
+		a,
+		button,
+		article {
+			transition-duration: 0.01ms !important;
+		}
+	}
+</style>

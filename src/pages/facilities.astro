@@ -1,0 +1,771 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const currentYear = new Date().getFullYear();
+
+const navItems = [
+	{ name: 'Beranda', href: '/' },
+	{ name: 'Tentang Kami', href: '/about' },
+	{ name: 'Program', href: '/programs' },
+	{ name: 'Fasilitas', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Kontak', href: '/contact' },
+];
+
+type FacilityPhoto = {
+	title: string;
+	category: 'classroom' | 'private' | 'early' | 'common';
+	label: string;
+	src?: string;
+	alt: string;
+	size?: 'large' | 'wide' | 'standard';
+};
+
+/*
+	Foto fasilitas diletakkan di:
+	public/images/
+
+	Pastikan nama file mengikuti src pada facilityPhotos di bawah.
+	Jika nanti ingin menambah foto lain, cukup ubah src sesuai nama file.
+*/
+const facilityPhotos: FacilityPhoto[] = [
+	{
+		title: 'Main Classroom',
+		category: 'classroom',
+		label: 'Academic Learning',
+		src: '/images/main-classroom.jpeg',
+		alt: 'Main classroom NOVA Learning Centre',
+		size: 'large',
+	},
+	{
+		title: 'Early Learners Activity Room',
+		category: 'early',
+		label: 'Learn · Play · Explore',
+		src: '/images/early-learners-activity-room.jpeg',
+		alt: 'Early learners activity room NOVA Learning Centre',
+		size: 'standard',
+	},
+	{
+		title: 'Early Learners Classroom',
+		category: 'early',
+		label: 'Early Learners',
+		src: '/images/early-learners-classroom.jpeg',
+		alt: 'Early learners classroom NOVA Learning Centre',
+		size: 'standard',
+	},
+	{
+		title: 'Small Group Classroom',
+		category: 'classroom',
+		label: 'Small Group Learning',
+		src: '/images/small-group-classroom.jpeg',
+		alt: 'Small group classroom NOVA Learning Centre',
+		size: 'wide',
+	},
+	{
+		title: 'Multimedia Classroom',
+		category: 'classroom',
+		label: 'Interactive Learning',
+		src: '/images/multimedia-classroom.png',
+		alt: 'Multimedia classroom NOVA Learning Centre',
+		size: 'wide',
+	},
+	{
+		title: 'Reception Area',
+		category: 'common',
+		label: 'Welcome to NOVA',
+		src: '/images/reception-area.jpeg',
+		alt: 'Reception area NOVA Learning Centre',
+		size: 'standard',
+	},
+	{
+		title: 'Play Discovery Space',
+		category: 'early',
+		label: 'Play-Based Learning',
+		src: '/images/play-discovery-space.png',
+		alt: 'Play discovery space NOVA Learning Centre',
+		size: 'standard',
+	},
+];
+
+const facilities = [
+	{
+		title: 'Small Group Class',
+		description:
+			'Ruang kelas dirancang untuk kelompok kecil agar interaksi dengan pengajar lebih dekat dan fokus belajar lebih terjaga.',
+	},
+	{
+		title: 'Private Learning',
+		description:
+			'Ruang yang lebih tenang untuk pendampingan individual, konsultasi, atau pembelajaran dengan kebutuhan khusus.',
+	},
+	{
+		title: 'Early Learners',
+		description:
+			'Area belajar untuk anak usia dini dengan suasana yang lebih fleksibel, ramah, dan mendukung aktivitas eksploratif.',
+	},
+	{
+		title: 'Digital Learning',
+		description:
+			'Pembelajaran dapat didukung perangkat digital, materi online, dan aktivitas e-learning yang saling terhubung.',
+	},
+];
+
+const footerLinks = [
+	{ name: 'Beranda', href: '/' },
+	{ name: 'Tentang Kami', href: '/about' },
+	{ name: 'Program', href: '/programs' },
+	{ name: 'Fasilitas', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Kontak', href: '/contact' },
+];
+---
+
+<Layout
+	title="Fasilitas | NOVA Learning Centre"
+	description="Lihat ruang belajar dan fasilitas NOVA Learning Centre yang dirancang untuk pembelajaran kelompok kecil, private class, early learners, dan digital learning."
+>
+	<!-- NAVBAR -->
+	<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+		<nav
+			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
+			aria-label="Navigasi utama"
+		>
+			<a href="/" class="flex items-center" aria-label="NOVA Learning Centre">
+				<img
+					src="/images/primary-logo-icon.png"
+					alt="NOVA Learning Centre"
+					class="h-10 w-10 object-contain sm:hidden"
+				/>
+
+				<img
+					src="/images/primary-logo.png"
+					alt="NOVA Learning Centre"
+					class="hidden h-11 w-auto object-contain sm:block"
+				/>
+			</a>
+
+			<div class="hidden items-center gap-7 lg:flex">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class:list={[
+								'text-sm font-semibold transition',
+								item.href === '/facilities'
+									? 'text-[#0F2747]'
+									: 'text-slate-600 hover:text-[#A87300]',
+							]}
+						>
+							{item.name}
+						</a>
+					))
+				}
+			</div>
+
+			<a
+				href="/contact"
+				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722] lg:inline-flex"
+			>
+				Konsultasi Gratis
+			</a>
+
+			<button
+				id="mobile-menu-button"
+				type="button"
+				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
+				aria-label="Buka menu navigasi"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
+			>
+				<svg
+					width="23"
+					height="23"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M4 7h16"></path>
+					<path d="M4 12h16"></path>
+					<path d="M4 17h16"></path>
+				</svg>
+			</button>
+		</nav>
+
+		<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
+			<div class="flex flex-col gap-4">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
+						>
+							{item.name}
+						</a>
+					))
+				}
+
+				<a
+					href="/contact"
+					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
+				>
+					Konsultasi Gratis
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<!-- HERO -->
+		<section class="bg-white">
+			<div class="mx-auto max-w-7xl px-6 pb-16 pt-20 lg:px-8 lg:pb-20 lg:pt-28">
+				<div class="grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
+					<div>
+						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+							Fasilitas NOVA
+						</p>
+
+						<h1
+							class="mt-5 max-w-4xl text-5xl font-bold leading-[1.04] tracking-[-0.05em] text-[#0F2747] sm:text-6xl lg:text-[72px]"
+						>
+							Ruang yang mendukung
+							<span class="text-[#A87300]">cara belajar yang berbeda.</span>
+						</h1>
+					</div>
+
+					<p class="max-w-xl border-l-4 border-[#F3BC34] pl-6 text-lg leading-8 text-slate-600">
+						Dari small group class hingga private learning, setiap area
+						dirancang agar siswa dapat belajar dengan lebih nyaman,
+						fokus, dan aktif.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- QUICK FACILITY TYPES -->
+		<section class="border-y border-slate-200 bg-[#F7F8FC]">
+			<div class="mx-auto grid max-w-7xl divide-y divide-slate-200 px-6 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
+				{
+					facilities.map((facility, index) => (
+						<div class="px-0 py-7 sm:px-6 lg:py-8">
+							<p class="text-xs font-bold uppercase tracking-[0.18em] text-[#A87300]">
+								0{index + 1}
+							</p>
+
+							<h2 class="mt-3 text-lg font-bold text-[#0F2747]">
+								{facility.title}
+							</h2>
+
+							<p class="mt-2 text-sm leading-6 text-slate-500">
+								{facility.description}
+							</p>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- GALLERY -->
+		<section class="bg-white py-24">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+					<div class="max-w-3xl">
+						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+							Gallery
+						</p>
+
+						<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
+							Lihat lebih dekat ruang belajar NOVA.
+						</h2>
+
+						<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+							Klik foto untuk melihat tampilan lebih besar. Anda juga
+							dapat memfilter gallery berdasarkan jenis ruang.
+						</p>
+					</div>
+
+					<div
+						id="gallery-filters"
+						class="flex flex-wrap gap-2"
+						aria-label="Filter galeri fasilitas"
+					>
+						<button
+							type="button"
+							data-filter="all"
+							class="gallery-filter is-active rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+						>
+							Semua
+						</button>
+
+						<button
+							type="button"
+							data-filter="classroom"
+							class="gallery-filter rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+						>
+							Classroom
+						</button>
+
+						<button
+							type="button"
+							data-filter="private"
+							class="gallery-filter rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+						>
+							Private
+						</button>
+
+						<button
+							type="button"
+							data-filter="early"
+							class="gallery-filter rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+						>
+							Early Learners
+						</button>
+
+						<button
+							type="button"
+							data-filter="common"
+							class="gallery-filter rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold transition"
+						>
+							Common Area
+						</button>
+					</div>
+				</div>
+
+				<!-- THUMBNAIL GRID -->
+				<div
+					id="facility-gallery"
+					class="mt-12 grid auto-rows-[220px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+				>
+					{
+						facilityPhotos.map((photo, index) => (
+							<button
+								type="button"
+								data-gallery-item
+								data-category={photo.category}
+								data-image-src={photo.src ?? ''}
+								data-image-alt={photo.alt}
+								data-image-title={photo.title}
+								class:list={[
+									'gallery-card group relative overflow-hidden rounded-[22px] bg-[#0F2747] text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl',
+									photo.size === 'large' && 'sm:col-span-2 sm:row-span-2',
+									photo.size === 'wide' && 'sm:col-span-2',
+								]}
+								aria-label={`Lihat ${photo.title}`}
+							>
+								{photo.src ? (
+									<img
+										src={photo.src}
+										alt={photo.alt}
+										class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+										loading={index === 0 ? 'eager' : 'lazy'}
+									/>
+								) : (
+									<div class="absolute inset-0 flex items-center justify-center bg-[linear-gradient(135deg,#0F2747_0%,#17385F_58%,#203F62_100%)]">
+										<div class="flex h-16 w-16 items-center justify-center rounded-full border border-white/15 bg-white/10 text-[#F3BC34]">
+											<svg
+												width="27"
+												height="27"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.7"
+												aria-hidden="true"
+											>
+												<rect x="3" y="4" width="18" height="16" rx="2"></rect>
+												<circle cx="8.5" cy="9" r="1.5"></circle>
+												<path d="m21 15-5-5L5 20"></path>
+											</svg>
+										</div>
+									</div>
+								)}
+
+								<div
+									class="absolute inset-0 bg-gradient-to-t from-[#07182c]/95 via-[#07182c]/15 to-transparent"
+									aria-hidden="true"
+								>
+								</div>
+
+								<div
+									class="absolute left-0 right-0 top-0 flex items-center justify-between p-5"
+								>
+									<span class="rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#0F2747] backdrop-blur">
+										{photo.label}
+									</span>
+
+									<span
+										class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/10 text-white backdrop-blur transition group-hover:bg-[#F3BC34] group-hover:text-[#0F2747]"
+										aria-hidden="true"
+									>
+										↗
+									</span>
+								</div>
+
+								<div class="absolute bottom-0 left-0 right-0 p-5">
+									<p class="text-lg font-bold text-white">
+										{photo.title}
+									</p>
+
+									{!photo.src && (
+										<p class="mt-1 text-xs text-blue-200">
+											Foto akan ditambahkan
+										</p>
+									)}
+								</div>
+							</button>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- DESIGN PHILOSOPHY -->
+		<section class="bg-[#0F2747] py-24 text-white">
+			<div class="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+				<div>
+					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
+						Learning Environment
+					</p>
+
+					<h2 class="mt-4 max-w-xl text-4xl font-bold tracking-tight md:text-5xl">
+						Ruang belajar bukan sekadar tempat duduk dan meja.
+					</h2>
+				</div>
+
+				<div class="grid gap-8 sm:grid-cols-2">
+					<div class="border-t border-white/15 pt-5">
+						<p class="text-lg font-bold">Fokus</p>
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Tata ruang membantu mengurangi distraksi dan menjaga perhatian siswa selama sesi belajar.
+						</p>
+					</div>
+
+					<div class="border-t border-white/15 pt-5">
+						<p class="text-lg font-bold">Interaksi</p>
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Kelas kecil memungkinkan pengajar lebih mudah membaca respons dan kebutuhan setiap siswa.
+						</p>
+					</div>
+
+					<div class="border-t border-white/15 pt-5">
+						<p class="text-lg font-bold">Fleksibilitas</p>
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Ruang dapat digunakan untuk penjelasan, diskusi, latihan individual, atau aktivitas kolaboratif.
+						</p>
+					</div>
+
+					<div class="border-t border-white/15 pt-5">
+						<p class="text-lg font-bold">Kenyamanan</p>
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Lingkungan yang nyaman membantu siswa merasa lebih aman untuk bertanya, mencoba, dan belajar.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- VISIT CTA -->
+		<section class="bg-white py-24">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="grid gap-8 border-t-4 border-[#F3BC34] pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+					<div>
+						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
+							Kunjungi NOVA
+						</p>
+
+						<h2 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
+							Ingin melihat ruang belajarnya secara langsung?
+						</h2>
+
+						<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+							Jadwalkan kunjungan singkat dan tim kami akan membantu
+							menjelaskan pilihan kelas serta program yang tersedia.
+						</p>
+					</div>
+
+					<div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
+						<a
+							href="/contact"
+							class="inline-flex items-center justify-center rounded-xl bg-[#F3BC34] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
+						>
+							Jadwalkan Kunjungan
+						</a>
+
+						<a
+							href="/programs"
+							class="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3.5 font-semibold text-[#0F2747] transition hover:border-[#0F2747]"
+						>
+							Lihat Program
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- LIGHTBOX -->
+	<div
+		id="gallery-lightbox"
+		class="fixed inset-0 z-[80] hidden items-center justify-center bg-[#07182c]/95 p-5"
+		aria-hidden="true"
+	>
+		<button
+			id="lightbox-close"
+			type="button"
+			class="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl text-white transition hover:bg-[#F3BC34] hover:text-[#0F2747]"
+			aria-label="Tutup foto"
+		>
+			×
+		</button>
+
+		<div class="w-full max-w-5xl">
+			<img
+				id="lightbox-image"
+				src=""
+				alt=""
+				class="max-h-[78vh] w-full object-contain"
+			/>
+
+			<div class="mt-5 flex items-center justify-between gap-6 text-white">
+				<div>
+					<p id="lightbox-title" class="text-lg font-bold"></p>
+					<p id="lightbox-alt" class="mt-1 text-sm text-blue-200"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<footer class="bg-[#091D36] text-white">
+		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
+				<div>
+					<a href="/" aria-label="NOVA Learning Centre">
+						<img
+							src="/images/primary-logo.png"
+							alt="NOVA Learning Centre"
+							class="h-14 w-auto brightness-0 invert"
+						/>
+					</a>
+
+					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
+						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
+						sepanjang hayat melalui kelas tatap muka dan e-learning.
+					</p>
+
+					<p class="mt-6 text-sm font-semibold text-[#F3BC34]">
+						Learn with purpose. Grow with confidence.
+					</p>
+				</div>
+
+				<div>
+					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
+						Navigasi
+					</h3>
+
+					<div class="mt-6 grid gap-3">
+						{
+							footerLinks.map((item) => (
+								<a href={item.href} class="text-sm text-blue-100 transition hover:text-white">
+									{item.name}
+								</a>
+							))
+						}
+					</div>
+				</div>
+
+				<div>
+					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
+						Hubungi Kami
+					</h3>
+
+					<div class="mt-6 space-y-5 text-sm text-blue-100">
+						<div>
+							<p class="font-semibold text-white">Lokasi</p>
+							<p class="mt-1 leading-6">Kelapa Gading, Jakarta Utara</p>
+						</div>
+
+						<div>
+							<p class="font-semibold text-white">Email</p>
+							<a
+								href="mailto:halo@novalearningcentre.id"
+								class="mt-1 block break-all transition hover:text-white"
+							>
+								halo@novalearningcentre.id
+							</a>
+						</div>
+
+						<a
+							href="/contact"
+							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
+						>
+							Hubungi NOVA
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
+			>
+				<p>© {currentYear} NOVA Learning Centre. All rights reserved.</p>
+
+				<div class="flex gap-5">
+					<a href="/privacy" class="transition hover:text-white">
+						Kebijakan Privasi
+					</a>
+
+					<a href="/terms" class="transition hover:text-white">
+						Syarat & Ketentuan
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</Layout>
+
+<script>
+	// MOBILE MENU
+	const mobileMenuButton =
+		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
+	const mobileMenu =
+		document.querySelector<HTMLElement>('#mobile-menu');
+	const mobileNavLinks =
+		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+
+	const closeMobileMenu = () => {
+		mobileMenu?.classList.add('hidden');
+		mobileMenuButton?.setAttribute('aria-expanded', 'false');
+	};
+
+	mobileMenuButton?.addEventListener('click', () => {
+		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
+		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
+	});
+
+	mobileNavLinks.forEach((link) => {
+		link.addEventListener('click', closeMobileMenu);
+	});
+
+	// GALLERY FILTER
+	const galleryFilters =
+		document.querySelectorAll<HTMLButtonElement>('.gallery-filter');
+	const galleryItems =
+		document.querySelectorAll<HTMLButtonElement>('[data-gallery-item]');
+
+	galleryFilters.forEach((button) => {
+		button.addEventListener('click', () => {
+			const filter = button.dataset.filter ?? 'all';
+
+			galleryFilters.forEach((filterButton) => {
+				filterButton.classList.toggle('is-active', filterButton === button);
+			});
+
+			galleryItems.forEach((item) => {
+				const category = item.dataset.category;
+				const shouldShow = filter === 'all' || category === filter;
+
+				item.classList.toggle('hidden', !shouldShow);
+			});
+		});
+	});
+
+	// LIGHTBOX
+	const lightbox =
+		document.querySelector<HTMLElement>('#gallery-lightbox');
+	const lightboxImage =
+		document.querySelector<HTMLImageElement>('#lightbox-image');
+	const lightboxTitle =
+		document.querySelector<HTMLElement>('#lightbox-title');
+	const lightboxAlt =
+		document.querySelector<HTMLElement>('#lightbox-alt');
+	const lightboxClose =
+		document.querySelector<HTMLButtonElement>('#lightbox-close');
+
+	const closeLightbox = () => {
+		if (!lightbox) return;
+
+		lightbox.classList.add('hidden');
+		lightbox.classList.remove('flex');
+		lightbox.setAttribute('aria-hidden', 'true');
+		document.body.style.overflow = '';
+	};
+
+	galleryItems.forEach((item) => {
+		item.addEventListener('click', () => {
+			const imageSrc = item.dataset.imageSrc ?? '';
+
+			// Placeholder cards do not open the modal until a real image is added.
+			if (!imageSrc) return;
+
+			if (
+				!lightbox ||
+				!lightboxImage ||
+				!lightboxTitle ||
+				!lightboxAlt
+			) {
+				return;
+			}
+
+			lightboxImage.src = imageSrc;
+			lightboxImage.alt = item.dataset.imageAlt ?? '';
+			lightboxTitle.textContent = item.dataset.imageTitle ?? '';
+			lightboxAlt.textContent = item.dataset.imageAlt ?? '';
+
+			lightbox.classList.remove('hidden');
+			lightbox.classList.add('flex');
+			lightbox.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+		});
+	});
+
+	lightboxClose?.addEventListener('click', closeLightbox);
+
+	lightbox?.addEventListener('click', (event) => {
+		if (event.target === lightbox) {
+			closeLightbox();
+		}
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') {
+			closeLightbox();
+		}
+	});
+</script>
+
+<style>
+	.gallery-filter {
+		background: white;
+		color: #64748b;
+	}
+
+	.gallery-filter:hover {
+		border-color: #f3bc34;
+		color: #0f2747;
+	}
+
+	.gallery-filter.is-active {
+		border-color: #f3bc34;
+		background: #f3bc34;
+		color: #0f2747;
+	}
+
+	.gallery-card.hidden {
+		display: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			scroll-behavior: auto !important;
+		}
+
+		a,
+		button,
+		img,
+		span {
+			transition-duration: 0.01ms !important;
+		}
+	}
+</style>

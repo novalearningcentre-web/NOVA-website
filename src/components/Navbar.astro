@@ -1,0 +1,106 @@
+---
+const navItems = [
+	{ name: 'Home', href: '/' },
+	{ name: 'About', href: '/about' },
+	{ name: 'Programs', href: '/programs' },
+	{ name: 'Facilities', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Contact', href: '/contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
+	<nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+		<a
+            href="/"
+            class="flex items-center"
+            aria-label="NOVA Learning Centre Home"
+        >
+            <img
+                src="/images/primary-logo-icon.png"
+                alt="NOVA Learning Centre"
+                class="h-10 w-10 object-contain sm:hidden"
+            />
+
+            <img
+                src="/images/primary-logo.png"
+                alt="NOVA Learning Centre"
+                class="hidden h-11 w-auto object-contain sm:block"
+            />
+        </a>
+
+		<div class="hidden items-center gap-8 lg:flex">
+			{
+				navItems.map((item) => (
+					<a
+						href={item.href}
+						class="text-sm font-medium text-slate-600 transition-colors hover:text-[#F58220]"
+					>
+						{item.name}
+					</a>
+				))
+			}
+		</div>
+
+		<a
+			href="/contact"
+			class="hidden bg-[#F58220] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#dd6f16] lg:inline-flex"
+		>
+			Book a Consultation
+		</a>
+
+		<button
+			id="mobile-menu-button"
+			type="button"
+			class="flex h-10 w-10 items-center justify-center border border-slate-300 text-[#0F2747] lg:hidden"
+			aria-label="Open navigation menu"
+			aria-expanded="false"
+		>
+			<svg
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+			>
+				<path d="M4 7h16"></path>
+				<path d="M4 12h16"></path>
+				<path d="M4 17h16"></path>
+			</svg>
+		</button>
+	</nav>
+
+	<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
+		<div class="flex flex-col gap-4">
+			{
+				navItems.map((item) => (
+					<a
+						href={item.href}
+						class="text-sm font-medium text-slate-700 hover:text-[#F58220]"
+					>
+						{item.name}
+					</a>
+				))
+			}
+
+			<a
+				href="/contact"
+				class="mt-2 bg-[#F58220] px-5 py-3 text-center text-sm font-semibold text-white"
+			>
+				Book a Consultation
+			</a>
+		</div>
+	</div>
+</header>
+
+<script>
+	const menuButton = document.querySelector('#mobile-menu-button');
+	const mobileMenu = document.querySelector('#mobile-menu');
+
+	menuButton?.addEventListener('click', () => {
+		const isHidden = mobileMenu?.classList.toggle('hidden');
+		menuButton.setAttribute('aria-expanded', String(!isHidden));
+	});
+</script>
