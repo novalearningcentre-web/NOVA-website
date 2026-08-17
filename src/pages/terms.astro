@@ -1,0 +1,822 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdatedId = '17 Agustus 2026';
+const lastUpdatedEn = '17 August 2026';
+
+const sections = [
+	{ number: '01', id: 'penerimaan', titleId: 'Penerimaan Ketentuan', titleEn: 'Acceptance of Terms' },
+	{ number: '02', id: 'layanan', titleId: 'Layanan NOVA', titleEn: 'NOVA Services' },
+	{ number: '03', id: 'pendaftaran', titleId: 'Pendaftaran & Informasi Pengguna', titleEn: 'Registration & User Information' },
+	{ number: '04', id: 'pembayaran', titleId: 'Biaya & Pembayaran', titleEn: 'Fees & Payment' },
+	{ number: '05', id: 'jadwal', titleId: 'Jadwal, Kehadiran & Perubahan Kelas', titleEn: 'Schedule, Attendance & Class Changes' },
+	{ number: '06', id: 'pembatalan', titleId: 'Pembatalan & Pengembalian Dana', titleEn: 'Cancellation & Refunds' },
+	{ number: '07', id: 'perilaku', titleId: 'Perilaku & Lingkungan Belajar', titleEn: 'Conduct & Learning Environment' },
+	{ number: '08', id: 'elearning', titleId: 'E-Learning & Akun Digital', titleEn: 'E-Learning & Digital Accounts' },
+	{ number: '09', id: 'hki', titleId: 'Hak Kekayaan Intelektual', titleEn: 'Intellectual Property' },
+	{ number: '10', id: 'privasi', titleId: 'Privasi & Data Pribadi', titleEn: 'Privacy & Personal Data' },
+	{ number: '11', id: 'tanggung-jawab', titleId: 'Batasan Tanggung Jawab', titleEn: 'Limitation of Responsibility' },
+	{ number: '12', id: 'pihak-ketiga', titleId: 'Tautan & Layanan Pihak Ketiga', titleEn: 'Third-Party Links & Services' },
+	{ number: '13', id: 'perubahan', titleId: 'Perubahan Ketentuan', titleEn: 'Changes to These Terms' },
+	{ number: '14', id: 'hukum', titleId: 'Hukum yang Berlaku', titleEn: 'Governing Law' },
+	{ number: '15', id: 'kontak', titleId: 'Hubungi Kami', titleEn: 'Contact Us' },
+];
+
+const whatsappUrl =
+	'https://wa.me/6285195511236?text=Halo%20NOVA%20Learning%20Centre%2C%20saya%20ingin%20bertanya%20mengenai%20Syarat%20dan%20Ketentuan.';
+---
+
+<Layout
+	title="Syarat & Ketentuan | NOVA Learning Centre"
+	description="Syarat dan Ketentuan penggunaan website dan layanan NOVA Learning Centre."
+>
+	<main>
+		<!-- HERO -->
+		<section class="border-b border-slate-200 bg-[#f7f8fc]">
+			<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+				<div class="grid gap-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+					<div>
+						<p class="section-label">
+							<span class="lang-id">Ketentuan Penggunaan</span>
+							<span class="lang-en">Terms of Use</span>
+						</p>
+
+						<h1
+							class="mt-5 text-4xl font-extrabold tracking-[-0.04em] text-[#1d2f5c] sm:text-5xl lg:text-[58px]"
+						>
+							<span class="lang-id">Syarat & Ketentuan</span>
+							<span class="lang-en">Terms & Conditions</span>
+						</h1>
+
+						<p class="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
+							<span class="lang-id">
+								Ketentuan ini mengatur penggunaan website, pendaftaran, dan
+								layanan pembelajaran yang disediakan oleh NOVA Learning Centre.
+							</span>
+
+							<span class="lang-en">
+								These terms govern the use of the website, registration and
+								learning services provided by NOVA Learning Centre.
+							</span>
+						</p>
+					</div>
+
+					<div class="border-l-4 border-[#f3bc34] pl-6">
+						<p class="text-xs font-extrabold uppercase tracking-[0.16em] text-slate-400">
+							<span class="lang-id">Terakhir diperbarui</span>
+							<span class="lang-en">Last updated</span>
+						</p>
+
+						<p class="mt-2 text-lg font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">{lastUpdatedId}</span>
+							<span class="lang-en">{lastUpdatedEn}</span>
+						</p>
+
+						<p class="mt-4 text-sm leading-6 text-slate-500">
+							<span class="lang-id">
+								Ketentuan program tertentu dapat dilengkapi dengan formulir
+								pendaftaran, invoice, kebijakan kelas, atau kesepakatan tertulis
+								lain yang diberikan sebelum layanan dimulai.
+							</span>
+
+							<span class="lang-en">
+								Certain programs may also be subject to registration forms,
+								invoices, class policies or other written terms provided before
+								the service begins.
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CONTENT -->
+		<section class="bg-white py-14 lg:py-20">
+			<div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
+				<aside class="lg:sticky lg:top-28 lg:self-start">
+					<p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1d2f5c]/45">
+						<span class="lang-id">Daftar Isi</span>
+						<span class="lang-en">Contents</span>
+					</p>
+
+					<nav class="mt-5 border-t border-slate-200">
+						{
+							sections.map((section) => (
+								<a href={`#${section.id}`} class="toc-link group flex gap-3 border-b border-slate-200 py-3.5 text-sm">
+									<span class="font-extrabold text-slate-300 transition group-hover:text-[#f3bc34]">
+										{section.number}
+									</span>
+									<span class="font-semibold text-slate-600 transition group-hover:text-[#1d2f5c]">
+										<span class="lang-id">{section.titleId}</span>
+										<span class="lang-en">{section.titleEn}</span>
+									</span>
+								</a>
+							))
+						}
+					</nav>
+				</aside>
+
+				<div class="min-w-0">
+					<div class="border-b border-slate-200 pb-9">
+						<p class="terms-text !mt-0">
+							<span class="lang-id">
+								Syarat & Ketentuan ini berlaku bagi pengunjung website, orang tua,
+								wali, siswa, calon siswa, serta pengguna layanan NOVA Learning Centre.
+								Dengan menggunakan website atau mendaftar pada layanan NOVA, Anda
+								dianggap telah membaca dan memahami ketentuan yang relevan dengan
+								layanan yang digunakan.
+							</span>
+
+							<span class="lang-en">
+								These Terms & Conditions apply to website visitors, parents,
+								guardians, students, prospective students and users of NOVA
+								Learning Centre services. By using the website or registering for
+								a NOVA service, you are considered to have read and understood the
+								terms relevant to the service being used.
+							</span>
+						</p>
+
+						<div class="mt-6 border-l-4 border-[#f3bc34] bg-[#fff9e8] px-5 py-4">
+							<p class="text-sm leading-7 text-slate-700">
+								<span class="lang-id">
+									Untuk siswa yang belum dewasa, pendaftaran, pembayaran, dan
+									keputusan administratif utama sebaiknya dilakukan oleh atau
+									dengan persetujuan orang tua/wali.
+								</span>
+								<span class="lang-en">
+									For students who are minors, registration, payment and major
+									administrative decisions should be made by, or with the approval
+									of, a parent or guardian.
+								</span>
+							</p>
+						</div>
+					</div>
+
+					<section id="penerimaan" class="terms-section">
+						<div class="terms-heading">
+							<span>01</span>
+							<h2>
+								<span class="lang-id">Penerimaan Ketentuan</span>
+								<span class="lang-en">Acceptance of Terms</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Dengan mengakses website, menghubungi NOVA, melakukan pendaftaran,
+								atau menggunakan layanan kami, Anda menyetujui ketentuan yang berlaku
+								untuk layanan tersebut. Apabila Anda tidak menyetujui suatu ketentuan,
+								silakan menghubungi NOVA sebelum melanjutkan pendaftaran atau pembayaran.
+							</span>
+							<span class="lang-en">
+								By accessing the website, contacting NOVA, registering or using our
+								services, you agree to the terms that apply to those services. If
+								you do not agree with a term, please contact NOVA before proceeding
+								with registration or payment.
+							</span>
+						</p>
+					</section>
+
+					<section id="layanan" class="terms-section">
+						<div class="terms-heading">
+							<span>02</span>
+							<h2>
+								<span class="lang-id">Layanan NOVA</span>
+								<span class="lang-en">NOVA Services</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								NOVA menyediakan layanan pendidikan yang dapat mencakup kelas
+								akademik, bahasa, coding, robotics, art, pembelajaran usia dini,
+								private, semi-private, kelas kelompok, konsultasi akademik, serta
+								e-learning.
+							</span>
+							<span class="lang-en">
+								NOVA provides education services that may include academic,
+								language, coding, robotics, art, early-years learning, private,
+								semi-private and group classes, academic consultation and e-learning.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								Ketersediaan program, jenjang, pengajar, kapasitas kelas, jadwal,
+								durasi, dan metode belajar dapat berbeda pada setiap periode dan
+								dapat disesuaikan berdasarkan kebutuhan akademik serta operasional.
+							</span>
+							<span class="lang-en">
+								Program availability, levels, teachers, class capacity, schedules,
+								duration and learning methods may vary from time to time and may be
+								adjusted according to academic and operational needs.
+							</span>
+						</p>
+					</section>
+
+					<section id="pendaftaran" class="terms-section">
+						<div class="terms-heading">
+							<span>03</span>
+							<h2>
+								<span class="lang-id">Pendaftaran & Informasi Pengguna</span>
+								<span class="lang-en">Registration & User Information</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Pengguna bertanggung jawab memberikan informasi yang benar dan
+								memadai untuk keperluan konsultasi, pendaftaran, penempatan kelas,
+								komunikasi, serta administrasi pembelajaran.
+							</span>
+							<span class="lang-en">
+								Users are responsible for providing accurate and sufficient
+								information for consultation, registration, class placement,
+								communication and learning administration.
+							</span>
+						</p>
+						<ul class="terms-list">
+							<li>
+								<span class="lang-id">Data kontak harus dapat digunakan untuk komunikasi terkait layanan.</span>
+								<span class="lang-en">Contact details must be usable for service-related communication.</span>
+							</li>
+							<li>
+								<span class="lang-id">Informasi akademik siswa sebaiknya diberikan secara akurat agar program dapat disesuaikan dengan kebutuhan belajar.</span>
+								<span class="lang-en">Student academic information should be provided accurately so programs can be matched to learning needs.</span>
+							</li>
+							<li>
+								<span class="lang-id">Perubahan nomor telepon, email, atau informasi penting lainnya sebaiknya diberitahukan kepada NOVA.</span>
+								<span class="lang-en">Changes to phone numbers, email addresses or other important information should be communicated to NOVA.</span>
+							</li>
+							<li>
+								<span class="lang-id">NOVA dapat meminta informasi tambahan yang wajar apabila diperlukan untuk administrasi atau pelaksanaan layanan.</span>
+								<span class="lang-en">NOVA may request reasonable additional information where required for administration or service delivery.</span>
+							</li>
+						</ul>
+					</section>
+
+					<section id="pembayaran" class="terms-section">
+						<div class="terms-heading">
+							<span>04</span>
+							<h2>
+								<span class="lang-id">Biaya & Pembayaran</span>
+								<span class="lang-en">Fees & Payment</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Biaya program mengikuti harga, paket, promosi, atau penawaran yang
+								disampaikan kepada pengguna pada saat pendaftaran. Informasi mengenai
+								jumlah sesi, periode program, dan ketentuan pembayaran akan mengikuti
+								dokumen atau komunikasi resmi NOVA yang berlaku pada transaksi tersebut.
+							</span>
+							<span class="lang-en">
+								Program fees follow the prices, packages, promotions or offers
+								communicated to users at registration. Information about the number
+								of sessions, program period and payment terms will follow the NOVA
+								documentation or official communication applicable to that transaction.
+							</span>
+						</p>
+						<ul class="terms-list">
+							<li>
+								<span class="lang-id">Pembayaran dianggap diterima setelah dana terkonfirmasi oleh NOVA.</span>
+								<span class="lang-en">Payment is considered received once funds are confirmed by NOVA.</span>
+							</li>
+							<li>
+								<span class="lang-id">Promo atau diskon dapat memiliki periode, kuota, dan syarat tertentu.</span>
+								<span class="lang-en">Promotions or discounts may have specific periods, quotas and conditions.</span>
+							</li>
+							<li>
+								<span class="lang-id">Promo yang berbeda tidak otomatis dapat digabungkan kecuali dinyatakan lain.</span>
+								<span class="lang-en">Different promotions cannot automatically be combined unless stated otherwise.</span>
+							</li>
+							<li>
+								<span class="lang-id">Bukti pembayaran sebaiknya disimpan sampai proses administrasi selesai.</span>
+								<span class="lang-en">Proof of payment should be retained until the administrative process is complete.</span>
+							</li>
+						</ul>
+					</section>
+
+					<section id="jadwal" class="terms-section">
+						<div class="terms-heading">
+							<span>05</span>
+							<h2>
+								<span class="lang-id">Jadwal, Kehadiran & Perubahan Kelas</span>
+								<span class="lang-en">Schedule, Attendance & Class Changes</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Jadwal kelas ditetapkan berdasarkan program, ketersediaan pengajar,
+								dan kapasitas ruang. Siswa diharapkan hadir sesuai jadwal dan
+								mengikuti prosedur pemberitahuan apabila tidak dapat hadir.
+							</span>
+							<span class="lang-en">
+								Class schedules are set based on the program, teacher availability
+								and room capacity. Students are expected to attend according to
+								schedule and follow notification procedures if they cannot attend.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								Ketentuan mengenai kelas pengganti, perubahan jadwal, keterlambatan,
+								atau sesi yang terlewat dapat berbeda menurut jenis program. Apabila
+								terdapat kebijakan khusus untuk suatu paket, ketentuan tersebut akan
+								disampaikan melalui formulir pendaftaran, invoice, pesan resmi, atau
+								dokumen program.
+							</span>
+							<span class="lang-en">
+								Rules relating to make-up classes, schedule changes, lateness or
+								missed sessions may differ by program. Where a package has specific
+								policies, those terms will be communicated through a registration
+								form, invoice, official message or program document.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								NOVA dapat melakukan penyesuaian jadwal secara wajar apabila terjadi
+								perubahan pengajar, hari libur, keadaan darurat, gangguan fasilitas,
+								atau kondisi operasional lainnya. Jika perubahan berasal dari NOVA,
+								kami akan mengupayakan pemberitahuan dan alternatif yang sesuai.
+							</span>
+							<span class="lang-en">
+								NOVA may make reasonable schedule adjustments due to teacher changes,
+								public holidays, emergencies, facility disruptions or other
+								operational conditions. Where a change originates from NOVA, we will
+								aim to provide notice and an appropriate alternative.
+							</span>
+						</p>
+					</section>
+
+					<section id="pembatalan" class="terms-section">
+						<div class="terms-heading">
+							<span>06</span>
+							<h2>
+								<span class="lang-id">Pembatalan & Pengembalian Dana</span>
+								<span class="lang-en">Cancellation & Refunds</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Ketentuan pembatalan, penundaan program, pemindahan paket, dan
+								pengembalian dana mengikuti kebijakan yang diinformasikan untuk
+								program atau transaksi terkait. Karena karakteristik setiap program
+								dapat berbeda, ketentuan tersebut sebaiknya diperiksa sebelum
+								pembayaran dilakukan.
+							</span>
+							<span class="lang-en">
+								Cancellation, program postponement, package transfer and refund
+								arrangements follow the policy communicated for the relevant program
+								or transaction. As program characteristics may differ, these terms
+								should be reviewed before payment is made.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								Permohonan pembatalan atau perubahan dapat diajukan melalui kanal
+								komunikasi resmi NOVA dan akan ditinjau berdasarkan status program,
+								sesi yang telah digunakan, biaya yang telah timbul, serta ketentuan
+								yang telah diinformasikan sebelumnya.
+							</span>
+							<span class="lang-en">
+								Requests for cancellation or changes may be submitted through
+								NOVA's official communication channels and will be reviewed based
+								on program status, sessions already used, costs incurred and terms
+								previously communicated.
+							</span>
+						</p>
+					</section>
+
+					<section id="perilaku" class="terms-section">
+						<div class="terms-heading">
+							<span>07</span>
+							<h2>
+								<span class="lang-id">Perilaku & Lingkungan Belajar</span>
+								<span class="lang-en">Conduct & Learning Environment</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								NOVA berupaya menyediakan lingkungan belajar yang aman, tertib, dan
+								saling menghargai. Siswa, orang tua, wali, pengajar, dan staf
+								diharapkan menjaga komunikasi serta perilaku yang pantas selama
+								berinteraksi.
+							</span>
+							<span class="lang-en">
+								NOVA aims to provide a safe, orderly and respectful learning
+								environment. Students, parents, guardians, teachers and staff are
+								expected to maintain appropriate communication and behaviour in
+								their interactions.
+							</span>
+						</p>
+						<ul class="terms-list">
+							<li>
+								<span class="lang-id">Menghormati pengajar, staf, siswa lain, dan fasilitas pembelajaran.</span>
+								<span class="lang-en">Respect teachers, staff, other students and learning facilities.</span>
+							</li>
+							<li>
+								<span class="lang-id">Tidak mengganggu proses belajar atau melakukan tindakan yang membahayakan orang lain.</span>
+								<span class="lang-en">Do not disrupt learning or engage in conduct that may endanger others.</span>
+							</li>
+							<li>
+								<span class="lang-id">Menggunakan perangkat, internet, dan fasilitas belajar secara bertanggung jawab.</span>
+								<span class="lang-en">Use devices, internet access and learning facilities responsibly.</span>
+							</li>
+							<li>
+								<span class="lang-id">Menjaga barang pribadi dan mengikuti petunjuk keselamatan yang diberikan.</span>
+								<span class="lang-en">Take care of personal belongings and follow safety instructions provided.</span>
+							</li>
+						</ul>
+						<p class="terms-text">
+							<span class="lang-id">
+								Apabila terjadi pelanggaran yang serius atau berulang, NOVA dapat
+								mengambil langkah yang proporsional, termasuk komunikasi dengan orang
+								tua/wali, penyesuaian kegiatan, atau penghentian layanan apabila
+								diperlukan untuk menjaga keamanan dan keberlangsungan proses belajar.
+							</span>
+							<span class="lang-en">
+								Where serious or repeated misconduct occurs, NOVA may take
+								proportionate steps, including communication with a parent or
+								guardian, adjustment of activities or discontinuation of services
+								where necessary to maintain safety and the learning environment.
+							</span>
+						</p>
+					</section>
+
+					<section id="elearning" class="terms-section">
+						<div class="terms-heading">
+							<span>08</span>
+							<h2>
+								<span class="lang-id">E-Learning & Akun Digital</span>
+								<span class="lang-en">E-Learning & Digital Accounts</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Untuk layanan digital tertentu, pengguna dapat diberikan akses ke
+								materi, modul, video, latihan, atau sistem belajar online. Akses
+								tersebut ditujukan untuk pengguna yang terdaftar dan tidak boleh
+								dibagikan kepada pihak lain apabila bersifat personal.
+							</span>
+							<span class="lang-en">
+								For certain digital services, users may receive access to materials,
+								modules, videos, exercises or online learning systems. Personal
+								access is intended for registered users and must not be shared with
+								other parties.
+							</span>
+						</p>
+						<ul class="terms-list">
+							<li>
+								<span class="lang-id">Pengguna bertanggung jawab menjaga kerahasiaan kredensial akun apabila tersedia.</span>
+								<span class="lang-en">Users are responsible for keeping account credentials confidential where applicable.</span>
+							</li>
+							<li>
+								<span class="lang-id">Materi tidak boleh disalin, dijual kembali, diunggah ulang, atau didistribusikan tanpa izin.</span>
+								<span class="lang-en">Materials must not be copied, resold, re-uploaded or distributed without permission.</span>
+							</li>
+							<li>
+								<span class="lang-id">Ketersediaan platform dapat terpengaruh oleh pemeliharaan, koneksi internet, atau layanan pihak ketiga.</span>
+								<span class="lang-en">Platform availability may be affected by maintenance, internet connectivity or third-party services.</span>
+							</li>
+						</ul>
+					</section>
+
+					<section id="hki" class="terms-section">
+						<div class="terms-heading">
+							<span>09</span>
+							<h2>
+								<span class="lang-id">Hak Kekayaan Intelektual</span>
+								<span class="lang-en">Intellectual Property</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Kecuali dinyatakan lain, konten website dan materi yang dibuat oleh
+								NOVA—termasuk desain, teks, modul, worksheet, materi kelas, video,
+								grafik, identitas visual, serta materi digital—merupakan milik NOVA
+								atau digunakan berdasarkan izin yang sesuai.
+							</span>
+							<span class="lang-en">
+								Unless stated otherwise, website content and materials created by
+								NOVA—including designs, text, modules, worksheets, class materials,
+								videos, graphics, visual identity and digital materials—are owned by
+								NOVA or used under appropriate permission.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								Pengguna memperoleh hak terbatas untuk menggunakan materi sesuai
+								tujuan belajar pribadi. Penggandaan atau penggunaan komersial di luar
+								tujuan tersebut memerlukan izin tertulis dari pemegang hak terkait.
+							</span>
+							<span class="lang-en">
+								Users receive a limited right to use materials for personal learning
+								purposes. Reproduction or commercial use beyond that purpose requires
+								written permission from the relevant rights holder.
+							</span>
+						</p>
+					</section>
+
+					<section id="privasi" class="terms-section">
+						<div class="terms-heading">
+							<span>10</span>
+							<h2>
+								<span class="lang-id">Privasi & Data Pribadi</span>
+								<span class="lang-en">Privacy & Personal Data</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Pemrosesan informasi pribadi yang berkaitan dengan penggunaan
+								website dan layanan NOVA dijelaskan lebih lanjut dalam Kebijakan
+								Privasi kami.
+							</span>
+							<span class="lang-en">
+								The processing of personal information relating to use of the
+								website and NOVA services is explained further in our Privacy Policy.
+							</span>
+						</p>
+						<a href="/privacy" class="mt-6 inline-flex border-b-2 border-[#f3bc34] pb-1 text-sm font-extrabold text-[#1d2f5c] transition hover:text-[#1d2f5c]/65">
+							<span class="lang-id">Baca Kebijakan Privasi</span>
+							<span class="lang-en">Read the Privacy Policy</span>
+							<span class="ml-2">→</span>
+						</a>
+					</section>
+
+					<section id="tanggung-jawab" class="terms-section">
+						<div class="terms-heading">
+							<span>11</span>
+							<h2>
+								<span class="lang-id">Batasan Tanggung Jawab</span>
+								<span class="lang-en">Limitation of Responsibility</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								NOVA berupaya memberikan layanan pendidikan secara profesional dan
+								sesuai program yang ditawarkan. Namun, hasil belajar setiap siswa
+								dapat berbeda karena dipengaruhi oleh berbagai faktor, termasuk
+								kemampuan awal, kehadiran, latihan mandiri, konsistensi belajar,
+								dukungan lingkungan, serta faktor lainnya.
+							</span>
+							<span class="lang-en">
+								NOVA aims to provide education services professionally and in line
+								with the programs offered. However, learning outcomes vary between
+								students and may be influenced by factors including starting ability,
+								attendance, independent practice, consistency, environmental support
+								and other circumstances.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								Oleh karena itu, informasi mengenai target, perkembangan, atau
+								rekomendasi akademik tidak boleh dipahami sebagai jaminan atas nilai
+								tertentu, penerimaan sekolah/universitas tertentu, hasil ujian
+								tertentu, atau capaian individu lainnya.
+							</span>
+							<span class="lang-en">
+								Accordingly, information about targets, progress or academic
+								recommendations should not be understood as a guarantee of a
+								particular grade, admission to a particular school or university,
+								a particular examination result or another individual outcome.
+							</span>
+						</p>
+						<p class="terms-text">
+							<span class="lang-id">
+								Tidak ada ketentuan pada halaman ini yang dimaksudkan untuk
+								menghilangkan hak konsumen atau kewajiban NOVA yang tidak dapat
+								dikesampingkan berdasarkan peraturan perundang-undangan yang berlaku.
+							</span>
+							<span class="lang-en">
+								Nothing on this page is intended to remove consumer rights or NOVA
+								obligations that cannot lawfully be excluded under applicable law.
+							</span>
+						</p>
+					</section>
+
+					<section id="pihak-ketiga" class="terms-section">
+						<div class="terms-heading">
+							<span>12</span>
+							<h2>
+								<span class="lang-id">Tautan & Layanan Pihak Ketiga</span>
+								<span class="lang-en">Third-Party Links & Services</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Website dapat memuat tautan atau integrasi dengan layanan pihak
+								ketiga, misalnya peta, WhatsApp, email, hosting, atau platform
+								pembelajaran. Penggunaan layanan tersebut juga dapat tunduk pada
+								syarat dan kebijakan penyedia masing-masing.
+							</span>
+							<span class="lang-en">
+								The website may contain links to or integrations with third-party
+								services, such as maps, WhatsApp, email, hosting or learning
+								platforms. Use of those services may also be subject to the terms
+								and policies of their respective providers.
+							</span>
+						</p>
+					</section>
+
+					<section id="perubahan" class="terms-section">
+						<div class="terms-heading">
+							<span>13</span>
+							<h2>
+								<span class="lang-id">Perubahan Ketentuan</span>
+								<span class="lang-en">Changes to These Terms</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								NOVA dapat memperbarui Syarat & Ketentuan ini untuk menyesuaikan
+								perubahan layanan, kebijakan operasional, teknologi, atau ketentuan
+								hukum. Versi terbaru akan ditampilkan pada halaman ini dengan tanggal
+								pembaruan yang sesuai.
+							</span>
+							<span class="lang-en">
+								NOVA may update these Terms & Conditions to reflect changes in
+								services, operational policies, technology or legal requirements.
+								The latest version will be displayed on this page with the relevant
+								update date.
+							</span>
+						</p>
+					</section>
+
+					<section id="hukum" class="terms-section">
+						<div class="terms-heading">
+							<span>14</span>
+							<h2>
+								<span class="lang-id">Hukum yang Berlaku</span>
+								<span class="lang-en">Governing Law</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Syarat & Ketentuan ini ditafsirkan dan dilaksanakan sesuai hukum
+								Republik Indonesia. Apabila muncul perbedaan atau perselisihan, para
+								pihak diharapkan terlebih dahulu mengupayakan penyelesaian secara
+								musyawarah dan itikad baik, tanpa mengurangi hak yang tersedia
+								berdasarkan peraturan perundang-undangan.
+							</span>
+							<span class="lang-en">
+								These Terms & Conditions are interpreted and applied in accordance
+								with the laws of the Republic of Indonesia. If a disagreement or
+								dispute arises, the parties are encouraged to first seek resolution
+								through discussion and good faith, without limiting rights available
+								under applicable law.
+							</span>
+						</p>
+					</section>
+
+					<section id="kontak" class="scroll-mt-32 py-10">
+						<div class="terms-heading">
+							<span>15</span>
+							<h2>
+								<span class="lang-id">Hubungi Kami</span>
+								<span class="lang-en">Contact Us</span>
+							</h2>
+						</div>
+						<p class="terms-text">
+							<span class="lang-id">
+								Jika Anda memiliki pertanyaan mengenai Syarat & Ketentuan, program,
+								pembayaran, atau kebijakan kelas, silakan hubungi NOVA melalui kanal
+								komunikasi resmi.
+							</span>
+							<span class="lang-en">
+								If you have questions about these Terms & Conditions, programs,
+								payments or class policies, please contact NOVA through our official
+								communication channels.
+							</span>
+						</p>
+
+						<div class="mt-7 flex flex-col gap-3 sm:flex-row">
+							<a
+								href={whatsappUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="inline-flex items-center justify-center bg-[#f3bc34] px-6 py-3.5 text-sm font-extrabold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-lg"
+							>
+								<span class="lang-id">Hubungi NOVA via WhatsApp</span>
+								<span class="lang-en">Contact NOVA on WhatsApp</span>
+							</a>
+
+							<a
+								href="mailto:novalearningcentre@gmail.com"
+								class="inline-flex items-center justify-center border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-[#1d2f5c] transition hover:border-[#1d2f5c]"
+							>
+								novalearningcentre@gmail.com
+							</a>
+						</div>
+					</section>
+
+					<div class="mt-3 border-l-4 border-[#f3bc34] bg-[#1d2f5c] px-6 py-6 text-white">
+						<p class="text-sm leading-7 text-white/72">
+							<span class="lang-id">
+								Untuk layanan atau program tertentu, ketentuan yang lebih spesifik
+								dapat diberikan pada saat pendaftaran. Apabila terdapat ketentuan
+								khusus yang telah disepakati untuk suatu program, ketentuan tersebut
+								berlaku bersama dengan halaman ini sepanjang tidak bertentangan
+								dengan peraturan perundang-undangan.
+							</span>
+							<span class="lang-en">
+								More specific terms may be provided at registration for particular
+								services or programs. Where special terms have been agreed for a
+								program, those terms apply together with this page to the extent
+								they do not conflict with applicable law.
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.section-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.82rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
+	}
+
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
+	}
+
+	.terms-section {
+		scroll-margin-top: 8rem;
+		border-bottom: 1px solid #e2e8f0;
+		padding-top: 2.5rem;
+		padding-bottom: 2.5rem;
+	}
+
+	.terms-heading {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.terms-heading > span {
+		padding-top: 0.3rem;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.14em;
+		color: #f3bc34;
+	}
+
+	.terms-heading h2 {
+		font-size: 1.65rem;
+		line-height: 1.25;
+		font-weight: 800;
+		letter-spacing: -0.025em;
+		color: #1d2f5c;
+	}
+
+	.terms-text {
+		margin-top: 1.25rem;
+		font-size: 0.98rem;
+		line-height: 1.9;
+		color: #475569;
+	}
+
+	.terms-list {
+		margin-top: 1.25rem;
+		display: grid;
+		gap: 0.75rem;
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.terms-list li {
+		position: relative;
+		padding-left: 1.45rem;
+		font-size: 0.98rem;
+		line-height: 1.8;
+		color: #475569;
+	}
+
+	.terms-list li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.7rem;
+		width: 0.45rem;
+		height: 0.45rem;
+		background: #f3bc34;
+	}
+
+	.toc-link {
+		transition:
+			background-color 180ms ease,
+			padding-left 180ms ease;
+	}
+
+	.toc-link:hover {
+		padding-left: 0.35rem;
+		background: #f8fafc;
+	}
+</style>

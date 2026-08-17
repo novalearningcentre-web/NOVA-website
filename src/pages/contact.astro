@@ -1,710 +1,691 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const currentYear = new Date().getFullYear();
+const whatsappNumber = '6285195511236';
 
-const navItems = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
+const whatsappUrl =
+	'https://wa.me/6285195511236?text=Halo%20NOVA%20Learning%20Centre%2C%20saya%20ingin%20bertanya%20mengenai%20program%20belajar.';
 
-const contactItems = [
-	{
-		label: 'WhatsApp',
-		value: '+62 851 9551 1236',
-		href: 'https://wa.me/6285195511236',
-		icon: 'chat',
-	},
-	{
-		label: 'Email',
-		value: 'halo@novalearningcentre.id',
-		href: 'mailto:halo@novalearningcentre.id',
-		icon: 'mail',
-	},
-	{
-		label: 'Lokasi',
-		value: 'Ruko Grand Orchard Blok C-21, Jakarta Utara',
-		href: 'https://www.google.com/maps/search/?api=1&query=Ruko+Grand+Orchard+Blok+C-21+Jl.+Terusan+Kelapa+Hybrida+Sukapura+Cilincing+Jakarta+Utara+14140',
-		icon: 'pin',
-	},
-];
+const mapsUrl =
+	'https://maps.app.goo.gl/V71v81TpoHjW266z9';
 
-const programs = [
-	'Early Learners',
-	'Primary',
-	'Secondary',
-	'Language & Skills',
-	'Coding & Robotics',
-	'Private Class',
-	'E-Learning',
-	'Lainnya',
-];
-
-const footerLinks = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
 ---
 
 <Layout
 	title="Kontak | NOVA Learning Centre"
-	description="Hubungi NOVA Learning Centre untuk konsultasi program, jadwal kelas, dan informasi pendaftaran."
+	description="Hubungi NOVA Learning Centre untuk konsultasi program, trial class, jadwal, biaya, atau kunjungan ke learning centre."
 >
-	<!-- NAVBAR -->
-	<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-		<nav
-			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
-			aria-label="Navigasi utama"
-		>
-			<a href="/" class="flex items-center" aria-label="NOVA Learning Centre">
-				<img
-					src="/images/primary-logo-icon.png"
-					alt="NOVA Learning Centre"
-					class="h-10 w-10 object-contain sm:hidden"
-				/>
+	<main class="overflow-hidden">
+		<!-- HERO -->
+		<section class="relative overflow-hidden bg-white">
+			<div
+				class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#f3bc34]/14 blur-3xl"
+				aria-hidden="true"
+			></div>
 
-				<img
-					src="/images/primary-logo.png"
-					alt="NOVA Learning Centre"
-					class="hidden h-11 w-auto object-contain sm:block"
-				/>
-			</a>
-
-			<div class="hidden items-center gap-7 lg:flex">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class:list={[
-								'text-sm font-semibold transition',
-								item.href === '/contact'
-									? 'text-[#0F2747]'
-									: 'text-slate-600 hover:text-[#A87300]',
-							]}
-						>
-							{item.name}
-						</a>
-					))
-				}
-			</div>
-
-			<a
-				href="https://wa.me/6285195511236"
-				target="_blank"
-				rel="noreferrer"
-				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722] lg:inline-flex"
-			>
-				Chat WhatsApp
-			</a>
-
-			<button
-				id="mobile-menu-button"
-				type="button"
-				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
-				aria-label="Buka menu navigasi"
-				aria-expanded="false"
-				aria-controls="mobile-menu"
-			>
-				<svg
-					width="23"
-					height="23"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					aria-hidden="true"
-				>
-					<path d="M4 7h16"></path>
-					<path d="M4 12h16"></path>
-					<path d="M4 17h16"></path>
-				</svg>
-			</button>
-		</nav>
-
-		<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
-			<div class="flex flex-col gap-4">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
-						>
-							{item.name}
-						</a>
-					))
-				}
-
-				<a
-					href="https://wa.me/6285195511236"
-					target="_blank"
-					rel="noreferrer"
-					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
-				>
-					Chat WhatsApp
-				</a>
-			</div>
-		</div>
-	</header>
-
-	<main>
-		<!-- CONTACT INTRO -->
-		<section class="bg-white">
-			<div class="mx-auto max-w-7xl px-6 pb-14 pt-20 lg:px-8 lg:pb-20 lg:pt-28">
-				<div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+			<div class="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+				<div class="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
 					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Kontak NOVA
+						<p class="section-label">
+							<span class="lang-id">Kontak NOVA</span>
+							<span class="lang-en">Contact NOVA</span>
 						</p>
 
 						<h1
-							class="mt-5 max-w-4xl text-5xl font-bold leading-[1.04] tracking-[-0.05em] text-[#0F2747] sm:text-6xl lg:text-[74px]"
+							class="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-[-0.045em] text-[#1d2f5c] sm:text-5xl lg:text-[58px]"
 						>
-							Mari mulai dari kebutuhan
-							<span class="text-[#A87300]">belajarnya.</span>
+							<span class="lang-id">
+								Mari bicara tentang kebutuhan&nbsp;
+								<span class="relative inline-block">
+									belajar anak.
+									<span
+										class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/70"
+										aria-hidden="true"
+									></span>
+								</span>
+							</span>
+
+							<span class="lang-en">
+								Let’s talk about your child’s
+								<span class="relative inline-block">
+									learning needs.
+									<span
+										class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/70"
+										aria-hidden="true"
+									></span>
+								</span>
+							</span>
 						</h1>
+
+						<p class="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
+							<span class="lang-id">
+								Punya pertanyaan tentang program, jadwal, trial class, atau biaya?
+								Tim NOVA siap membantu menemukan pilihan yang sesuai.
+							</span>
+
+							<span class="lang-en">
+								Have questions about programs, schedules, trial classes or fees?
+								The NOVA team can help you find a suitable option.
+							</span>
+						</p>
+
+						<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+							<a
+								href={whatsappUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="inline-flex items-center justify-center bg-[#f3bc34] px-6 py-3.5 font-extrabold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-lg"
+							>
+								<span class="lang-id">Chat via WhatsApp</span>
+								<span class="lang-en">Chat on WhatsApp</span>
+								<span class="ml-2">→</span>
+							</a>
+
+							<a
+								href="#contact-form"
+								class="inline-flex items-center justify-center border border-[#1d2f5c]/18 bg-white px-6 py-3.5 font-bold text-[#1d2f5c] transition hover:border-[#1d2f5c] hover:bg-[#1d2f5c] hover:text-white"
+							>
+								<span class="lang-id">Isi Form Konsultasi</span>
+								<span class="lang-en">Fill in Enquiry Form</span>
+							</a>
+						</div>
 					</div>
 
-					<p class="max-w-xl border-l-4 border-[#F3BC34] pl-6 text-lg leading-8 text-slate-600">
-						Ceritakan kebutuhan siswa kepada kami. Tim NOVA akan membantu
-						mengarahkan pilihan program, format kelas, dan langkah
-						selanjutnya.
-					</p>
+					<div class="bg-[#f7f8fc] p-6 md:p-8">
+						<p class="text-xs font-extrabold uppercase tracking-[0.15em] text-[#1d2f5c]/45">
+							<span class="lang-id">Cara Tercepat Menghubungi Kami</span>
+							<span class="lang-en">The Quickest Way to Reach Us</span>
+						</p>
+
+						<div class="mt-5 space-y-5">
+							<div class="flex gap-4">
+								<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f3bc34] font-black text-[#1d2f5c]">
+									1
+								</div>
+
+								<div>
+									<p class="font-extrabold text-[#1d2f5c]">WhatsApp</p>
+									<p class="mt-1 text-sm leading-6 text-slate-500">
+										<span class="lang-id">Untuk konsultasi program, jadwal, dan trial class.</span>
+										<span class="lang-en">For program, schedule and trial class enquiries.</span>
+									</p>
+								</div>
+							</div>
+
+							<div class="border-t border-slate-200 pt-5">
+								<div class="flex gap-4">
+									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1d2f5c] font-black text-white">
+										2
+									</div>
+
+									<div>
+										<p class="font-extrabold text-[#1d2f5c]">
+											<span class="lang-id">Kunjungan Langsung</span>
+											<span class="lang-en">Visit NOVA</span>
+										</p>
+										<p class="mt-1 text-sm leading-6 text-slate-500">
+											<span class="lang-id">Hubungi kami terlebih dahulu agar tim dapat menyiapkan waktu konsultasi.</span>
+											<span class="lang-en">Contact us first so the team can arrange a suitable consultation time.</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-6 border-t border-slate-200 pt-5 text-sm text-slate-500">
+							<p class="font-bold text-[#1d2f5c]">0851 9551 1236</p>
+							<p class="mt-1">novalearningcentre@gmail.com</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
+		<!-- QUICK CONTACT -->
+		<section class="border-y border-slate-200 bg-[#f7f8fc]">
+			<div class="mx-auto grid max-w-7xl gap-px bg-slate-200 md:grid-cols-3">
+				<a
+					href={whatsappUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="group bg-[#f7f8fc] px-6 py-8 transition hover:bg-[#f3bc34]"
+				>
+					<div class="flex items-center justify-between gap-5">
+						<div>
+							<p class="text-xs font-extrabold uppercase tracking-[0.15em] text-[#1d2f5c]/45">
+								WhatsApp
+							</p>
+							<p class="mt-2 text-lg font-extrabold text-[#1d2f5c]">
+								0851 9551 1236
+							</p>
+							<p class="mt-2 text-sm leading-6 text-slate-500 transition group-hover:text-[#1d2f5c]/70">
+								<span class="lang-id">Cara tercepat untuk menghubungi NOVA.</span>
+								<span class="lang-en">The quickest way to reach NOVA.</span>
+							</p>
+						</div>
 
-		<!-- CONTACT OPTIONS -->
-		<section class="border-y border-slate-200 bg-[#F7F8FC]">
-			<div class="mx-auto grid max-w-7xl divide-y divide-slate-200 px-6 md:grid-cols-3 md:divide-x md:divide-y-0 lg:px-8">
-				{
-					contactItems.map((item) => (
-						<a
-							href={item.href}
-							target={item.label === 'Email' ? undefined : '_blank'}
-							rel={item.label === 'Email' ? undefined : 'noreferrer'}
-							class="group flex items-start gap-4 px-0 py-7 transition md:px-7 lg:py-8"
-						>
-							<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-[#0F2747] transition group-hover:scale-105">
-								{item.icon === 'chat' && (
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-										<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-									</svg>
-								)}
+						<span class="text-xl font-bold text-[#1d2f5c]">→</span>
+					</div>
+				</a>
 
-								{item.icon === 'mail' && (
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-										<rect x="3" y="5" width="18" height="14" rx="2"></rect>
-										<path d="m3 7 9 6 9-6"></path>
-									</svg>
-								)}
+				<a
+					href="mailto:novalearningcentre@gmail.com"
+					class="group bg-[#f7f8fc] px-6 py-8 transition hover:bg-[#f3bc34]"
+				>
+					<div class="flex items-center justify-between gap-5">
+						<div>
+							<p class="text-xs font-extrabold uppercase tracking-[0.15em] text-[#1d2f5c]/45">
+								Email
+							</p>
+							<p class="mt-2 break-all text-lg font-extrabold text-[#1d2f5c]">
+								novalearningcentre@gmail.com
+							</p>
+							<p class="mt-2 text-sm leading-6 text-slate-500 transition group-hover:text-[#1d2f5c]/70">
+								<span class="lang-id">Untuk pertanyaan atau informasi tertulis.</span>
+								<span class="lang-en">For written enquiries and information.</span>
+							</p>
+						</div>
 
-								{item.icon === 'pin' && (
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-										<path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
-										<circle cx="12" cy="10" r="2.5"></circle>
-									</svg>
-								)}
-							</div>
+						<span class="text-xl font-bold text-[#1d2f5c]">→</span>
+					</div>
+				</a>
 
-							<div class="min-w-0">
-								<p class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
-									{item.label}
-								</p>
+				<a
+					href={mapsUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="group bg-[#f7f8fc] px-6 py-8 transition hover:bg-[#f3bc34]"
+				>
+					<div class="flex items-center justify-between gap-5">
+						<div>
+							<p class="text-xs font-extrabold uppercase tracking-[0.15em] text-[#1d2f5c]/45">
+								<span class="lang-id">Lokasi</span>
+								<span class="lang-en">Location</span>
+							</p>
+							<p class="mt-2 text-lg font-extrabold text-[#1d2f5c]">
+								Kelapa Gading, Jakarta Utara
+							</p>
+							<p class="mt-2 text-sm leading-6 text-slate-500 transition group-hover:text-[#1d2f5c]/70">
+								<span class="lang-id">Buka lokasi di Google Maps.</span>
+								<span class="lang-en">Open the location in Google Maps.</span>
+							</p>
+						</div>
 
-								<p class="mt-2 break-words font-bold leading-6 text-[#0F2747] transition group-hover:text-[#A87300]">
-									{item.value}
-								</p>
-							</div>
-						</a>
-					))
-				}
+						<span class="text-xl font-bold text-[#1d2f5c]">→</span>
+					</div>
+				</a>
 			</div>
 		</section>
 
-		<!-- FORM + INFO -->
-		<section class="bg-white py-24">
-			<div class="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
-				<!-- LEFT COPY -->
+		<!-- CONTACT + FORM -->
+		<section id="contact-form" class="scroll-mt-28 bg-white py-24">
+			<div class="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8">
+				<!-- INFO -->
 				<div>
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-						Konsultasi Awal
+					<p class="section-label">
+						<span class="lang-id">Kunjungi NOVA</span>
+						<span class="lang-en">Visit NOVA</span>
 					</p>
 
-					<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-						Tidak perlu tahu programnya dulu.
+					<h2
+						class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+					>
+						<span class="lang-id">Kami siap membantu.</span>
+						<span class="lang-en">We’re here to help.</span>
 					</h2>
 
-					<p class="mt-6 text-lg leading-8 text-slate-600">
-						Cukup ceritakan kebutuhan belajarnya. Kami akan membantu
-						mencari opsi yang lebih sesuai berdasarkan jenjang, tujuan,
-						dan format belajar yang diinginkan.
-					</p>
+					<div class="mt-8 space-y-7">
+						<div>
+							<p class="info-label">
+								<span class="lang-id">Alamat</span>
+								<span class="lang-en">Address</span>
+							</p>
 
-					<div class="mt-10 space-y-6">
-						<div class="flex gap-4">
-							<span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-xs font-bold text-[#0F2747]">
-								1
-							</span>
+							<a
+								href={mapsUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="mt-2 block max-w-md text-base font-semibold leading-7 text-[#1d2f5c] transition hover:text-[#1d2f5c]/65"
+							>
+								Ruko Grand Orchard Blok C-21,<br />
+								Jl. Terusan Kelapa Hybrida, Sukapura,<br />
+								Cilincing, Jakarta Utara 14140
+							</a>
 
-							<div>
-								<h3 class="font-bold text-[#0F2747]">
-									Ceritakan kebutuhan siswa
-								</h3>
+							<a
+								href={mapsUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="mt-3 inline-flex items-center gap-2 text-sm font-extrabold text-[#1d2f5c]"
+							>
+								<span class="lang-id">Buka di Google Maps</span>
+								<span class="lang-en">Open in Google Maps</span>
+								<span>→</span>
+							</a>
+						</div>
 
-								<p class="mt-1 text-sm leading-6 text-slate-500">
-									Jenjang, mata pelajaran, tujuan, atau kesulitan yang sedang dihadapi.
-								</p>
+						<div class="border-t border-slate-200 pt-6">
+							<p class="info-label">
+								<span class="lang-id">Jam Operasional</span>
+								<span class="lang-en">Opening Hours</span>
+							</p>
+
+							<div class="mt-3 grid max-w-sm grid-cols-[150px_1fr] gap-y-2 text-sm leading-6 text-slate-600">
+								<span class="font-semibold text-[#1d2f5c]">
+									<span class="lang-id">Senin – Jumat</span>
+									<span class="lang-en">Monday – Friday</span>
+								</span>
+								<span>10.00 – 20.00</span>
+
+								<span class="font-semibold text-[#1d2f5c]">
+									<span class="lang-id">Sabtu</span>
+									<span class="lang-en">Saturday</span>
+								</span>
+								<span>09.00 – 15.00</span>
+
+								<span class="font-semibold text-[#1d2f5c]">
+									<span class="lang-id">Minggu</span>
+									<span class="lang-en">Sunday</span>
+								</span>
+								<span>
+									<span class="lang-id">Tutup</span>
+									<span class="lang-en">Closed</span>
+								</span>
 							</div>
 						</div>
 
-						<div class="flex gap-4">
-							<span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-xs font-bold text-[#0F2747]">
-								2
-							</span>
+						<div class="border-t border-slate-200 pt-6">
+							<p class="info-label">
+								<span class="lang-id">Sebelum Berkunjung</span>
+								<span class="lang-en">Before You Visit</span>
+							</p>
 
-							<div>
-								<h3 class="font-bold text-[#0F2747]">
-									Kami bantu arahkan
-								</h3>
+							<p class="mt-2 max-w-md text-sm leading-7 text-slate-500">
+								<span class="lang-id">
+									Untuk konsultasi atau melihat ruang belajar, kami menyarankan
+									menghubungi NOVA terlebih dahulu agar tim dapat mempersiapkan waktu
+									yang sesuai.
+								</span>
 
-								<p class="mt-1 text-sm leading-6 text-slate-500">
-									Tim NOVA akan membantu menjelaskan pilihan program dan format kelas.
-								</p>
-							</div>
-						</div>
-
-						<div class="flex gap-4">
-							<span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-xs font-bold text-[#0F2747]">
-								3
-							</span>
-
-							<div>
-								<h3 class="font-bold text-[#0F2747]">
-									Tentukan langkah berikutnya
-								</h3>
-
-								<p class="mt-1 text-sm leading-6 text-slate-500">
-									Pilih jadwal konsultasi, trial, atau pendaftaran sesuai kebutuhan.
-								</p>
-							</div>
+								<span class="lang-en">
+									For consultations or facility visits, we recommend contacting
+									NOVA in advance so the team can arrange a suitable time.
+								</span>
+							</p>
 						</div>
 					</div>
 				</div>
 
-				<!-- FORM -->
-				<div class="border-t-4 border-[#F3BC34] bg-[#F7F8FC] p-6 sm:p-8 lg:p-10">
-					<div class="flex items-start justify-between gap-6">
-						<div>
-							<p class="text-sm font-bold text-[#0F2747]">
-								Kirim pertanyaan ke NOVA
-							</p>
+				<!-- SIMPLE FORM -->
+				<div class="border border-slate-200 bg-[#f7f8fc] p-6 md:p-8">
+					<div class="max-w-xl">
+						<p class="text-xs font-extrabold uppercase tracking-[0.15em] text-[#1d2f5c]/45">
+							<span class="lang-id">Konsultasi Singkat</span>
+							<span class="lang-en">Quick Enquiry</span>
+						</p>
 
-							<p class="mt-2 text-sm leading-6 text-slate-500">
-								Setelah dikirim, pesan akan dibuka melalui WhatsApp.
-							</p>
-						</div>
+						<h3 class="mt-3 text-2xl font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Ceritakan kebutuhan anak.</span>
+							<span class="lang-en">Tell us what your child needs.</span>
+						</h3>
 
-						<div class="hidden h-10 w-10 items-center justify-center rounded-full bg-[#F3BC34] text-[#0F2747] sm:flex">
-							<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-								<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-							</svg>
-						</div>
+						<p class="mt-3 text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Isi informasi dasar saja. Setelah klik tombol di bawah, WhatsApp akan
+								terbuka dengan pesan yang sudah disiapkan.
+							</span>
+
+							<span class="lang-en">
+								Just provide the basic details. After selecting the button below,
+								WhatsApp will open with a prepared message.
+							</span>
+						</p>
 					</div>
 
-					<form id="contact-form" class="mt-8 grid gap-5">
-						<div class="grid gap-5 md:grid-cols-2">
-							<label class="grid gap-2">
-								<span class="text-sm font-semibold text-[#0F2747]">
-									Nama
-								</span>
+					<div class="mt-7 grid gap-5 sm:grid-cols-2">
+						<label class="block">
+							<span class="form-label">
+								<span class="lang-id">Nama Orang Tua</span>
+								<span class="lang-en">Parent Name</span>
+							</span>
 
-								<input
-									id="contact-name"
-									name="name"
-									type="text"
-									autocomplete="name"
-									required
-									placeholder="Nama Anda"
-									class="h-12 w-full border border-slate-300 bg-white px-4 text-sm text-[#0F2747] outline-none transition placeholder:text-slate-400 focus:border-[#0F2747]"
-								/>
-							</label>
+							<input
+								id="parent-name"
+								type="text"
+								class="form-input"
+								placeholder="Nama"
+							/>
+						</label>
 
-							<label class="grid gap-2">
-								<span class="text-sm font-semibold text-[#0F2747]">
-									Nomor WhatsApp
-								</span>
+						<label class="block">
+							<span class="form-label">
+								<span class="lang-id">Nomor WhatsApp</span>
+								<span class="lang-en">WhatsApp Number</span>
+							</span>
 
-								<input
-									id="contact-phone"
-									name="phone"
-									type="tel"
-									autocomplete="tel"
-									required
-									placeholder="08xxxxxxxxxx"
-									class="h-12 w-full border border-slate-300 bg-white px-4 text-sm text-[#0F2747] outline-none transition placeholder:text-slate-400 focus:border-[#0F2747]"
-								/>
-							</label>
-						</div>
+							<input
+								id="phone-number"
+								type="tel"
+								class="form-input"
+								placeholder="08..."
+							/>
+						</label>
 
-						<div class="grid gap-5 md:grid-cols-2">
-							<label class="grid gap-2">
-								<span class="text-sm font-semibold text-[#0F2747]">
-									Jenjang / Program
-								</span>
+						<label class="block">
+							<span class="form-label">
+								<span class="lang-id">Nama / Usia Anak</span>
+								<span class="lang-en">Student Name / Age</span>
+							</span>
 
-								<select
-									id="contact-program"
-									name="program"
-									required
-									class="h-12 w-full border border-slate-300 bg-white px-4 text-sm text-[#0F2747] outline-none transition focus:border-[#0F2747]"
-								>
-									<option value="" selected disabled>
-										Pilih program
-									</option>
+							<input
+								id="student-info"
+								type="text"
+								class="form-input"
+								placeholder="Contoh: Kevin, 10 tahun"
+							/>
+						</label>
 
-									{
-										programs.map((program) => (
-											<option value={program}>
-												{program}
-											</option>
-										))
-									}
-								</select>
-							</label>
+						<label class="block">
+							<span class="form-label">
+								<span class="lang-id">Yang Ingin Ditanyakan</span>
+								<span class="lang-en">Enquiry Type</span>
+							</span>
 
-							<label class="grid gap-2">
-								<span class="text-sm font-semibold text-[#0F2747]">
-									Nama Siswa
-									<span class="font-normal text-slate-400">(opsional)</span>
-								</span>
+							<select id="enquiry-type" class="form-input">
+								<option value="program">Program Belajar / Learning Program</option>
+								<option value="trial">Trial Class</option>
+								<option value="fees">Biaya / Fees</option>
+								<option value="schedule">Jadwal / Schedule</option>
+								<option value="visit">Kunjungan / Facility Visit</option>
+								<option value="other">Lainnya / Other</option>
+							</select>
+						</label>
 
-								<input
-									id="student-name"
-									name="studentName"
-									type="text"
-									placeholder="Nama siswa"
-									class="h-12 w-full border border-slate-300 bg-white px-4 text-sm text-[#0F2747] outline-none transition placeholder:text-slate-400 focus:border-[#0F2747]"
-								/>
-							</label>
-						</div>
-
-						<label class="grid gap-2">
-							<span class="text-sm font-semibold text-[#0F2747]">
-								Ceritakan kebutuhan belajarnya
+						<label class="block sm:col-span-2">
+							<span class="form-label">
+								<span class="lang-id">Pesan / Kebutuhan Belajar</span>
+								<span class="lang-en">Message / Learning Needs</span>
 							</span>
 
 							<textarea
-								id="contact-message"
-								name="message"
-								required
-								rows="6"
-								placeholder="Contoh: Anak saya kelas 7 dan membutuhkan pendampingan Matematika untuk kurikulum Cambridge..."
-								class="w-full resize-none border border-slate-300 bg-white px-4 py-3 text-sm leading-6 text-[#0F2747] outline-none transition placeholder:text-slate-400 focus:border-[#0F2747]"
+								id="message"
+								rows="5"
+								class="form-input resize-none"
+								placeholder="Ceritakan sedikit kebutuhan atau pertanyaan Anda..."
 							></textarea>
 						</label>
+					</div>
 
-						<div class="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
-							<p class="max-w-md text-xs leading-5 text-slate-400">
-								Dengan mengirim formulir ini, Anda akan diarahkan ke WhatsApp
-								NOVA dengan pesan yang sudah disusun otomatis.
-							</p>
-
-							<button
-								type="submit"
-								class="inline-flex shrink-0 items-center justify-center gap-2 bg-[#F3BC34] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-							>
-								Kirim via WhatsApp
-								<span aria-hidden="true">→</span>
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-
-		<!-- LOCATION -->
-		<section class="bg-[#0F2747] text-white">
-			<div class="mx-auto grid max-w-7xl lg:grid-cols-[0.75fr_1.25fr]">
-				<div class="px-6 py-16 lg:px-8 lg:py-20">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
-						Kunjungi NOVA
-					</p>
-
-					<h2 class="mt-4 text-4xl font-bold tracking-tight">
-						Temui kami di Jakarta Utara.
-					</h2>
-
-					<p class="mt-6 max-w-md text-base leading-8 text-blue-100">
-						Ruko Grand Orchard Blok C-21<br />
-						Jl. Terusan Kelapa Hybrida<br />
-						Sukapura, Cilincing<br />
-						Jakarta Utara 14140
-					</p>
-
-					<a
-						href="https://www.google.com/maps/search/?api=1&query=Ruko+Grand+Orchard+Blok+C-21+Jl.+Terusan+Kelapa+Hybrida+Sukapura+Cilincing+Jakarta+Utara+14140"
-						target="_blank"
-						rel="noreferrer"
-						class="mt-8 inline-flex items-center gap-2 border-b border-[#F3BC34] pb-1 text-sm font-semibold text-white transition hover:text-[#F3BC34]"
+					<button
+						id="submit-whatsapp"
+						type="button"
+						class="mt-6 inline-flex w-full items-center justify-center bg-[#f3bc34] px-6 py-4 font-extrabold text-[#1d2f5c] transition hover:bg-[#1d2f5c] hover:text-white"
 					>
-						Buka di Google Maps
-						<span aria-hidden="true">↗</span>
-					</a>
-				</div>
+						<span class="lang-id">Lanjutkan via WhatsApp</span>
+						<span class="lang-en">Continue on WhatsApp</span>
+						<span class="ml-2">→</span>
+					</button>
 
-				<div class="min-h-[420px] bg-slate-200 lg:min-h-[500px]">
-					<iframe
-						title="Lokasi NOVA Learning Centre"
-						src="https://www.google.com/maps?q=Ruko%20Grand%20Orchard%20Blok%20C-21%20Jl.%20Terusan%20Kelapa%20Hybrida%20Sukapura%20Cilincing%20Jakarta%20Utara%2014140&output=embed"
-						class="h-full min-h-[420px] w-full border-0 lg:min-h-[500px]"
-						loading="lazy"
-						referrerpolicy="no-referrer-when-downgrade"
-					></iframe>
+					<p class="mt-4 text-center text-xs leading-5 text-slate-400">
+						<span class="lang-id">
+							Form ini tidak mengirim data ke server. Pesan akan diteruskan melalui WhatsApp.
+						</span>
+
+						<span class="lang-en">
+							This form does not submit data to a server. Your message will continue through WhatsApp.
+						</span>
+					</p>
 				</div>
 			</div>
 		</section>
 
-		<!-- FAQ MINI -->
-		<section class="bg-[#F7F8FC] py-20">
+		<!-- MAP -->
+		<section class="bg-[#f7f8fc] py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+				<div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
 					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Sebelum Menghubungi Kami
+						<p class="section-label">
+							<span class="lang-id">Lokasi NOVA</span>
+							<span class="lang-en">NOVA Location</span>
 						</p>
 
-						<h2 class="mt-4 text-3xl font-bold tracking-tight text-[#0F2747] md:text-4xl">
-							Pertanyaan yang sering muncul.
+						<h2
+							class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+						>
+							<span class="lang-id">Temukan kami dengan mudah.</span>
+							<span class="lang-en">Find us easily.</span>
 						</h2>
+
+						<p class="mt-5 max-w-md text-base leading-7 text-slate-600">
+							<span class="lang-id">
+								Gunakan panel lokasi di sebelah kanan untuk membuka pin NOVA dan petunjuk arah melalui Google Maps.
+							</span>
+
+							<span class="lang-en">
+								Use the location panel to open NOVA’s pin and directions in Google Maps.
+							</span>
+						</p>
+
 					</div>
 
-					<div class="divide-y divide-slate-200 border-y border-slate-200">
-						<details class="group py-5">
-							<summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-[#0F2747]">
-								Apakah harus tahu program yang ingin diambil?
-								<span class="text-xl text-[#A87300] transition group-open:rotate-45">+</span>
-							</summary>
+					<a
+						href={mapsUrl}
+						target="_blank"
+						rel="noreferrer"
+						class="group relative flex min-h-[430px] items-center justify-center overflow-hidden bg-[#1d2f5c] p-8 text-center shadow-sm"
+					>
+						<div
+							class="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[#f3bc34]/16 blur-3xl"
+							aria-hidden="true"
+						></div>
 
-							<p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
-								Tidak. Anda dapat menjelaskan kebutuhan siswa terlebih dahulu dan
-								tim NOVA akan membantu mengarahkan pilihan program.
+						<div
+							class="absolute -bottom-24 -right-20 h-72 w-72 rounded-full bg-white/8 blur-3xl"
+							aria-hidden="true"
+						></div>
+
+						<div class="relative max-w-md text-white">
+							<div
+								class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#f3bc34] text-2xl font-black text-[#1d2f5c] transition group-hover:scale-105"
+							>
+								⌖
+							</div>
+
+							<p class="mt-6 text-xs font-extrabold uppercase tracking-[0.16em] text-[#f3bc34]">
+								Google Maps
 							</p>
-						</details>
 
-						<details class="group py-5">
-							<summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-[#0F2747]">
-								Apakah tersedia kelas private?
-								<span class="text-xl text-[#A87300] transition group-open:rotate-45">+</span>
-							</summary>
+							<h3 class="mt-3 text-2xl font-extrabold">
+								<span class="lang-id">Buka Pin Lokasi NOVA</span>
+								<span class="lang-en">Open NOVA Location Pin</span>
+							</h3>
 
-							<p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
-								Ya. NOVA menyediakan pilihan pembelajaran kelompok kecil dan
-								private class, tergantung program serta kebutuhan siswa.
+							<p class="mt-4 text-sm leading-7 text-white/70">
+								Ruko Grand Orchard Blok C-21,<br />
+								Jl. Terusan Kelapa Hybrida, Sukapura,<br />
+								Cilincing, Jakarta Utara 14140
 							</p>
-						</details>
 
-						<details class="group py-5">
-							<summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold text-[#0F2747]">
-								Apakah ada kelas online?
-								<span class="text-xl text-[#A87300] transition group-open:rotate-45">+</span>
-							</summary>
-
-							<p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
-								NOVA memiliki pembelajaran online dan e-learning untuk program
-								tertentu. Ketersediaannya dapat dikonsultasikan dengan tim kami.
-							</p>
-						</details>
-					</div>
+							<span
+								class="mt-7 inline-flex bg-[#f3bc34] px-6 py-3.5 font-extrabold text-[#1d2f5c] transition group-hover:-translate-y-0.5"
+							>
+								<span class="lang-id">Buka Lokasi</span>
+								<span class="lang-en">Open Location</span>
+								<span class="ml-2">→</span>
+							</span>
+						</div>
+					</a>
 				</div>
+			</div>
+		</section>
+
+		<!-- FINAL CTA -->
+		<section class="bg-[#1d2f5c] py-20 text-white">
+			<div class="mx-auto max-w-4xl px-6 text-center">
+				<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
+					NOVA Learning Centre
+				</p>
+
+				<h2
+					class="mt-4 text-4xl font-extrabold tracking-[-0.035em] md:text-5xl"
+				>
+					<span class="lang-id">Masih bingung mulai dari mana?</span>
+					<span class="lang-en">Not sure where to start?</span>
+				</h2>
+
+				<p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/70">
+					<span class="lang-id">
+						Chat langsung dengan tim NOVA. Ceritakan kebutuhan anak dan kami bantu arahkan program yang sesuai.
+					</span>
+
+					<span class="lang-en">
+						Chat directly with the NOVA team. Tell us about your child’s needs and we can help recommend a suitable program.
+					</span>
+				</p>
+
+				<a
+					href={whatsappUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="mt-8 inline-flex bg-[#f3bc34] px-8 py-4 font-extrabold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-xl"
+				>
+					<span class="lang-id">Chat dengan NOVA</span>
+					<span class="lang-en">Chat with NOVA</span>
+				</a>
 			</div>
 		</section>
 	</main>
-
-	<!-- FOOTER -->
-	<footer class="bg-[#091D36] text-white">
-		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
-				<div>
-					<a href="/" aria-label="NOVA Learning Centre">
-						<img
-							src="/images/primary-logo.png"
-							alt="NOVA Learning Centre"
-							class="h-14 w-auto brightness-0 invert"
-						/>
-					</a>
-
-					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
-						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
-						sepanjang hayat melalui kelas tatap muka dan e-learning.
-					</p>
-
-					<p class="mt-6 text-sm font-semibold text-[#F3BC34]">
-						Learn with purpose. Grow with confidence.
-					</p>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Navigasi
-					</h3>
-
-					<div class="mt-6 grid gap-3">
-						{
-							footerLinks.map((item) => (
-								<a href={item.href} class="text-sm text-blue-100 transition hover:text-white">
-									{item.name}
-								</a>
-							))
-						}
-					</div>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Hubungi Kami
-					</h3>
-
-					<div class="mt-6 space-y-5 text-sm text-blue-100">
-						<div>
-							<p class="font-semibold text-white">WhatsApp</p>
-							<a
-								href="https://wa.me/6285195511236"
-								target="_blank"
-								rel="noreferrer"
-								class="mt-1 block transition hover:text-white"
-							>
-								+62 851 9551 1236
-							</a>
-						</div>
-
-						<div>
-							<p class="font-semibold text-white">Email</p>
-							<a
-								href="mailto:halo@novalearningcentre.id"
-								class="mt-1 block break-all transition hover:text-white"
-							>
-								halo@novalearningcentre.id
-							</a>
-						</div>
-
-						<a
-							href="https://wa.me/6285195511236"
-							target="_blank"
-							rel="noreferrer"
-							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Hubungi NOVA
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div
-				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
-			>
-				<p>© {currentYear} NOVA Learning Centre. All rights reserved.</p>
-
-				<div class="flex gap-5">
-					<a href="/privacy" class="transition hover:text-white">
-						Kebijakan Privasi
-					</a>
-
-					<a href="/terms" class="transition hover:text-white">
-						Syarat & Ketentuan
-					</a>
-				</div>
-			</div>
-		</div>
-	</footer>
 </Layout>
 
 <script>
-	// MOBILE MENU
-	const mobileMenuButton =
-		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
-	const mobileMenu =
-		document.querySelector<HTMLElement>('#mobile-menu');
-	const mobileNavLinks =
-		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+	const whatsappNumber = '6285195511236';
 
-	const closeMobileMenu = () => {
-		mobileMenu?.classList.add('hidden');
-		mobileMenuButton?.setAttribute('aria-expanded', 'false');
-	};
+	const submitButton =
+		document.querySelector<HTMLButtonElement>('#submit-whatsapp');
 
-	mobileMenuButton?.addEventListener('click', () => {
-		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
-		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
-	});
-
-	mobileNavLinks.forEach((link) => {
-		link.addEventListener('click', closeMobileMenu);
-	});
-
-	// WHATSAPP CONTACT FORM
-	const contactForm =
-		document.querySelector<HTMLFormElement>('#contact-form');
-
-	contactForm?.addEventListener('submit', (event) => {
-		event.preventDefault();
-
-		const name =
-			(document.querySelector<HTMLInputElement>('#contact-name')?.value ?? '').trim();
+	submitButton?.addEventListener('click', () => {
+		const parentName =
+			document.querySelector<HTMLInputElement>('#parent-name')?.value || '-';
 
 		const phone =
-			(document.querySelector<HTMLInputElement>('#contact-phone')?.value ?? '').trim();
+			document.querySelector<HTMLInputElement>('#phone-number')?.value || '-';
 
-		const program =
-			(document.querySelector<HTMLSelectElement>('#contact-program')?.value ?? '').trim();
+		const studentInfo =
+			document.querySelector<HTMLInputElement>('#student-info')?.value || '-';
 
-		const studentName =
-			(document.querySelector<HTMLInputElement>('#student-name')?.value ?? '').trim();
+		const enquiryType =
+			document.querySelector<HTMLSelectElement>('#enquiry-type')?.value || 'program';
 
 		const message =
-			(document.querySelector<HTMLTextAreaElement>('#contact-message')?.value ?? '').trim();
+			document.querySelector<HTMLTextAreaElement>('#message')?.value || '-';
 
-		const lines = [
-			'Halo NOVA Learning Centre, saya ingin berkonsultasi mengenai program belajar.',
+		const language =
+			document.documentElement.dataset.lang === 'en' ? 'en' : 'id';
+
+		const enquiryLabelsId: Record<string, string> = {
+			program: 'Program Belajar',
+			trial: 'Trial Class',
+			fees: 'Biaya',
+			schedule: 'Jadwal',
+			visit: 'Kunjungan',
+			other: 'Lainnya',
+		};
+
+		const enquiryLabelsEn: Record<string, string> = {
+			program: 'Learning Program',
+			trial: 'Trial Class',
+			fees: 'Fees',
+			schedule: 'Schedule',
+			visit: 'Facility Visit',
+			other: 'Other',
+		};
+
+		const messageId = [
+			'Halo NOVA Learning Centre,',
 			'',
-			`Nama: ${name}`,
-			`No. WhatsApp: ${phone}`,
-			`Program/Jenjang: ${program}`,
-			studentName ? `Nama Siswa: ${studentName}` : '',
+			`Nama orang tua: ${parentName}`,
+			`Nomor WhatsApp: ${phone}`,
+			`Nama / usia anak: ${studentInfo}`,
+			`Pertanyaan mengenai: ${enquiryLabelsId[enquiryType] || enquiryType}`,
+			`Pesan: ${message}`,
 			'',
-			'Kebutuhan belajar:',
-			message,
-		].filter(Boolean);
+			'Mohon informasi lebih lanjut. Terima kasih.',
+		].join('\n');
 
-		const whatsappUrl =
-			`https://wa.me/6285195511236?text=${encodeURIComponent(lines.join('\n'))}`;
+		const messageEn = [
+			'Hello NOVA Learning Centre,',
+			'',
+			`Parent name: ${parentName}`,
+			`WhatsApp number: ${phone}`,
+			`Student name / age: ${studentInfo}`,
+			`Enquiry about: ${enquiryLabelsEn[enquiryType] || enquiryType}`,
+			`Message: ${message}`,
+			'',
+			'Please share further information. Thank you.',
+		].join('\n');
 
-		window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+		const finalMessage =
+			language === 'en' ? messageEn : messageId;
+
+		window.open(
+			`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`,
+			'_blank',
+			'noopener,noreferrer',
+		);
 	});
 </script>
 
 <style>
-	summary::-webkit-details-marker {
-		display: none;
+	.section-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.875rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		* {
-			scroll-behavior: auto !important;
-		}
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
+	}
 
-		a,
-		button,
-		span {
-			transition-duration: 0.01ms !important;
-		}
+	.info-label {
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.13em;
+		text-transform: uppercase;
+		color: #94a3b8;
+	}
+
+	.form-label {
+		display: block;
+		margin-bottom: 0.45rem;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #64748b;
+	}
+
+	.form-input {
+		width: 100%;
+		border: 1px solid #cbd5e1;
+		background: #ffffff;
+		padding: 0.9rem;
+		font-size: 0.9rem;
+		color: #1d2f5c;
+		outline: none;
+		transition:
+			border-color 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.form-input:focus {
+		border-color: #f3bc34;
+		box-shadow: 0 0 0 3px rgba(243, 188, 52, 0.18);
 	}
 </style>

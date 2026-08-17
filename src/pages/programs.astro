@@ -1,498 +1,325 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const currentYear = new Date().getFullYear();
+type Program = {
+	id: string;
+	titleId: string;
+	titleEn: string;
+	categoryId: string;
+	categoryEn: string;
+	descriptionId: string;
+	descriptionEn: string;
+	image: string;
+	status?: 'waitlist';
+};
 
-const navItems = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
+type Rhythm = {
+	id: string;
+	name: string;
+	frequencyId: string;
+	frequencyEn: string;
+	price: string;
+	noteId: string;
+	noteEn: string;
+};
 
-const learningRhythms = [
-	{
-		name: 'Explore',
-		sessions: '4 sesi / bulan',
-		frequency: '1× per minggu',
-		description: 'Cocok untuk belajar rutin dengan ritme yang lebih ringan.',
-		color: 'blue',
-		icon: 'compass',
-	},
-	{
-		name: 'Grow',
-		sessions: '8 sesi / bulan',
-		frequency: '2× per minggu',
-		description: 'Pilihan paling seimbang untuk perkembangan yang lebih konsisten.',
-		popular: true,
-		color: 'yellow',
-		icon: 'sprout',
-	},
-	{
-		name: 'Accelerate',
-		sessions: '12 sesi / bulan',
-		frequency: '3× per minggu',
-		description: 'Untuk target belajar yang lebih intensif dan terarah.',
-		color: 'navy',
-		icon: 'rocket',
-	},
-];
+type ClassFormat = {
+	id: string;
+	title: string;
+	metaId: string;
+	metaEn: string;
+	descriptionId: string;
+	descriptionEn: string;
+};
 
-const programs = [
+const programs: Program[] = [
 	{
-		title: 'Kurikulum Nasional',
-		label: 'Academic',
-		description:
+		id: 'national',
+		titleId: 'Kurikulum Nasional',
+		titleEn: 'National Curriculum',
+		categoryId: 'Akademik',
+		categoryEn: 'Academic',
+		descriptionId:
 			'Pendampingan akademik dari PAUD–TK, SD, SMP hingga SMA untuk mendukung pelajaran sekolah dan perkembangan belajar yang konsisten.',
-		icon: 'book',
+		descriptionEn:
+			'Academic support from early years through primary and secondary school to strengthen school learning and consistent progress.',
+		image: '/images/program-academic-class.png',
 	},
 	{
-		title: 'International Curriculum',
-		label: 'Academic',
-		description:
-			'Academic support untuk International Early Years, Cambridge Primary, Lower Secondary, IGCSE, hingga A Level / IB DP.',
-		icon: 'globe',
+		id: 'international',
+		titleId: 'International Curriculum',
+		titleEn: 'International Curriculum',
+		categoryId: 'Akademik',
+		categoryEn: 'Academic',
+		descriptionId:
+			'Pendampingan untuk International Early Years, Cambridge Primary, Lower Secondary, IGCSE, A Level, dan IB DP.',
+		descriptionEn:
+			'Support for International Early Years, Cambridge Primary, Lower Secondary, IGCSE, A Level and IB DP.',
+		image: '/images/program-academic-class.png',
 	},
 	{
-		title: 'Coding & Digital',
-		label: 'Technology',
-		description:
-			'Creative coding, game & animation, Python, web, app, data, dan AI sesuai jenjang siswa.',
-		icon: 'code',
+		id: 'coding',
+		titleId: 'Coding & Digital',
+		titleEn: 'Coding & Digital',
+		categoryId: 'Teknologi',
+		categoryEn: 'Technology',
+		descriptionId:
+			'Creative coding, game & animation, Python, web, app, data, dan AI sesuai tahap perkembangan siswa.',
+		descriptionEn:
+			'Creative coding, game and animation, Python, web, apps, data and AI matched to each student’s stage of development.',
+		image: '/images/program-coding-robotics.png',
 	},
 	{
-		title: 'Robotics & Engineering',
-		label: 'Technology',
-		description:
-			'Belajar robotics, engineering, IoT, hingga project-based learning melalui aktivitas membangun dan menguji.',
-		icon: 'robot',
+		id: 'robotics',
+		titleId: 'Robotics & Engineering',
+		titleEn: 'Robotics & Engineering',
+		categoryId: 'Teknologi',
+		categoryEn: 'Technology',
+		descriptionId:
+			'Robotics, engineering, IoT, dan project-based learning melalui kegiatan membangun, menguji, dan memecahkan masalah.',
+		descriptionEn:
+			'Robotics, engineering, IoT and project-based learning through building, testing and problem-solving.',
+		image: '/images/program-coding-robotics.png',
 	},
 	{
-		title: 'Drawing & Art',
-		label: 'Creative',
-		description:
-			'Mulai dari eksplorasi seni anak, creative drawing, hingga illustration dan portfolio untuk siswa yang lebih besar.',
-		icon: 'art',
+		id: 'sensory',
+		titleId: 'Sensory Class',
+		titleEn: 'Sensory Class',
+		categoryId: 'PAUD / Early Years',
+		categoryEn: 'Early Years',
+		descriptionId:
+			'Kelas bermain terarah untuk mengembangkan eksplorasi sensorik, motorik, bahasa, fokus, dan interaksi anak usia dini.',
+		descriptionEn:
+			'Guided play supporting sensory exploration, motor skills, language, focus and interaction in early childhood.',
+		image: '/images/program-sensory-class.png',
 	},
 	{
-		title: 'Mandarin Studio',
-		label: 'Language',
-		description:
-			'Program Mandarin dari early learners, foundations, communicator, academic support hingga HSK preparation.',
-		icon: 'language',
+		id: 'art',
+		titleId: 'Creative Art & Drawing',
+		titleEn: 'Creative Art & Drawing',
+		categoryId: 'Kreatif',
+		categoryEn: 'Creative',
+		descriptionId:
+			'Eksplorasi warna, bentuk, drawing, illustration, dan kreativitas hingga portfolio sesuai jenjang siswa.',
+		descriptionEn:
+			'Explore colour, form, drawing, illustration and creativity through to portfolio work, depending on level.',
+		image: '/images/program-drawing-art.png',
+	},
+	{
+		id: 'mandarin',
+		titleId: 'Mandarin Studio',
+		titleEn: 'Mandarin Studio',
+		categoryId: 'Coming Soon',
+		categoryEn: 'Coming Soon',
+		descriptionId:
+			'Program Mandarin sedang dalam tahap pengembangan. Daftarkan minat untuk mendapat informasi saat kelas tersedia.',
+		descriptionEn:
+			'Our Mandarin program is in development. Register your interest to receive updates when classes become available.',
+		image: '/images/program-academic-class.png',
+		status: 'waitlist',
 	},
 ];
 
-const classFormats = [
+const rhythms: Rhythm[] = [
 	{
+		id: 'explore',
+		name: 'Explore',
+		frequencyId: '1× per minggu · 4 sesi / bulan',
+		frequencyEn: '1× per week · 4 sessions / month',
+		price: 'Rp125.000 / sesi',
+		noteId: 'Untuk ritme belajar yang lebih ringan.',
+		noteEn: 'For a lighter learning rhythm.',
+	},
+	{
+		id: 'grow',
+		name: 'Grow',
+		frequencyId: '2× per minggu · 8 sesi / bulan',
+		frequencyEn: '2× per week · 8 sessions / month',
+		price: 'Rp100.000 / sesi',
+		noteId: 'Pilihan paling seimbang dan konsisten.',
+		noteEn: 'Our most balanced and consistent option.',
+	},
+	{
+		id: 'accelerate',
+		name: 'Accelerate',
+		frequencyId: '3× per minggu · 12 sesi / bulan',
+		frequencyEn: '3× per week · 12 sessions / month',
+		price: 'Rp83.000 / sesi',
+		noteId: 'Untuk target belajar yang lebih intensif.',
+		noteEn: 'For more intensive learning goals.',
+	},
+];
+
+const formats: ClassFormat[] = [
+	{
+		id: 'regular',
 		title: 'Regular / Small Cohort',
-		size: 'Kelompok kecil',
-		description:
+		metaId: 'Kelompok kecil',
+		metaEn: 'Small cohort',
+		descriptionId:
 			'Belajar bersama beberapa siswa dengan interaksi aktif dan biaya yang lebih efisien.',
+		descriptionEn:
+			'Learn in a small group with active interaction and a more accessible fee structure.',
 	},
 	{
+		id: 'semi-private',
 		title: 'Semi-Private',
-		size: '2–3 siswa',
-		description:
-			'Pendampingan lebih dekat dibanding regular class, tetapi tetap memiliki partner belajar.',
-		highlight: true,
+		metaId: '2–3 siswa',
+		metaEn: '2–3 students',
+		descriptionId:
+			'Pendampingan lebih dekat, tetapi tetap memiliki partner belajar.',
+		descriptionEn:
+			'Closer support while still learning alongside one or two peers.',
 	},
 	{
+		id: 'private',
 		title: 'Private',
-		size: '1 siswa',
-		description:
-			'Pendampingan 1-on-1 dengan fokus penuh pada kebutuhan, target, dan kecepatan belajar siswa.',
+		metaId: '1 siswa',
+		metaEn: '1 student',
+		descriptionId:
+			'Pendampingan 1-on-1 dengan fokus penuh pada kebutuhan dan target siswa.',
+		descriptionEn:
+			'One-to-one support focused entirely on the student’s needs and goals.',
 	},
 ];
 
-const footerLinks = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
+const whatsappNumber = '6285195511236';
 ---
 
 <Layout
 	title="Program | NOVA Learning Centre"
-	description="Pilihan paket dan program NOVA Learning Centre: academic support, coding, robotics, art, Mandarin, semi-private, dan private class."
+	description="Jelajahi program akademik, coding, robotics, sensory class, art, dan pilihan kelas NOVA Learning Centre."
 >
-	<!-- NAVBAR -->
-	<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-		<nav
-			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
-			aria-label="Navigasi utama"
-		>
-			<a href="/" class="flex items-center" aria-label="NOVA Learning Centre">
-				<img
-					src="/images/primary-logo-icon.png"
-					alt="NOVA Learning Centre"
-					class="h-10 w-10 object-contain sm:hidden"
-				/>
-
-				<img
-					src="/images/primary-logo.png"
-					alt="NOVA Learning Centre"
-					class="hidden h-11 w-auto object-contain sm:block"
-				/>
-			</a>
-
-			<div class="hidden items-center gap-7 lg:flex">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class:list={[
-								'text-sm font-semibold transition',
-								item.href === '/programs'
-									? 'text-[#0F2747]'
-									: 'text-slate-600 hover:text-[#A87300]',
-							]}
-						>
-							{item.name}
-						</a>
-					))
-				}
-			</div>
-
-			<a
-				href="/contact"
-				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722] lg:inline-flex"
-			>
-				Konsultasi Gratis
-			</a>
-
-			<button
-				id="mobile-menu-button"
-				type="button"
-				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
-				aria-label="Buka menu navigasi"
-				aria-expanded="false"
-				aria-controls="mobile-menu"
-			>
-				<svg
-					width="23"
-					height="23"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					aria-hidden="true"
-				>
-					<path d="M4 7h16"></path>
-					<path d="M4 12h16"></path>
-					<path d="M4 17h16"></path>
-				</svg>
-			</button>
-		</nav>
-
-		<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
-			<div class="flex flex-col gap-4">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
-						>
-							{item.name}
-						</a>
-					))
-				}
-
-				<a
-					href="/contact"
-					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
-				>
-					Konsultasi Gratis
-				</a>
-			</div>
-		</div>
-	</header>
-
-	<main>
+	<main class="overflow-hidden">
 		<!-- HERO -->
-		<section class="bg-white">
-			<div class="mx-auto max-w-7xl px-6 pb-14 pt-20 lg:px-8 lg:pb-18 lg:pt-24">
-				<div class="max-w-4xl">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-						Program NOVA
-					</p>
+		<section class="bg-[#1d2f5c] text-white">
+			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+				<div class="grid gap-10 lg:grid-cols-[1fr_0.75fr] lg:items-end">
+					<div>
+						<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
+							<span class="lang-id">Program NOVA</span>
+							<span class="lang-en">NOVA Programs</span>
+						</p>
 
-					<h1
-						class="mt-5 text-5xl font-bold leading-[1.04] tracking-[-0.05em] text-[#0F2747] sm:text-6xl lg:text-[70px]"
-					>
-						Pilih ritme belajar.
-						<span class="text-[#A87300]">Lalu pilih programnya.</span>
-					</h1>
+						<h1 class="mt-5 max-w-4xl text-5xl font-extrabold leading-[1.03] tracking-[-0.05em] sm:text-6xl lg:text-[70px]">
+							<span class="lang-id">
+								Temukan kelas yang paling
+								<span class="block text-[#f3bc34]">sesuai untuk anak.</span>
+							</span>
 
-					<p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-						Sederhana: tentukan seberapa sering ingin belajar, kemudian
-						pilih bidang yang sesuai dengan kebutuhan dan minat siswa.
-					</p>
+							<span class="lang-en">
+								Find the right class
+								<span class="block text-[#f3bc34]">for your child.</span>
+							</span>
+						</h1>
+					</div>
+
+					<div>
+						<p class="text-lg leading-8 text-white/75">
+							<span class="lang-id">
+								Tidak perlu menentukan semuanya sekarang. Lihat program yang tersedia,
+								lalu klik <strong class="text-white">“Tanya Program Ini”</strong>.
+								Tim NOVA akan membantu menentukan pilihan yang sesuai.
+							</span>
+
+							<span class="lang-en">
+								You do not need to decide everything now. Browse the programs,
+								then select <strong class="text-white">“Enquire About This Program”</strong>.
+								The NOVA team can help recommend the best option.
+							</span>
+						</p>
+
+						<a href="#program-list" class="mt-7 inline-flex bg-[#f3bc34] px-6 py-3.5 font-extrabold text-[#1d2f5c] transition hover:-translate-y-0.5">
+							<span class="lang-id">Lihat Program</span>
+							<span class="lang-en">Browse Programs</span>
+							<span class="ml-2">↓</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- PACKAGES -->
-		<section class="border-y border-slate-200 bg-[#F7F8FC] py-20">
-			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="mx-auto max-w-3xl text-center">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-						01 · Pilih Ritme Belajar
-					</p>
-
-					<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-						Seberapa sering ingin belajar?
-					</h2>
-
-					<p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600">
-						Semua paket menggunakan program yang sama. Perbedaannya hanya pada
-						frekuensi sesi setiap bulan.
-					</p>
-				</div>
-
-				<div class="mt-12 grid gap-5 lg:grid-cols-3">
-					{
-						learningRhythms.map((rhythm) => (
-							<article
-								class:list={[
-									'group relative overflow-hidden border-2 bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl',
-									rhythm.color === 'blue' &&
-										'border-[#8FB7E8] hover:shadow-[#8FB7E8]/20',
-									rhythm.color === 'yellow' &&
-										'border-[#F3BC34] hover:shadow-[#F3BC34]/25',
-									rhythm.color === 'navy' &&
-										'border-[#0F2747] hover:shadow-[#0F2747]/20',
-								]}
-							>
-								<div
-									class:list={[
-										'h-2 w-full',
-										rhythm.color === 'blue' && 'bg-[#8FB7E8]',
-										rhythm.color === 'yellow' && 'bg-[#F3BC34]',
-										rhythm.color === 'navy' && 'bg-[#0F2747]',
-									]}
-									aria-hidden="true"
-								>
-								</div>
-
-								<div class="p-7">
-									<div class="flex items-start justify-between gap-5">
-										<div
-											class:list={[
-												'flex h-12 w-12 shrink-0 items-center justify-center border',
-												rhythm.color === 'blue' &&
-													'border-[#8FB7E8] bg-[#8FB7E8]/12 text-[#315F95]',
-												rhythm.color === 'yellow' &&
-													'border-[#F3BC34] bg-[#F3BC34]/14 text-[#A87300]',
-												rhythm.color === 'navy' &&
-													'border-[#0F2747] bg-[#0F2747]/7 text-[#0F2747]',
-											]}
-										>
-											{rhythm.icon === 'compass' && (
-												<svg
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="1.8"
-													aria-hidden="true"
-												>
-													<circle cx="12" cy="12" r="9"></circle>
-													<path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z"></path>
-												</svg>
-											)}
-
-											{rhythm.icon === 'sprout' && (
-												<svg
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="1.8"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													aria-hidden="true"
-												>
-													<path d="M12 22V12"></path>
-													<path d="M7 12c-3.2 0-5-2.3-5-6 3.7 0 6 1.8 6 5"></path>
-													<path d="M12 12c0-4.2 2.5-7 8-7 0 5-2.7 8-8 8"></path>
-												</svg>
-											)}
-
-											{rhythm.icon === 'rocket' && (
-												<svg
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="1.8"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													aria-hidden="true"
-												>
-													<path d="M4.5 16.5c-1 1-1.5 3-1.5 4.5 1.5 0 3.5-.5 4.5-1.5"></path>
-													<path d="m9 15-3-3 5-7c2-2 5-2 8-2 0 3 0 6-2 8l-8 4Z"></path>
-													<circle cx="15" cy="7" r="1.5"></circle>
-												</svg>
-											)}
-										</div>
-
-										{rhythm.popular && (
-											<span class="border border-[#0F2747] bg-[#0F2747] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white">
-												Most Popular
-											</span>
-										)}
-									</div>
-
-									<h3 class="mt-6 text-2xl font-bold text-[#0F2747]">
-										{rhythm.name}
-									</h3>
-
-									<div class="mt-5 grid grid-cols-2 border-y border-slate-200">
-										<div class="border-r border-slate-200 py-4 pr-4">
-											<p class="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
-												Per Bulan
-											</p>
-
-											<p class="mt-1 text-lg font-bold text-[#0F2747]">
-												{rhythm.sessions}
-											</p>
-										</div>
-
-										<div class="py-4 pl-4">
-											<p class="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
-												Frekuensi
-											</p>
-
-											<p class="mt-1 text-lg font-bold text-[#0F2747]">
-												{rhythm.frequency}
-											</p>
-										</div>
-									</div>
-
-									<p class="mt-5 text-sm leading-7 text-slate-600">
-										{rhythm.description}
-									</p>
-
-									<div
-										class:list={[
-											'mt-6 h-1.5 w-16 transition-all duration-300 group-hover:w-24',
-											rhythm.color === 'blue' && 'bg-[#8FB7E8]',
-											rhythm.color === 'yellow' && 'bg-[#F3BC34]',
-											rhythm.color === 'navy' && 'bg-[#0F2747]',
-										]}
-										aria-hidden="true"
-									>
-									</div>
-								</div>
-							</article>
-						))
-					}
-				</div>
-			</div>
-		</section>
-
-		<!-- PROGRAM OVERVIEW -->
-		<section class="bg-white py-24">
+		<!-- PROGRAMS -->
+		<section id="program-list" class="scroll-mt-28 bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
 				<div class="max-w-3xl">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-						02 · Pilih Program
+					<p class="section-label">
+						<span class="lang-id">Program yang Tersedia</span>
+						<span class="lang-en">Available Programs</span>
 					</p>
 
-					<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-						Program sesuai kebutuhan dan minat.
+					<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl">
+						<span class="lang-id">Mulai dari minat atau kebutuhan anak.</span>
+						<span class="lang-en">Start with your child’s interests or needs.</span>
 					</h2>
 
-					<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-						Tidak perlu membaca daftar panjang. Berikut gambaran utama
-						program yang tersedia di NOVA.
+					<p class="mt-5 max-w-2xl text-base leading-7 text-slate-600">
+						<span class="lang-id">
+							Klik program yang menarik. Pilihan akan otomatis dimasukkan ke form di bawah.
+						</span>
+						<span class="lang-en">
+							Choose any program that interests you. It will be added automatically to the enquiry form below.
+						</span>
 					</p>
 				</div>
 
-				<div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+				<div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{
 						programs.map((program) => (
-							<article class="group rounded-[26px] border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34]/60 hover:shadow-xl">
-								<div class="flex items-start justify-between gap-5">
-									<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747] text-[#F3BC34]">
-										{program.icon === 'book' && (
-											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-												<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
-											</svg>
-										)}
+							<article class="program-card group overflow-hidden border border-slate-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-xl">
+								<div class="relative aspect-[16/10] overflow-hidden bg-slate-100">
+									<img
+										src={program.image}
+										alt={program.titleEn}
+										class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+										loading="lazy"
+									/>
 
-										{program.icon === 'globe' && (
-											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<circle cx="12" cy="12" r="9"></circle>
-												<path d="M3 12h18"></path>
-												<path d="M12 3a15 15 0 0 1 0 18"></path>
-												<path d="M12 3a15 15 0 0 0 0 18"></path>
-											</svg>
-										)}
+									<div class="absolute inset-0 bg-gradient-to-t from-[#1d2f5c]/45 via-transparent to-transparent"></div>
 
-										{program.icon === 'code' && (
-											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<path d="m8 9-4 3 4 3"></path>
-												<path d="m16 9 4 3-4 3"></path>
-												<path d="m14 5-4 14"></path>
-											</svg>
-										)}
-
-										{program.icon === 'robot' && (
-											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<rect x="5" y="7" width="14" height="12" rx="2"></rect>
-												<path d="M9 11h.01"></path>
-												<path d="M15 11h.01"></path>
-												<path d="M9 15h6"></path>
-												<path d="M12 3v4"></path>
-											</svg>
-										)}
-
-										{program.icon === 'art' && (
-											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<path d="M12 22a10 10 0 1 0 0-20c-1.7 0-3 1.3-3 3 0 1.1.9 2 2 2h1a2 2 0 0 1 0 4H9a4 4 0 0 0-4 4c0 3.9 3.1 7 7 7Z"></path>
-												<circle cx="7.5" cy="10.5" r=".5" fill="currentColor"></circle>
-												<circle cx="10" cy="6.5" r=".5" fill="currentColor"></circle>
-												<circle cx="14" cy="5.5" r=".5" fill="currentColor"></circle>
-												<circle cx="17" cy="8.5" r=".5" fill="currentColor"></circle>
-											</svg>
-										)}
-
-										{program.icon === 'language' && (
-											<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<path d="M4 5h7"></path>
-												<path d="M7.5 3v2"></path>
-												<path d="M5 9c2.5 0 4.5-1.3 6-4"></path>
-												<path d="M5 5c1.2 3.2 3.3 5.4 6 6"></path>
-												<path d="m13 19 4-9 4 9"></path>
-												<path d="M14.5 16h5"></path>
-											</svg>
-										)}
-									</div>
-
-									<span class="rounded-full bg-[#F3BC34]/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#A87300]">
-										{program.label}
+									<span class="absolute left-4 top-4 bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#1d2f5c]">
+										<span class="lang-id">{program.categoryId}</span>
+										<span class="lang-en">{program.categoryEn}</span>
 									</span>
 								</div>
 
-								<h3 class="mt-6 text-xl font-bold text-[#0F2747]">
-									{program.title}
-								</h3>
+								<div class="p-6">
+									<h3 class="text-xl font-extrabold text-[#1d2f5c]">
+										<span class="lang-id">{program.titleId}</span>
+										<span class="lang-en">{program.titleEn}</span>
+									</h3>
 
-								<p class="mt-3 text-sm leading-7 text-slate-600">
-									{program.description}
-								</p>
+									<p class="mt-3 min-h-[84px] text-sm leading-7 text-slate-500">
+										<span class="lang-id">{program.descriptionId}</span>
+										<span class="lang-en">{program.descriptionEn}</span>
+									</p>
+
+									<button
+										type="button"
+										data-program-choice={program.id}
+										data-program-id={program.titleId}
+										data-program-en={program.titleEn}
+										data-program-status={program.status ?? 'active'}
+										class:list={[
+											'mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 text-sm font-extrabold transition',
+											program.status === 'waitlist'
+												? 'border border-[#1d2f5c] bg-white text-[#1d2f5c] hover:bg-[#1d2f5c] hover:text-white'
+												: 'bg-[#f3bc34] text-[#1d2f5c] hover:bg-[#1d2f5c] hover:text-white',
+										]}
+									>
+										{program.status === 'waitlist' ? (
+											<>
+												<span class="lang-id">Daftar Minat</span>
+												<span class="lang-en">Register Interest</span>
+											</>
+										) : (
+											<>
+												<span class="lang-id">Tanya Program Ini</span>
+												<span class="lang-en">Enquire About This Program</span>
+											</>
+										)}
+									</button>
+								</div>
 							</article>
 						))
 					}
@@ -500,221 +327,586 @@ const footerLinks = [
 			</div>
 		</section>
 
-		<!-- CLASS FORMAT -->
-		<section class="bg-[#F7F8FC] py-24">
+		<!-- QUICK GUIDANCE -->
+		<section class="bg-[#f7f8fc] py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
 				<div class="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
 					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							03 · Pilih Format Kelas
+						<p class="section-label">
+							<span class="lang-id">Pilihan Belajar</span>
+							<span class="lang-en">Learning Options</span>
 						</p>
 
-						<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-							Regular, Semi-Private, atau Private?
+						<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl">
+							<span class="lang-id">Tidak yakin harus pilih yang mana?</span>
+							<span class="lang-en">Not sure which option to choose?</span>
 						</h2>
 
 						<p class="mt-5 max-w-md text-base leading-7 text-slate-600">
-							Perbedaan utamanya ada pada jumlah siswa dan intensitas
-							pendampingan dari pengajar.
+							<span class="lang-id">
+								Bagian ini hanya untuk gambaran. Anda tidak wajib memilih sekarang.
+								Tim NOVA dapat merekomendasikan ritme dan format kelas setelah mengetahui kebutuhan anak.
+							</span>
+
+							<span class="lang-en">
+								This section is only a guide. You do not need to choose now.
+								The NOVA team can recommend a rhythm and class format after understanding your child’s needs.
+							</span>
 						</p>
 					</div>
 
-					<div class="grid gap-4 md:grid-cols-3">
-						{
-							classFormats.map((format) => (
-								<article
-									class:list={[
-										'rounded-[24px] border p-6',
-										format.highlight
-											? 'border-[#F3BC34] bg-[#F3BC34]'
-											: 'border-slate-200 bg-white',
-									]}
-								>
-									<p
-										class:list={[
-											'text-xs font-bold uppercase tracking-[0.17em]',
-											format.highlight ? 'text-[#0F2747]/55' : 'text-[#A87300]',
-										]}
-									>
-										{format.size}
-									</p>
+					<div class="space-y-10">
+						<div>
+							<div class="flex items-end justify-between gap-5">
+								<h3 class="text-2xl font-extrabold text-[#1d2f5c]">
+									<span class="lang-id">Ritme Belajar</span>
+									<span class="lang-en">Learning Rhythm</span>
+								</h3>
+								<p class="text-xs text-slate-400">
+									<span class="lang-id">Harga rata-rata per sesi</span>
+									<span class="lang-en">Indicative average per session</span>
+								</p>
+							</div>
 
-									<h3 class="mt-3 text-xl font-bold text-[#0F2747]">
-										{format.title}
-									</h3>
+							<div class="mt-5 grid gap-4 md:grid-cols-3">
+								{
+									rhythms.map((rhythm) => (
+										<button
+											type="button"
+											data-rhythm-choice={rhythm.name}
+											class="choice-card border border-slate-200 bg-white p-5 text-left transition hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-lg"
+										>
+											<div class="flex items-center justify-between gap-3">
+												<h4 class="text-xl font-extrabold text-[#1d2f5c]">{rhythm.name}</h4>
+												<span class="choice-check hidden h-7 w-7 items-center justify-center rounded-full bg-[#f3bc34] text-sm font-black text-[#1d2f5c]">✓</span>
+											</div>
 
-									<p
-										class:list={[
-											'mt-4 text-sm leading-7',
-											format.highlight ? 'text-[#0F2747]/70' : 'text-slate-600',
-										]}
-									>
-										{format.description}
-									</p>
-								</article>
-							))
-						}
+											<p class="mt-3 text-sm font-semibold text-slate-500">
+												<span class="lang-id">{rhythm.frequencyId}</span>
+												<span class="lang-en">{rhythm.frequencyEn}</span>
+											</p>
+
+											<p class="mt-5 text-lg font-extrabold text-[#1d2f5c]">
+												{rhythm.price}
+											</p>
+
+											<p class="mt-2 text-xs leading-5 text-slate-400">
+												<span class="lang-id">{rhythm.noteId}</span>
+												<span class="lang-en">{rhythm.noteEn}</span>
+											</p>
+										</button>
+									))
+								}
+							</div>
+						</div>
+
+						<div>
+							<h3 class="text-2xl font-extrabold text-[#1d2f5c]">
+								<span class="lang-id">Format Kelas</span>
+								<span class="lang-en">Class Format</span>
+							</h3>
+
+							<div class="mt-5 grid gap-4 md:grid-cols-3">
+								{
+									formats.map((format) => (
+										<button
+											type="button"
+											data-format-choice={format.title}
+											class="choice-card border border-slate-200 bg-white p-5 text-left transition hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-lg"
+										>
+											<div class="flex items-start justify-between gap-3">
+												<div>
+													<p class="text-[10px] font-extrabold uppercase tracking-[0.14em] text-slate-400">
+														<span class="lang-id">{format.metaId}</span>
+														<span class="lang-en">{format.metaEn}</span>
+													</p>
+
+													<h4 class="mt-2 text-lg font-extrabold text-[#1d2f5c]">
+														{format.title}
+													</h4>
+												</div>
+
+												<span class="choice-check hidden h-7 w-7 items-center justify-center rounded-full bg-[#f3bc34] text-sm font-black text-[#1d2f5c]">✓</span>
+											</div>
+
+											<p class="mt-4 text-xs leading-6 text-slate-500">
+												<span class="lang-id">{format.descriptionId}</span>
+												<span class="lang-en">{format.descriptionEn}</span>
+											</p>
+										</button>
+									))
+								}
+							</div>
+						</div>
+
+						<p class="border-l-4 border-[#f3bc34] bg-white px-5 py-4 text-xs leading-6 text-slate-500">
+							<span class="lang-id">
+								*Harga dapat berbeda berdasarkan program, usia, kurikulum, durasi sesi, dan format kelas.
+							</span>
+							<span class="lang-en">
+								*Final pricing may vary depending on program, age group, curriculum, session duration and class format.
+							</span>
+						</p>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- CTA -->
-		<section class="bg-[#0F2747] py-20 text-white">
+		<!-- SIMPLE ENQUIRY -->
+		<section id="enquiry" class="scroll-mt-28 bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+				<div class="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
 					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
-							Masih bingung memilih?
+						<p class="section-label">
+							<span class="lang-id">Konsultasi Program</span>
+							<span class="lang-en">Program Enquiry</span>
 						</p>
 
-						<h2 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
-							Ceritakan kebutuhan siswa. Tim NOVA akan bantu arahkan.
+						<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl">
+							<span class="lang-id">Kami bantu pilihkan yang paling sesuai.</span>
+							<span class="lang-en">We can help you choose the right option.</span>
 						</h2>
+
+						<p class="mt-5 max-w-md text-base leading-7 text-slate-600">
+							<span class="lang-id">
+								Cukup isi informasi dasar. Ritme belajar dan format kelas boleh dikosongkan jika masih belum yakin.
+							</span>
+							<span class="lang-en">
+								Simply provide the basic details. Learning rhythm and class format can be left blank if you are still unsure.
+							</span>
+						</p>
+
+						<div class="mt-8 bg-[#1d2f5c] p-5 text-white">
+							<p class="text-sm font-extrabold text-[#f3bc34]">
+								<span class="lang-id">Pilihan Anda</span>
+								<span class="lang-en">Your Selection</span>
+							</p>
+
+							<div class="mt-4 space-y-2 text-sm text-white/75">
+								<p>
+									<span class="font-semibold text-white">
+										<span class="lang-id">Program:</span>
+										<span class="lang-en">Program:</span>
+									</span>
+									<span id="summary-program"> Belum dipilih</span>
+								</p>
+
+								<p>
+									<span class="font-semibold text-white">
+										<span class="lang-id">Ritme:</span>
+										<span class="lang-en">Rhythm:</span>
+									</span>
+									<span id="summary-rhythm"> Belum dipilih</span>
+								</p>
+
+								<p>
+									<span class="font-semibold text-white">
+										<span class="lang-id">Format:</span>
+										<span class="lang-en">Format:</span>
+									</span>
+									<span id="summary-format"> Belum dipilih</span>
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
-						<a
-							href="/contact"
-							class="inline-flex items-center justify-center rounded-xl bg-[#F3BC34] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Konsultasi Program
-						</a>
+					<div class="border border-slate-200 bg-[#f7f8fc] p-6 md:p-8">
+						<div class="grid gap-5 sm:grid-cols-2">
+							<label class="block sm:col-span-2">
+								<span class="form-label">
+									<span class="lang-id">Yang ingin dilakukan</span>
+									<span class="lang-en">I would like to</span>
+								</span>
 
-						<a
-							href="/facilities"
-							class="inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3.5 font-semibold text-white transition hover:border-white"
+								<select id="request-type" class="form-input">
+									<option value="quotation">Request Quotation</option>
+									<option value="trial">Daftar Kelas</option>
+									<option value="recommendation">Minta Rekomendasi Program / Ask for a Recommendation</option>
+							
+								</select>
+							</label>
+
+							<label class="block">
+								<span class="form-label">
+									<span class="lang-id">Program</span>
+									<span class="lang-en">Program</span>
+								</span>
+
+								<select id="program-select" class="form-input">
+									<option value="">Belum yakin / Not sure yet</option>
+									{programs.map((program) => (
+										<option value={program.titleId}>
+											{program.titleId}
+										</option>
+									))}
+								</select>
+							</label>
+
+							<label class="block">
+								<span class="form-label">
+									<span class="lang-id">Jenjang / Usia Anak</span>
+									<span class="lang-en">Student Level / Age</span>
+								</span>
+
+								<input
+									id="student-level"
+									type="text"
+									class="form-input"
+									placeholder="Contoh: Grade 5 / 10 tahun"
+								/>
+							</label>
+
+							<label class="block">
+								<span class="form-label">
+									<span class="lang-id">Ritme Belajar (Opsional)</span>
+									<span class="lang-en">Learning Rhythm (Optional)</span>
+								</span>
+
+								<select id="rhythm-select" class="form-input">
+									<option value="">Belum yakin / Not sure yet</option>
+									{rhythms.map((rhythm) => (
+										<option value={rhythm.name}>{rhythm.name}</option>
+									))}
+								</select>
+							</label>
+
+							<label class="block">
+								<span class="form-label">
+									<span class="lang-id">Format Kelas (Opsional)</span>
+									<span class="lang-en">Class Format (Optional)</span>
+								</span>
+
+								<select id="format-select" class="form-input">
+									<option value="">Belum yakin / Not sure yet</option>
+									{formats.map((format) => (
+										<option value={format.title}>{format.title}</option>
+									))}
+								</select>
+							</label>
+
+							<label class="block">
+								<span class="form-label">
+									<span class="lang-id">Nama Orang Tua</span>
+									<span class="lang-en">Parent Name</span>
+								</span>
+
+								<input id="parent-name" type="text" class="form-input" placeholder="Nama" />
+							</label>
+
+							<label class="block">
+								<span class="form-label">
+									<span class="lang-id">Nomor WhatsApp</span>
+									<span class="lang-en">WhatsApp Number</span>
+								</span>
+
+								<input id="phone-number" type="tel" class="form-input" placeholder="08..." />
+							</label>
+
+							<label class="block sm:col-span-2">
+								<span class="form-label">
+									<span class="lang-id">Kebutuhan / Catatan (Opsional)</span>
+									<span class="lang-en">Learning Needs / Notes (Optional)</span>
+								</span>
+
+								<textarea
+									id="notes"
+									rows="4"
+									class="form-input resize-none"
+									placeholder="Ceritakan sedikit kebutuhan belajar anak..."
+								></textarea>
+							</label>
+						</div>
+
+						<button
+							id="submit-enquiry"
+							type="button"
+							class="mt-6 inline-flex w-full items-center justify-center bg-[#f3bc34] px-6 py-4 font-extrabold text-[#1d2f5c] transition hover:bg-[#1d2f5c] hover:text-white"
 						>
-							Lihat Fasilitas
-						</a>
+							<span class="lang-id">Lanjutkan via WhatsApp</span>
+							<span class="lang-en">Continue on WhatsApp</span>
+							<span class="ml-2">→</span>
+						</button>
+
+						<p class="mt-4 text-center text-xs leading-5 text-slate-400">
+							<span class="lang-id">
+								Tidak ada pembayaran pada tahap ini. Tim NOVA akan mengonfirmasi program, jadwal, dan biaya terlebih dahulu.
+							</span>
+
+							<span class="lang-en">
+								No payment is required at this stage. The NOVA team will confirm the program, schedule and fees first.
+							</span>
+						</p>
 					</div>
 				</div>
 			</div>
 		</section>
+
+		<!-- MOBILE QUICK CTA -->
+		<a
+			href="#enquiry"
+			class="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-center bg-[#f3bc34] px-5 py-4 text-center text-sm font-extrabold text-[#1d2f5c] shadow-2xl lg:hidden"
+		>
+			<span class="lang-id">Minta Rekomendasi Program</span>
+			<span class="lang-en">Ask for a Program Recommendation</span>
+		</a>
 	</main>
-
-	<!-- FOOTER -->
-	<footer class="bg-[#091D36] text-white">
-		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
-				<div>
-					<a href="/" aria-label="NOVA Learning Centre">
-						<img
-							src="/images/primary-logo.png"
-							alt="NOVA Learning Centre"
-							class="h-14 w-auto brightness-0 invert"
-						/>
-					</a>
-
-					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
-						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
-						sepanjang hayat melalui kelas tatap muka dan e-learning.
-					</p>
-
-					<p class="mt-6 text-sm font-semibold text-[#F3BC34]">
-						Learn with purpose. Grow with confidence.
-					</p>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Navigasi
-					</h3>
-
-					<div class="mt-6 grid gap-3">
-						{
-							footerLinks.map((item) => (
-								<a href={item.href} class="text-sm text-blue-100 transition hover:text-white">
-									{item.name}
-								</a>
-							))
-						}
-					</div>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Hubungi Kami
-					</h3>
-
-					<div class="mt-6 space-y-5 text-sm text-blue-100">
-						<div>
-							<p class="font-semibold text-white">Lokasi</p>
-							<p class="mt-1 leading-6">Kelapa Gading, Jakarta Utara</p>
-						</div>
-
-						<div>
-							<p class="font-semibold text-white">Email</p>
-							<a
-								href="mailto:halo@novalearningcentre.id"
-								class="mt-1 block break-all transition hover:text-white"
-							>
-								halo@novalearningcentre.id
-							</a>
-						</div>
-
-						<a
-							href="/contact"
-							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Hubungi NOVA
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div
-				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
-			>
-				<p>© {currentYear} NOVA Learning Centre. All rights reserved.</p>
-
-				<div class="flex gap-5">
-					<a href="/privacy" class="transition hover:text-white">
-						Kebijakan Privasi
-					</a>
-
-					<a href="/terms" class="transition hover:text-white">
-						Syarat & Ketentuan
-					</a>
-				</div>
-			</div>
-		</div>
-	</footer>
 </Layout>
 
 <script>
-	const mobileMenuButton =
-		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
-	const mobileMenu =
-		document.querySelector<HTMLElement>('#mobile-menu');
-	const mobileNavLinks =
-		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+	const whatsappNumber = '6285195511236';
 
-	const closeMobileMenu = () => {
-		mobileMenu?.classList.add('hidden');
-		mobileMenuButton?.setAttribute('aria-expanded', 'false');
+	const programButtons = Array.from(
+		document.querySelectorAll<HTMLButtonElement>('[data-program-choice]'),
+	);
+	const rhythmButtons = Array.from(
+		document.querySelectorAll<HTMLButtonElement>('[data-rhythm-choice]'),
+	);
+	const formatButtons = Array.from(
+		document.querySelectorAll<HTMLButtonElement>('[data-format-choice]'),
+	);
+
+	const programSelect =
+		document.querySelector<HTMLSelectElement>('#program-select');
+	const rhythmSelect =
+		document.querySelector<HTMLSelectElement>('#rhythm-select');
+	const formatSelect =
+		document.querySelector<HTMLSelectElement>('#format-select');
+	const requestType =
+		document.querySelector<HTMLSelectElement>('#request-type');
+
+	const summaryProgram =
+		document.querySelector<HTMLElement>('#summary-program');
+	const summaryRhythm =
+		document.querySelector<HTMLElement>('#summary-rhythm');
+	const summaryFormat =
+		document.querySelector<HTMLElement>('#summary-format');
+
+	const updateSummary = () => {
+		if (summaryProgram) {
+			summaryProgram.textContent =
+				programSelect?.value || ' Belum dipilih';
+		}
+
+		if (summaryRhythm) {
+			summaryRhythm.textContent =
+				rhythmSelect?.value || ' Belum dipilih';
+		}
+
+		if (summaryFormat) {
+			summaryFormat.textContent =
+				formatSelect?.value || ' Belum dipilih';
+		}
 	};
 
-	mobileMenuButton?.addEventListener('click', () => {
-		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
-		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
+	const scrollToEnquiry = () => {
+		document
+			.querySelector('#enquiry')
+			?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	};
+
+	programButtons.forEach((button) => {
+		button.addEventListener('click', () => {
+			const program =
+				button.dataset.programId ?? '';
+			const status =
+				button.dataset.programStatus ?? 'active';
+
+			if (programSelect) {
+				programSelect.value = program;
+			}
+
+			if (requestType && status === 'waitlist') {
+				requestType.value = 'waitlist';
+			}
+
+			updateSummary();
+
+			window.setTimeout(scrollToEnquiry, 80);
+		});
 	});
 
-	mobileNavLinks.forEach((link) => {
-		link.addEventListener('click', closeMobileMenu);
+	const setChoiceState = (
+		buttons: HTMLButtonElement[],
+		activeButton: HTMLButtonElement,
+	) => {
+		buttons.forEach((button) => {
+			const active = button === activeButton;
+			button.classList.toggle('is-selected', active);
+
+			const check =
+				button.querySelector<HTMLElement>('.choice-check');
+
+			check?.classList.toggle('hidden', !active);
+			check?.classList.toggle('flex', active);
+		});
+	};
+
+	rhythmButtons.forEach((button) => {
+		button.addEventListener('click', () => {
+			if (rhythmSelect) {
+				rhythmSelect.value =
+					button.dataset.rhythmChoice ?? '';
+			}
+
+			setChoiceState(rhythmButtons, button);
+			updateSummary();
+		});
 	});
+
+	formatButtons.forEach((button) => {
+		button.addEventListener('click', () => {
+			if (formatSelect) {
+				formatSelect.value =
+					button.dataset.formatChoice ?? '';
+			}
+
+			setChoiceState(formatButtons, button);
+			updateSummary();
+		});
+	});
+
+	programSelect?.addEventListener('change', updateSummary);
+	rhythmSelect?.addEventListener('change', updateSummary);
+	formatSelect?.addEventListener('change', updateSummary);
+
+	const submitButton =
+		document.querySelector<HTMLButtonElement>('#submit-enquiry');
+
+	submitButton?.addEventListener('click', () => {
+		const parentName =
+			document.querySelector<HTMLInputElement>('#parent-name')?.value || '-';
+		const phone =
+			document.querySelector<HTMLInputElement>('#phone-number')?.value || '-';
+		const level =
+			document.querySelector<HTMLInputElement>('#student-level')?.value || '-';
+		const notes =
+			document.querySelector<HTMLTextAreaElement>('#notes')?.value || '-';
+
+		const selectedProgram =
+			programSelect?.value || 'Belum yakin / Not sure yet';
+		const selectedRhythm =
+			rhythmSelect?.value || 'Belum yakin / Not sure yet';
+		const selectedFormat =
+			formatSelect?.value || 'Belum yakin / Not sure yet';
+		const selectedRequest =
+			requestType?.value || 'quotation';
+
+		const language =
+			document.documentElement.dataset.lang === 'en' ? 'en' : 'id';
+
+		const typeLabelId: Record<string, string> = {
+			quotation: 'Request Quotation',
+			trial: 'Trial Class',
+			recommendation: 'Minta Rekomendasi Program',
+			waitlist: 'Join Waitlist / Daftar Minat',
+		};
+
+		const typeLabelEn: Record<string, string> = {
+			quotation: 'Request Quotation',
+			trial: 'Trial Class',
+			recommendation: 'Ask for a Program Recommendation',
+			waitlist: 'Join Waitlist / Register Interest',
+		};
+
+		const messageId = [
+			'Halo NOVA Learning Centre,',
+			'',
+			`Saya ingin: ${typeLabelId[selectedRequest] || selectedRequest}`,
+			`Nama orang tua: ${parentName}`,
+			`Nomor WhatsApp: ${phone}`,
+			`Jenjang / usia anak: ${level}`,
+			`Program: ${selectedProgram}`,
+			`Ritme belajar: ${selectedRhythm}`,
+			`Format kelas: ${selectedFormat}`,
+			`Catatan: ${notes}`,
+			'',
+			'Mohon bantu rekomendasi program, jadwal, dan informasi biayanya. Terima kasih.',
+		].join('\n');
+
+		const messageEn = [
+			'Hello NOVA Learning Centre,',
+			'',
+			`I would like to: ${typeLabelEn[selectedRequest] || selectedRequest}`,
+			`Parent name: ${parentName}`,
+			`WhatsApp number: ${phone}`,
+			`Student level / age: ${level}`,
+			`Program: ${selectedProgram}`,
+			`Learning rhythm: ${selectedRhythm}`,
+			`Class format: ${selectedFormat}`,
+			`Notes: ${notes}`,
+			'',
+			'Please help recommend a suitable program, schedule and fee. Thank you.',
+		].join('\n');
+
+		const message =
+			language === 'en' ? messageEn : messageId;
+
+		window.open(
+			`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+			'_blank',
+			'noopener,noreferrer',
+		);
+	});
+
+	updateSummary();
 </script>
 
 <style>
-	@media (prefers-reduced-motion: reduce) {
-		* {
-			scroll-behavior: auto !important;
-		}
+	.section-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.875rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
+	}
 
-		a,
-		button,
-		article {
-			transition-duration: 0.01ms !important;
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
+	}
+
+	.choice-card.is-selected {
+		border-color: #f3bc34;
+		background: #fff9e8;
+		box-shadow: 0 12px 30px rgba(29, 47, 92, 0.1);
+	}
+
+	.form-label {
+		display: block;
+		margin-bottom: 0.45rem;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #64748b;
+	}
+
+	.form-input {
+		width: 100%;
+		border: 1px solid #cbd5e1;
+		background: #ffffff;
+		padding: 0.9rem;
+		font-size: 0.9rem;
+		color: #1d2f5c;
+		outline: none;
+		transition:
+			border-color 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.form-input:focus {
+		border-color: #f3bc34;
+		box-shadow: 0 0 0 3px rgba(243, 188, 52, 0.18);
+	}
+
+	@media (max-width: 1023px) {
+		body {
+			padding-bottom: 78px;
 		}
 	}
 </style>

@@ -8,30 +8,510 @@ interface Props {
 
 const {
 	title = 'NOVA Learning Centre',
-	description = 'A modern learning centre for children, teens, and lifelong learners.',
+	description = 'Inspiring Young Minds, Building Bright Futures.',
 } = Astro.props;
+
+const currentYear = new Date().getFullYear();
+
+const navItems = [
+	{ nameId: 'Beranda', nameEn: 'Home', href: '/' },
+	{ nameId: 'Tentang Kami', nameEn: 'About Us', href: '/about' },
+	{ nameId: 'Program', nameEn: 'Programs', href: '/programs' },
+	{ nameId: 'Fasilitas', nameEn: 'Facilities', href: '/facilities' },
+	{ nameId: 'E-Learning', nameEn: 'E-Learning', href: '/elearning' },
+	{ nameId: 'Kontak', nameEn: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const isActivePage = (href: string) => {
+	if (href === '/') return currentPath === '/';
+	return currentPath === href || currentPath.startsWith(`${href}/`);
+};
+
+const mapsUrl =
+	'https://maps.app.goo.gl/V71v81TpoHjW266z9';
+
+const whatsappUrl =
+	'https://wa.me/6285195511236?text=Halo%20NOVA%20Learning%20Centre%2C%20saya%20ingin%20bertanya%20mengenai%20program%20belajar.';
 ---
 
 <!doctype html>
-<html lang="id">
+<html lang="id" data-lang="id">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
-		<meta name="generator" content={Astro.generator} />
 
+		<link rel="icon" type="image/png" href="/images/logo-icon-biru.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			rel="icon"
-			type="image/png"
-			href="/images/logo-icon-biru.png"
+			href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
 		/>
 
 		<title>{title}</title>
+
+		<script is:inline>
+			try {
+				const savedLanguage = localStorage.getItem('nova-language');
+				if (savedLanguage === 'en' || savedLanguage === 'id') {
+					document.documentElement.dataset.lang = savedLanguage;
+					document.documentElement.lang =
+						savedLanguage === 'en' ? 'en-AU' : 'id';
+				}
+			} catch {
+				// Keep Indonesian as default.
+			}
+		</script>
 	</head>
 
 	<body>
+		<!-- HEADER / NAVIGATION -->
+		<header
+			class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl"
+		>
+			<nav
+				class="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-3 lg:px-8"
+				aria-label="Main navigation"
+			>
+				<a
+					href="/"
+					class="flex shrink-0 items-center"
+					aria-label="NOVA Learning Centre"
+				>
+					<img
+						src="/images/primary-logo.png"
+						alt="NOVA Learning Centre"
+						class="h-16 w-auto object-contain sm:h-20"
+					/>
+				</a>
+
+				<div class="hidden items-center gap-1 lg:flex">
+					{
+						navItems.map((item) => {
+							const active = isActivePage(item.href);
+
+							return (
+								<a
+									href={item.href}
+									aria-current={active ? 'page' : undefined}
+									class:list={[
+										'rounded-lg px-3.5 py-2.5 text-sm font-semibold transition',
+										active
+											? 'bg-[#f3bc34] text-[#1d2f5c] shadow-sm'
+											: 'text-[#1d2f5c]/75 hover:bg-[#1d2f5c]/5 hover:text-[#1d2f5c]',
+									]}
+								>
+									<span class="lang-id">{item.nameId}</span>
+									<span class="lang-en">{item.nameEn}</span>
+								</a>
+							);
+						})
+					}
+				</div>
+
+				<div class="hidden items-center gap-3 lg:flex">
+					<div
+						class="language-switcher flex items-center rounded-lg border border-slate-200 bg-slate-50 p-1"
+						aria-label="Language"
+					>
+						<button
+							type="button"
+							data-language="id"
+							class="language-button rounded-md px-3 py-2 text-xs font-bold"
+							aria-pressed="true"
+						>
+							IDN
+						</button>
+
+						<button
+							type="button"
+							data-language="en"
+							class="language-button rounded-md px-3 py-2 text-xs font-bold"
+							aria-pressed="false"
+						>
+							ENG
+						</button>
+					</div>
+
+					<a
+						href="/contact"
+						class="inline-flex rounded-lg bg-[#f3bc34] px-5 py-3 text-sm font-bold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-lg"
+					>
+						<span class="lang-id">Konsultasi Gratis</span>
+						<span class="lang-en">Free Consultation</span>
+					</a>
+				</div>
+
+				<button
+					id="mobile-menu-button"
+					type="button"
+					class="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-[#1d2f5c] lg:hidden"
+					aria-label="Open navigation"
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+				>
+					<svg
+						width="23"
+						height="23"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						aria-hidden="true"
+					>
+						<path d="M4 7h16"></path>
+						<path d="M4 12h16"></path>
+						<path d="M4 17h16"></path>
+					</svg>
+				</button>
+			</nav>
+
+			<!-- MOBILE MENU -->
+			<div
+				id="mobile-menu"
+				class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden"
+			>
+				<div class="flex flex-col gap-2">
+					{
+						navItems.map((item) => {
+							const active = isActivePage(item.href);
+
+							return (
+								<a
+									href={item.href}
+									aria-current={active ? 'page' : undefined}
+									class:list={[
+										'mobile-nav-link rounded-lg px-4 py-3 text-sm font-semibold',
+										active
+											? 'bg-[#f3bc34] text-[#1d2f5c]'
+											: 'text-slate-700 hover:bg-slate-50',
+									]}
+								>
+									<span class="lang-id">{item.nameId}</span>
+									<span class="lang-en">{item.nameEn}</span>
+								</a>
+							);
+						})
+					}
+
+					<div
+						class="mt-3 flex items-center justify-between border-t border-slate-100 pt-4"
+					>
+						<div
+							class="language-switcher flex items-center rounded-lg border border-slate-200 bg-slate-50 p-1"
+						>
+							<button
+								type="button"
+								data-language="id"
+								class="language-button rounded-md px-3 py-2 text-xs font-bold"
+								aria-pressed="true"
+							>
+								IDN
+							</button>
+
+							<button
+								type="button"
+								data-language="en"
+								class="language-button rounded-md px-3 py-2 text-xs font-bold"
+								aria-pressed="false"
+							>
+								ENG
+							</button>
+						</div>
+
+						<a
+							href="/contact"
+							class="mobile-nav-link rounded-lg bg-[#f3bc34] px-4 py-3 text-sm font-bold text-[#1d2f5c]"
+						>
+							<span class="lang-id">Konsultasi</span>
+							<span class="lang-en">Consultation</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- PAGE CONTENT -->
 		<slot />
+
+		<!-- FOOTER -->
+		<footer class="bg-[#1d2f5c] text-white">
+			<div class="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+				<div class="grid gap-12 lg:grid-cols-[1.2fr_0.7fr_1.15fr]">
+					<!-- BRAND -->
+					<div>
+						<a
+							href="/"
+							aria-label="NOVA Learning Centre"
+							class="inline-flex"
+						>
+							<img
+								src="/images/primary-logo-reversed.png"
+								alt="NOVA Learning Centre"
+								class="h-20 w-auto object-contain sm:h-24"
+							/>
+						</a>
+
+						<p class="mt-6 max-w-md text-sm leading-7 text-white/70">
+							<span class="lang-id">
+								Pusat pembelajaran modern untuk anak dan remaja melalui
+								pembelajaran akademik, enrichment, dan e-learning.
+							</span>
+
+							<span class="lang-en">
+								A modern learning centre for children and teenagers through
+								academic learning, enrichment and e-learning.
+							</span>
+						</p>
+
+						<p class="mt-6 text-base font-extrabold text-[#f3bc34]">
+							Inspiring Young Minds, Building Bright Futures
+						</p>
+					</div>
+
+					<!-- NAVIGATION -->
+					<div>
+						<h3
+							class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]"
+						>
+							<span class="lang-id">Navigasi</span>
+							<span class="lang-en">Navigation</span>
+						</h3>
+
+						<div class="mt-5 grid gap-1">
+							{
+								navItems.map((item) => (
+									<a
+										href={item.href}
+										class="group flex items-center gap-2 py-2 text-sm font-semibold text-white/75 transition hover:text-[#f3bc34]"
+									>
+										<span
+											class="h-px w-0 bg-[#f3bc34] transition-all group-hover:w-4"
+										>
+										</span>
+
+										<span class="lang-id">{item.nameId}</span>
+										<span class="lang-en">{item.nameEn}</span>
+									</a>
+								))
+							}
+						</div>
+					</div>
+
+					<!-- CONTACT -->
+					<div>
+						<h3
+							class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]"
+						>
+							<span class="lang-id">Hubungi Kami</span>
+							<span class="lang-en">Contact Us</span>
+						</h3>
+
+						<div class="mt-6 space-y-5 text-sm text-white/75">
+							<div>
+								<p class="font-extrabold text-white">
+									<span class="lang-id">Lokasi</span>
+									<span class="lang-en">Location</span>
+								</p>
+
+								<a
+									href={mapsUrl}
+									target="_blank"
+									rel="noreferrer"
+									class="mt-1 block max-w-md leading-6 transition hover:text-[#f3bc34]"
+								>
+									Ruko Grand Orchard Blok C-21,<br />
+									Jl. Terusan Kelapa Hybrida, Sukapura,<br />
+									Cilincing, Jakarta Utara 14140
+								</a>
+							</div>
+
+							<div>
+								<p class="font-extrabold text-white">
+									<span class="lang-id">Jam Operasional</span>
+									<span class="lang-en">Opening Hours</span>
+								</p>
+
+								<div
+									class="mt-2 grid grid-cols-[130px_1fr] gap-y-1 leading-6"
+								>
+									<span>
+										<span class="lang-id">Senin – Jumat</span>
+										<span class="lang-en">Monday – Friday</span>
+									</span>
+									<span>10.00 – 20.00</span>
+
+									<span>
+										<span class="lang-id">Sabtu</span>
+										<span class="lang-en">Saturday</span>
+									</span>
+									<span>09.00 – 15.00</span>
+
+									<span>
+										<span class="lang-id">Minggu</span>
+										<span class="lang-en">Sunday</span>
+									</span>
+									<span>
+										<span class="lang-id">Tutup</span>
+										<span class="lang-en">Closed</span>
+									</span>
+								</div>
+							</div>
+
+							<div>
+								<p class="font-extrabold text-white">
+									Email
+								</p>
+
+								<a
+									href="mailto:novalearningcentre@gmail.com"
+									class="mt-1 block transition hover:text-[#f3bc34]"
+								>
+									novalearningcentre@gmail.com
+								</a>
+							</div>
+
+							<a
+								href={whatsappUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="inline-flex rounded-lg bg-[#f3bc34] px-5 py-3 font-extrabold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-lg"
+							>
+								<span class="lang-id">Hubungi NOVA via WhatsApp</span>
+								<span class="lang-en">Contact NOVA on WhatsApp</span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="mt-12 flex flex-col gap-4 border-t border-white/15 pt-7 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between"
+				>
+					<p>
+						© {currentYear} NOVA Learning Centre. All rights reserved.
+					</p>
+
+					<div class="flex gap-5">
+						<a
+							href="/privacy"
+							class="transition hover:text-[#f3bc34]"
+						>
+							<span class="lang-id">Kebijakan Privasi</span>
+							<span class="lang-en">Privacy Policy</span>
+						</a>
+
+						<a
+							href="/terms"
+							class="transition hover:text-[#f3bc34]"
+						>
+							<span class="lang-id">Syarat & Ketentuan</span>
+							<span class="lang-en">Terms & Conditions</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// LANGUAGE SWITCHER
+			const languageButtons = Array.from(
+				document.querySelectorAll<HTMLButtonElement>('[data-language]'),
+			);
+
+			const applyLanguage = (language: 'id' | 'en') => {
+				document.documentElement.dataset.lang = language;
+				document.documentElement.lang =
+					language === 'en' ? 'en-AU' : 'id';
+
+				languageButtons.forEach((button) => {
+					const isActive = button.dataset.language === language;
+
+					button.classList.toggle('is-active', isActive);
+					button.setAttribute(
+						'aria-pressed',
+						String(isActive),
+					);
+				});
+
+				try {
+					window.localStorage.setItem(
+						'nova-language',
+						language,
+					);
+				} catch {
+					// Local storage may be unavailable.
+				}
+			};
+
+			let storedLanguage: 'id' | 'en' = 'id';
+
+			try {
+				const savedLanguage =
+					window.localStorage.getItem('nova-language');
+
+				if (
+					savedLanguage === 'en' ||
+					savedLanguage === 'id'
+				) {
+					storedLanguage = savedLanguage;
+				}
+			} catch {
+				// Indonesian remains the default.
+			}
+
+			applyLanguage(storedLanguage);
+
+			languageButtons.forEach((button) => {
+				button.addEventListener('click', () => {
+					const language = button.dataset.language;
+
+					if (language === 'id' || language === 'en') {
+						applyLanguage(language);
+					}
+				});
+			});
+
+			// MOBILE MENU
+			const mobileMenuButton =
+				document.querySelector<HTMLButtonElement>(
+					'#mobile-menu-button',
+				);
+
+			const mobileMenu =
+				document.querySelector<HTMLElement>('#mobile-menu');
+
+			const mobileNavLinks =
+				document.querySelectorAll<HTMLAnchorElement>(
+					'.mobile-nav-link',
+				);
+
+			const closeMobileMenu = () => {
+				mobileMenu?.classList.add('hidden');
+				mobileMenuButton?.setAttribute(
+					'aria-expanded',
+					'false',
+				);
+			};
+
+			mobileMenuButton?.addEventListener('click', () => {
+				const isNowHidden =
+					mobileMenu?.classList.toggle('hidden') ?? true;
+
+				mobileMenuButton.setAttribute(
+					'aria-expanded',
+					String(!isNowHidden),
+				);
+			});
+
+			mobileNavLinks.forEach((link) => {
+				link.addEventListener('click', closeMobileMenu);
+			});
+		</script>
 	</body>
 </html>
 
@@ -45,17 +525,48 @@ const {
 		min-width: 320px;
 		min-height: 100vh;
 		background: #ffffff;
-		color: #0f2747;
-		font-family:
-			Inter,
-			Arial,
-			sans-serif;
+		color: #1d2f5c;
+		font-family: 'Figtree', Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
 	}
 
 	*,
 	*::before,
 	*::after {
 		box-sizing: border-box;
+	}
+
+	html:not([data-lang='en']) .lang-en,
+	html[data-lang='en'] .lang-id {
+		display: none !important;
+	}
+
+	.language-button {
+		color: rgba(29, 47, 92, 0.58);
+		transition:
+			background-color 180ms ease,
+			color 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.language-button.is-active {
+		background: #1d2f5c;
+		color: #ffffff;
+		box-shadow: 0 2px 8px rgba(29, 47, 92, 0.16);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+
+		*,
+		*::before,
+		*::after {
+			transition-duration: 0.01ms !important;
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+		}
 	}
 </style>

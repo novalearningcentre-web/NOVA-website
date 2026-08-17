@@ -1,0 +1,711 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdatedId = '17 Agustus 2026';
+const lastUpdatedEn = '17 August 2026';
+
+const sections = [
+	{
+		number: '01',
+		id: 'informasi',
+		titleId: 'Informasi yang Kami Kumpulkan',
+		titleEn: 'Information We Collect',
+	},
+	{
+		number: '02',
+		id: 'penggunaan',
+		titleId: 'Cara Kami Menggunakan Informasi',
+		titleEn: 'How We Use Information',
+	},
+	{
+		number: '03',
+		id: 'data-anak',
+		titleId: 'Data Anak dan Siswa',
+		titleEn: 'Children and Student Data',
+	},
+	{
+		number: '04',
+		id: 'keamanan',
+		titleId: 'Penyimpanan dan Keamanan Data',
+		titleEn: 'Data Storage and Security',
+	},
+	{
+		number: '05',
+		id: 'pihak-ketiga',
+		titleId: 'Layanan Pihak Ketiga',
+		titleEn: 'Third-Party Services',
+	},
+	{
+		number: '06',
+		id: 'hak',
+		titleId: 'Hak Anda',
+		titleEn: 'Your Rights',
+	},
+	{
+		number: '07',
+		id: 'cookie',
+		titleId: 'Cookie dan Data Teknis',
+		titleEn: 'Cookies and Technical Data',
+	},
+	{
+		number: '08',
+		id: 'perubahan',
+		titleId: 'Perubahan Kebijakan',
+		titleEn: 'Changes to This Policy',
+	},
+	{
+		number: '09',
+		id: 'kontak-privasi',
+		titleId: 'Hubungi Kami',
+		titleEn: 'Contact Us',
+	},
+];
+
+const whatsappUrl =
+	'https://wa.me/6285195511236?text=Halo%20NOVA%20Learning%20Centre%2C%20saya%20ingin%20bertanya%20mengenai%20privasi%20dan%20data%20pribadi.';
+---
+
+<Layout
+	title="Kebijakan Privasi | NOVA Learning Centre"
+	description="Kebijakan Privasi NOVA Learning Centre mengenai pengumpulan, penggunaan, penyimpanan, dan pelindungan data pribadi pengguna website."
+>
+	<main>
+		<!-- HERO -->
+		<section class="border-b border-slate-200 bg-[#f7f8fc]">
+			<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+				<div class="grid gap-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+					<div>
+						<p class="section-label">
+							<span class="lang-id">Privasi & Data</span>
+							<span class="lang-en">Privacy & Data</span>
+						</p>
+
+						<h1
+							class="mt-5 text-4xl font-extrabold tracking-[-0.04em] text-[#1d2f5c] sm:text-5xl lg:text-[58px]"
+						>
+							<span class="lang-id">Kebijakan Privasi</span>
+							<span class="lang-en">Privacy Policy</span>
+						</h1>
+
+						<p class="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
+							<span class="lang-id">
+								NOVA Learning Centre menghargai privasi pengguna dan berupaya
+								mengelola data pribadi secara wajar, aman, dan bertanggung jawab.
+							</span>
+
+							<span class="lang-en">
+								NOVA Learning Centre respects user privacy and aims to manage
+								personal data fairly, securely and responsibly.
+							</span>
+						</p>
+					</div>
+
+					<div class="border-l-4 border-[#f3bc34] pl-6">
+						<p class="text-xs font-extrabold uppercase tracking-[0.16em] text-slate-400">
+							<span class="lang-id">Terakhir diperbarui</span>
+							<span class="lang-en">Last updated</span>
+						</p>
+
+						<p class="mt-2 text-lg font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">{lastUpdatedId}</span>
+							<span class="lang-en">{lastUpdatedEn}</span>
+						</p>
+
+						<p class="mt-4 text-sm leading-6 text-slate-500">
+							<span class="lang-id">
+								Kebijakan ini menjelaskan praktik privasi yang berlaku pada
+								website dan layanan digital NOVA.
+							</span>
+
+							<span class="lang-en">
+								This policy explains the privacy practices that apply to NOVA's
+								website and digital services.
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CONTENT -->
+		<section class="bg-white py-14 lg:py-20">
+			<div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
+				<!-- TOC -->
+				<aside class="lg:sticky lg:top-28 lg:self-start">
+					<p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[#1d2f5c]/45">
+						<span class="lang-id">Daftar Isi</span>
+						<span class="lang-en">Contents</span>
+					</p>
+
+					<nav class="mt-5 border-t border-slate-200">
+						{
+							sections.map((section) => (
+								<a
+									href={`#${section.id}`}
+									class="toc-link group flex gap-3 border-b border-slate-200 py-3.5 text-sm"
+								>
+									<span class="font-extrabold text-slate-300 transition group-hover:text-[#f3bc34]">
+										{section.number}
+									</span>
+
+									<span class="font-semibold text-slate-600 transition group-hover:text-[#1d2f5c]">
+										<span class="lang-id">{section.titleId}</span>
+										<span class="lang-en">{section.titleEn}</span>
+									</span>
+								</a>
+							))
+						}
+					</nav>
+				</aside>
+
+				<div class="min-w-0">
+					<div class="border-b border-slate-200 pb-9">
+						<p class="policy-text !mt-0">
+							<span class="lang-id">
+								Kebijakan Privasi ini menjelaskan bagaimana NOVA Learning Centre
+								dapat mengumpulkan, menggunakan, menyimpan, dan melindungi informasi
+								ketika Anda mengakses website, menghubungi kami, atau menggunakan
+								layanan digital yang tersedia melalui website.
+							</span>
+
+							<span class="lang-en">
+								This Privacy Policy explains how NOVA Learning Centre may collect,
+								use, store and protect information when you access the website,
+								contact us or use digital services available through the website.
+							</span>
+						</p>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Dengan menggunakan website ini, Anda memahami bahwa informasi yang
+								Anda berikan dapat diproses sesuai dengan tujuan yang dijelaskan
+								dalam kebijakan ini.
+							</span>
+
+							<span class="lang-en">
+								By using this website, you understand that information you provide
+								may be processed for the purposes described in this policy.
+							</span>
+						</p>
+					</div>
+
+					<section id="informasi" class="policy-section">
+						<div class="policy-heading">
+							<span>01</span>
+							<h2>
+								<span class="lang-id">Informasi yang Kami Kumpulkan</span>
+								<span class="lang-en">Information We Collect</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Kami dapat menerima informasi yang Anda berikan secara sukarela,
+								misalnya ketika menghubungi NOVA melalui formulir kontak, WhatsApp,
+								email, pendaftaran program, atau komunikasi lainnya.
+							</span>
+
+							<span class="lang-en">
+								We may receive information you provide voluntarily, for example
+								when contacting NOVA through a contact form, WhatsApp, email,
+								program registration or other communication.
+							</span>
+						</p>
+
+						<ul class="policy-list">
+							<li>
+								<span class="lang-id">Nama orang tua, wali, siswa, atau calon siswa.</span>
+								<span class="lang-en">Names of parents, guardians, students or prospective students.</span>
+							</li>
+							<li>
+								<span class="lang-id">Nomor telepon, alamat email, dan informasi kontak lainnya.</span>
+								<span class="lang-en">Phone numbers, email addresses and other contact information.</span>
+							</li>
+							<li>
+								<span class="lang-id">Jenjang pendidikan, program yang diminati, atau kebutuhan belajar.</span>
+								<span class="lang-en">Education level, programs of interest or learning needs.</span>
+							</li>
+							<li>
+								<span class="lang-id">Isi pesan, pertanyaan, atau informasi lain yang Anda kirimkan kepada kami.</span>
+								<span class="lang-en">Messages, questions or other information you send to us.</span>
+							</li>
+							<li>
+								<span class="lang-id">Data teknis dasar yang tercatat saat website diakses, seperti alamat IP, jenis perangkat, browser, dan waktu akses.</span>
+								<span class="lang-en">Basic technical data recorded when the website is accessed, such as IP address, device type, browser and access time.</span>
+							</li>
+						</ul>
+					</section>
+
+					<section id="penggunaan" class="policy-section">
+						<div class="policy-heading">
+							<span>02</span>
+							<h2>
+								<span class="lang-id">Cara Kami Menggunakan Informasi</span>
+								<span class="lang-en">How We Use Information</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Informasi digunakan sejauh diperlukan untuk menjalankan layanan,
+								berkomunikasi dengan pengguna, dan meningkatkan pengalaman belajar
+								serta layanan NOVA.
+							</span>
+
+							<span class="lang-en">
+								Information is used as necessary to operate our services,
+								communicate with users and improve NOVA's learning experience and
+								services.
+							</span>
+						</p>
+
+						<ul class="policy-list">
+							<li>
+								<span class="lang-id">Menjawab pertanyaan dan permintaan konsultasi.</span>
+								<span class="lang-en">Respond to questions and consultation requests.</span>
+							</li>
+							<li>
+								<span class="lang-id">Memberikan informasi mengenai program, jadwal, kelas, dan layanan.</span>
+								<span class="lang-en">Provide information about programs, schedules, classes and services.</span>
+							</li>
+							<li>
+								<span class="lang-id">Memproses pendaftaran atau administrasi layanan pendidikan.</span>
+								<span class="lang-en">Process registrations or administration of education services.</span>
+							</li>
+							<li>
+								<span class="lang-id">Menyesuaikan komunikasi dengan kebutuhan siswa atau orang tua.</span>
+								<span class="lang-en">Tailor communication to student or parent needs.</span>
+							</li>
+							<li>
+								<span class="lang-id">Menjaga keamanan, stabilitas, dan fungsi website.</span>
+								<span class="lang-en">Maintain website security, stability and functionality.</span>
+							</li>
+							<li>
+								<span class="lang-id">Memenuhi kewajiban hukum apabila diperlukan.</span>
+								<span class="lang-en">Meet legal obligations where required.</span>
+							</li>
+						</ul>
+					</section>
+
+					<section id="data-anak" class="policy-section">
+						<div class="policy-heading">
+							<span>03</span>
+							<h2>
+								<span class="lang-id">Data Anak dan Siswa</span>
+								<span class="lang-en">Children and Student Data</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Karena NOVA menyediakan layanan pendidikan untuk anak dan remaja,
+								sebagian informasi dapat berkaitan dengan siswa yang belum dewasa.
+								Untuk pendaftaran, konsultasi, atau administrasi yang memerlukan data
+								anak, kami menganjurkan agar informasi diberikan oleh atau dengan
+								pengetahuan orang tua atau wali.
+							</span>
+
+							<span class="lang-en">
+								Because NOVA provides education services for children and
+								teenagers, some information may relate to students who are minors.
+								For registration, consultation or administration involving a
+								child's data, we recommend that the information be provided by, or
+								with the knowledge of, a parent or guardian.
+							</span>
+						</p>
+
+						<div class="mt-6 border-l-4 border-[#f3bc34] bg-[#fff9e8] px-5 py-4">
+							<p class="text-sm leading-7 text-slate-700">
+								<span class="lang-id">
+									Mohon tidak mengirimkan informasi pribadi anak yang tidak
+									diperlukan untuk keperluan pembelajaran, konsultasi, atau
+									administrasi layanan.
+								</span>
+
+								<span class="lang-en">
+									Please do not send personal information about a child that is
+									not required for learning, consultation or service administration.
+								</span>
+							</p>
+						</div>
+					</section>
+
+					<section id="keamanan" class="policy-section">
+						<div class="policy-heading">
+							<span>04</span>
+							<h2>
+								<span class="lang-id">Penyimpanan dan Keamanan Data</span>
+								<span class="lang-en">Data Storage and Security</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Kami berupaya menerapkan langkah yang wajar untuk melindungi
+								informasi dari akses, penggunaan, perubahan, atau pengungkapan yang
+								tidak sah. Akses terhadap data dibatasi sesuai kebutuhan operasional.
+							</span>
+
+							<span class="lang-en">
+								We aim to apply reasonable measures to protect information from
+								unauthorised access, use, alteration or disclosure. Access to data
+								is limited according to operational needs.
+							</span>
+						</p>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Data disimpan selama masih diperlukan untuk tujuan layanan,
+								administrasi, pemenuhan kewajiban hukum, atau penyelesaian kebutuhan
+								yang berkaitan dengan hubungan pengguna dan NOVA. Setelah tidak lagi
+								diperlukan, data dapat dihapus atau dianonimkan sesuai kebutuhan.
+							</span>
+
+							<span class="lang-en">
+								Data is retained for as long as needed for service delivery,
+								administration, legal obligations or matters relating to the
+								relationship between the user and NOVA. When it is no longer
+								required, data may be deleted or anonymised as appropriate.
+							</span>
+						</p>
+					</section>
+
+					<section id="pihak-ketiga" class="policy-section">
+						<div class="policy-heading">
+							<span>05</span>
+							<h2>
+								<span class="lang-id">Layanan Pihak Ketiga</span>
+								<span class="lang-en">Third-Party Services</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Website dapat terhubung dengan layanan pihak ketiga untuk fungsi
+								tertentu, termasuk hosting, komunikasi, peta, email, atau WhatsApp.
+								Ketika Anda menggunakan layanan tersebut, pemrosesan data tertentu
+								juga dapat tunduk pada kebijakan privasi penyedia layanan terkait.
+							</span>
+
+							<span class="lang-en">
+								The website may connect to third-party services for certain
+								functions, including hosting, communication, maps, email or
+								WhatsApp. When you use those services, certain data processing may
+								also be subject to the privacy policies of the relevant providers.
+							</span>
+						</p>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								NOVA tidak menjual data pribadi pengguna kepada pengiklan atau pihak
+								ketiga untuk kepentingan komersial mereka.
+							</span>
+
+							<span class="lang-en">
+								NOVA does not sell users' personal data to advertisers or third
+								parties for their commercial purposes.
+							</span>
+						</p>
+					</section>
+
+					<section id="hak" class="policy-section">
+						<div class="policy-heading">
+							<span>06</span>
+							<h2>
+								<span class="lang-id">Hak Anda</span>
+								<span class="lang-en">Your Rights</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Sesuai ketentuan yang berlaku, Anda dapat menghubungi kami untuk
+								menanyakan data yang berkaitan dengan Anda atau mengajukan permintaan
+								yang relevan, antara lain:
+							</span>
+
+							<span class="lang-en">
+								Subject to applicable requirements, you may contact us to ask about
+								data relating to you or make relevant requests, including:
+							</span>
+						</p>
+
+						<ul class="policy-list">
+							<li>
+								<span class="lang-id">Memperbarui atau memperbaiki informasi yang tidak akurat.</span>
+								<span class="lang-en">Update or correct inaccurate information.</span>
+							</li>
+							<li>
+								<span class="lang-id">Meminta informasi mengenai pemrosesan data pribadi.</span>
+								<span class="lang-en">Request information about the processing of personal data.</span>
+							</li>
+							<li>
+								<span class="lang-id">Meminta penghapusan data apabila tidak lagi diperlukan dan diperbolehkan oleh hukum.</span>
+								<span class="lang-en">Request deletion of data where it is no longer required and deletion is permitted by law.</span>
+							</li>
+							<li>
+								<span class="lang-id">Menarik persetujuan untuk pemrosesan tertentu apabila pemrosesan tersebut didasarkan pada persetujuan.</span>
+								<span class="lang-en">Withdraw consent for certain processing where that processing is based on consent.</span>
+							</li>
+						</ul>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Kami dapat meminta verifikasi identitas sebelum memproses permintaan
+								untuk memastikan data diberikan kepada pihak yang tepat.
+							</span>
+
+							<span class="lang-en">
+								We may request identity verification before processing a request
+								to help ensure information is provided to the appropriate person.
+							</span>
+						</p>
+					</section>
+
+					<section id="cookie" class="policy-section">
+						<div class="policy-heading">
+							<span>07</span>
+							<h2>
+								<span class="lang-id">Cookie dan Data Teknis</span>
+								<span class="lang-en">Cookies and Technical Data</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Website atau penyedia infrastruktur yang digunakan dapat memakai
+								cookie teknis atau mekanisme serupa yang diperlukan untuk keamanan,
+								kinerja, dan fungsi dasar website. Informasi teknis juga dapat
+								tercatat dalam log server untuk membantu menjaga keamanan dan
+								keandalan layanan.
+							</span>
+
+							<span class="lang-en">
+								The website or infrastructure providers may use technical cookies
+								or similar mechanisms required for security, performance and basic
+								website functionality. Technical information may also be recorded
+								in server logs to help maintain service security and reliability.
+							</span>
+						</p>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Apabila di kemudian hari NOVA menambahkan layanan analitik,
+								periklanan, atau cookie non-esensial lainnya, kebijakan ini dapat
+								diperbarui untuk menjelaskan penggunaannya.
+							</span>
+
+							<span class="lang-en">
+								If NOVA later introduces analytics, advertising or other
+								non-essential cookies, this policy may be updated to explain their
+								use.
+							</span>
+						</p>
+					</section>
+
+					<section id="perubahan" class="policy-section">
+						<div class="policy-heading">
+							<span>08</span>
+							<h2>
+								<span class="lang-id">Perubahan Kebijakan</span>
+								<span class="lang-en">Changes to This Policy</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Kebijakan Privasi dapat diperbarui dari waktu ke waktu untuk
+								menyesuaikan perubahan layanan, teknologi, maupun ketentuan yang
+								berlaku. Tanggal pembaruan terbaru akan ditampilkan pada bagian atas
+								halaman ini.
+							</span>
+
+							<span class="lang-en">
+								This Privacy Policy may be updated from time to time to reflect
+								changes in services, technology or applicable requirements. The
+								latest update date will be displayed at the top of this page.
+							</span>
+						</p>
+					</section>
+
+					<section id="kontak-privasi" class="scroll-mt-32 py-10">
+						<div class="policy-heading">
+							<span>09</span>
+							<h2>
+								<span class="lang-id">Hubungi Kami</span>
+								<span class="lang-en">Contact Us</span>
+							</h2>
+						</div>
+
+						<p class="policy-text">
+							<span class="lang-id">
+								Untuk pertanyaan atau permintaan terkait privasi dan data pribadi,
+								Anda dapat menghubungi NOVA Learning Centre melalui:
+							</span>
+
+							<span class="lang-en">
+								For questions or requests relating to privacy and personal data,
+								you can contact NOVA Learning Centre through:
+							</span>
+						</p>
+
+						<div class="mt-7 grid gap-4 sm:grid-cols-2">
+							<a
+								href="mailto:novalearningcentre@gmail.com"
+								class="contact-card"
+							>
+								<p class="text-xs font-extrabold uppercase tracking-[0.14em] text-slate-400">
+									Email
+								</p>
+								<p class="mt-2 break-all font-extrabold text-[#1d2f5c]">
+									novalearningcentre@gmail.com
+								</p>
+							</a>
+
+							<a
+								href={whatsappUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="contact-card"
+							>
+								<p class="text-xs font-extrabold uppercase tracking-[0.14em] text-slate-400">
+									WhatsApp
+								</p>
+								<p class="mt-2 font-extrabold text-[#1d2f5c]">
+									0851 9551 1236
+								</p>
+							</a>
+						</div>
+					</section>
+
+					<div class="mt-3 border-l-4 border-[#f3bc34] bg-[#1d2f5c] px-6 py-6 text-white">
+						<p class="text-sm leading-7 text-white/72">
+							<span class="lang-id">
+								Kebijakan ini merupakan informasi umum mengenai praktik privasi
+								website NOVA Learning Centre dan perlu disesuaikan kembali apabila
+								di kemudian hari terdapat perubahan pada sistem pendaftaran,
+								pembayaran, analytics, akun siswa, atau layanan digital lainnya.
+							</span>
+
+							<span class="lang-en">
+								This policy provides general information about NOVA Learning
+								Centre's website privacy practices and should be reviewed if the
+								registration system, payments, analytics, student accounts or other
+								digital services change in the future.
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.section-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.82rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
+	}
+
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
+	}
+
+	.policy-section {
+		scroll-margin-top: 8rem;
+		border-bottom: 1px solid #e2e8f0;
+		padding-top: 2.5rem;
+		padding-bottom: 2.5rem;
+	}
+
+	.policy-heading {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.policy-heading > span {
+		padding-top: 0.3rem;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.14em;
+		color: #f3bc34;
+	}
+
+	.policy-heading h2 {
+		font-size: 1.65rem;
+		line-height: 1.25;
+		font-weight: 800;
+		letter-spacing: -0.025em;
+		color: #1d2f5c;
+	}
+
+	.policy-text {
+		margin-top: 1.25rem;
+		font-size: 0.98rem;
+		line-height: 1.9;
+		color: #475569;
+	}
+
+	.policy-list {
+		margin-top: 1.25rem;
+		display: grid;
+		gap: 0.75rem;
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.policy-list li {
+		position: relative;
+		padding-left: 1.45rem;
+		font-size: 0.98rem;
+		line-height: 1.8;
+		color: #475569;
+	}
+
+	.policy-list li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.7rem;
+		width: 0.45rem;
+		height: 0.45rem;
+		background: #f3bc34;
+	}
+
+	.toc-link {
+		transition:
+			background-color 180ms ease,
+			padding-left 180ms ease;
+	}
+
+	.toc-link:hover {
+		padding-left: 0.35rem;
+		background: #f8fafc;
+	}
+
+	.contact-card {
+		border: 1px solid #e2e8f0;
+		background: #f7f8fc;
+		padding: 1.25rem;
+		transition:
+			border-color 180ms ease,
+			transform 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.contact-card:hover {
+		transform: translateY(-2px);
+		border-color: #f3bc34;
+		box-shadow: 0 10px 24px rgba(29, 47, 92, 0.08);
+	}
+</style>

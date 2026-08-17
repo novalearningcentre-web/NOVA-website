@@ -1,305 +1,368 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const currentYear = new Date().getFullYear();
+type Founder = {
+	name: string;
+	roleId: string;
+	roleEn: string;
+	photo: string;
+	descriptionId: string;
+	descriptionEn: string;
+};
 
-const navItems = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
+type TeamMember = {
+	name: string;
+	roleId: string;
+	roleEn: string;
+	photo: string;
+};
 
-const pillars = [
-	{
-		number: '01',
-		title: 'Clarity',
-		kicker: 'Belajar dengan arah',
-		description:
-			'Siswa memahami apa yang dipelajari, mengapa hal itu penting, dan apa langkah berikutnya.',
-	},
-	{
-		number: '02',
-		title: 'Agency',
-		kicker: 'Aktif dalam proses',
-		description:
-			'Siswa diberi ruang untuk bertanya, mencoba, memilih strategi, dan menjelaskan pemahamannya.',
-	},
-	{
-		number: '03',
-		title: 'Growth',
-		kicker: 'Kemajuan yang nyata',
-		description:
-			'Fokus kami bukan sekadar selesai materi, tetapi perkembangan pemahaman, kebiasaan, dan kepercayaan diri.',
-	},
-];
+type CoreValue = {
+	letter: string;
+	title: string;
+	descriptionId: string;
+	descriptionEn: string;
+};
 
-const learningStages = [
+const founders: Founder[] = [
 	{
-		label: 'Understand',
-		title: 'Pahami kebutuhannya',
-		text:
-			'Kami melihat kondisi awal siswa, tujuan belajar, tantangan utama, dan pola belajar yang sudah terbentuk.',
+		name: 'Olivia Novita',
+		roleId: 'Co-Founder',
+		roleEn: 'Co-Founder',
+		photo: '/images/founder-olivia.png',
+		descriptionId:
+			'Membawa perspektif bisnis, pengembangan layanan, dan pengalaman pelanggan untuk membantu NOVA tumbuh sebagai learning centre yang relevan bagi keluarga modern.',
+		descriptionEn:
+			'Brings a business, service development and customer experience perspective to help NOVA grow as a learning centre that is relevant to modern families.',
 	},
 	{
-		label: 'Guide',
-		title: 'Berikan arah yang tepat',
-		text:
-			'Pengajar memberi struktur, penjelasan, contoh, dan feedback sesuai kebutuhan—tidak terlalu sedikit, tidak berlebihan.',
-	},
-	{
-		label: 'Explore',
-		title: 'Biarkan siswa aktif',
-		text:
-			'Siswa mencoba, berdiskusi, berlatih, memecahkan masalah, dan membangun pemahaman melalui pengalaman.',
-	},
-	{
-		label: 'Reflect',
-		title: 'Tinjau dan lanjutkan',
-		text:
-			'Perkembangan ditinjau agar langkah belajar berikutnya tetap relevan dan menantang.',
+		name: 'Conan',
+		roleId: 'Co-Founder',
+		roleEn: 'Co-Founder',
+		photo: '/images/founder-conan.png',
+		descriptionId:
+			'Berperan dalam pengembangan arah bisnis dan pertumbuhan NOVA dengan fokus pada keberlanjutan, kualitas layanan, dan peluang jangka panjang.',
+		descriptionEn:
+			'Supports NOVA’s business direction and growth with a focus on sustainability, service quality and long-term opportunities.',
 	},
 ];
 
-const commitments = [
-	'Kelas kelompok kecil agar interaksi lebih dekat.',
-	'Pendampingan akademik yang tetap membangun kemandirian.',
-	'Komunikasi perkembangan belajar yang jelas.',
-	'Pembelajaran onsite dan digital yang saling terhubung.',
-	'Lingkungan belajar yang aman untuk bertanya dan mencoba.',
+const team: TeamMember[] = [
+	{
+		name: 'Halley Kuncoro',
+		roleId: 'Academic & Learning Development',
+		roleEn: 'Academic & Learning Development',
+		photo: '/images/teacher-1.png',
+	},
+	{
+		name: 'Juli Silaen',
+		roleId: 'Administration & Student Support',
+		roleEn: 'Administration & Student Support',
+		photo: '/images/teacher-6.png',
+	},
+	{
+		name: 'Monica Putri Pertiwi',
+		roleId: 'Early Years & Primary Educator',
+		roleEn: 'Early Years & Primary Educator',
+		photo: '/images/teacher-4.png',
+	},
+	{
+		name: 'Karimah Fajriani',
+		roleId: 'Science & Mathematics Educator',
+		roleEn: 'Science & Mathematics Educator',
+		photo: '/images/teacher-5.png',
+	},
 ];
 
-const footerLinks = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
+const coreValues: CoreValue[] = [
+	{
+		letter: 'N',
+		title: 'NURTURE',
+		descriptionId:
+			'Kami menumbuhkan kekuatan unik, kepercayaan diri, dan kecintaan setiap siswa terhadap proses belajar.',
+		descriptionEn:
+			"We cultivate each student's unique strengths, confidence, and passion for learning.",
+	},
+	{
+		letter: 'O',
+		title: 'OPPORTUNITY',
+		descriptionId:
+			'Kami memberikan kesempatan yang setara bagi setiap siswa untuk tumbuh, bereksplorasi, dan berhasil.',
+		descriptionEn:
+			'We provide equal opportunities for every student to grow, explore, and succeed.',
+	},
+	{
+		letter: 'V',
+		title: 'VISION',
+		descriptionId:
+			'Kami mendorong siswa untuk melihat melampaui hari ini, menetapkan tujuan yang bermakna, dan menjadi individu yang siap menghadapi masa depan.',
+		descriptionEn:
+			'We encourage students to think beyond today, set meaningful goals, and become future-ready individuals.',
+	},
+	{
+		letter: 'A',
+		title: 'ACHIEVEMENT',
+		descriptionId:
+			'Kami menghargai kemajuan, ketekunan, dan keunggulan dalam perkembangan akademik maupun pribadi.',
+		descriptionEn:
+			'We celebrate progress, perseverance, and excellence in both academic and personal development.',
+	},
 ];
 ---
 
 <Layout
-	title="Tentang Kami | NOVA Learning Centre"
-	description="Kenali NOVA Learning Centre, filosofi pembelajaran, pendekatan, dan cara kami membantu siswa belajar lebih terarah dan percaya diri."
+	title="Tentang NOVA | NOVA Learning Centre"
+	description="Kenali cerita, visi, misi, tim, dan nilai inti NOVA Learning Centre."
 >
-	<!-- NAVBAR -->
-	<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-		<nav
-			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
-			aria-label="Navigasi utama"
-		>
-			<a href="/" class="flex items-center" aria-label="NOVA Learning Centre">
-				<img
-					src="/images/primary-logo-icon.png"
-					alt="NOVA Learning Centre"
-					class="h-10 w-10 object-contain sm:hidden"
-				/>
+	<main class="overflow-hidden">
+		<!-- HERO -->
+		<section class="relative bg-white">
+			<div
+				class="absolute -right-24 top-10 h-80 w-80 rounded-full bg-[#f3bc34]/15 blur-3xl"
+				aria-hidden="true"
+			></div>
 
-				<img
-					src="/images/primary-logo.png"
-					alt="NOVA Learning Centre"
-					class="hidden h-11 w-auto object-contain sm:block"
-				/>
-			</a>
-
-			<div class="hidden items-center gap-7 lg:flex">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class:list={[
-								'text-sm font-semibold transition',
-								item.href === '/about'
-									? 'text-[#0F2747]'
-									: 'text-slate-600 hover:text-[#A87300]',
-							]}
-						>
-							{item.name}
-						</a>
-					))
-				}
-			</div>
-
-			<a
-				href="/contact"
-				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722] lg:inline-flex"
-			>
-				Konsultasi Gratis
-			</a>
-
-			<button
-				id="mobile-menu-button"
-				type="button"
-				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
-				aria-label="Buka menu navigasi"
-				aria-expanded="false"
-				aria-controls="mobile-menu"
-			>
-				<svg
-					width="23"
-					height="23"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					aria-hidden="true"
-				>
-					<path d="M4 7h16"></path>
-					<path d="M4 12h16"></path>
-					<path d="M4 17h16"></path>
-				</svg>
-			</button>
-		</nav>
-
-		<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
-			<div class="flex flex-col gap-4">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
-						>
-							{item.name}
-						</a>
-					))
-				}
-
-				<a
-					href="/contact"
-					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
-				>
-					Konsultasi Gratis
-				</a>
-			</div>
-		</div>
-	</header>
-
-	<main>
-		<!-- EDITORIAL HERO -->
-		<section class="bg-white">
-			<div class="mx-auto max-w-7xl px-6 pb-16 pt-20 lg:px-8 lg:pb-24 lg:pt-28">
-				<div class="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Tentang NOVA
+			<div class="relative mx-auto max-w-7xl px-6 pb-16 pt-20 lg:px-8 lg:pb-24 lg:pt-28">
+				<div class="grid gap-12 lg:grid-cols-[1.18fr_0.82fr] lg:items-end">
+					<div class="reveal">
+						<p class="section-label">
+							<span class="lang-id">Tentang NOVA</span>
+							<span class="lang-en">About NOVA</span>
 						</p>
 
 						<h1
-							class="mt-5 max-w-5xl text-5xl font-bold leading-[1.02] tracking-[-0.05em] text-[#0F2747] sm:text-6xl lg:text-[78px]"
+							class="mt-5 max-w-5xl text-5xl font-extrabold leading-[1.03] tracking-[-0.05em] text-[#1d2f5c] sm:text-6xl lg:text-[74px]"
 						>
-							Kami tidak hanya membantu siswa
-							<span class="text-[#A87300]">menjawab soal.</span>
+							<span class="lang-id">
+								Kami tidak hanya membantu siswa
+								<span class="relative inline-block">
+									menjawab soal.
+									<span
+										class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/70"
+										aria-hidden="true"
+									></span>
+								</span>
+							</span>
+
+							<span class="lang-en">
+								We do more than help students&nbsp;
+								<span class="relative inline-block">
+									find answers.
+									<span
+										class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/70"
+										aria-hidden="true"
+									></span>
+								</span>
+							</span>
 						</h1>
 					</div>
 
-					<div class="border-l-4 border-[#F3BC34] pl-6">
+					<div class="reveal border-l-4 border-[#f3bc34] pl-6">
 						<p class="text-lg leading-8 text-slate-600">
-							NOVA dibangun untuk membantu siswa memahami
-							<strong class="font-semibold text-[#0F2747]">cara belajar</strong>,
-							bukan hanya apa yang harus dipelajari.
+							<span class="lang-id">
+								NOVA dibangun untuk membantu siswa memahami
+								<strong class="font-bold text-[#1d2f5c]">cara belajar</strong>,
+								bukan hanya apa yang harus dipelajari.
+							</span>
+
+							<span class="lang-en">
+								NOVA was built to help students understand
+								<strong class="font-bold text-[#1d2f5c]">how to learn</strong>,
+								not only what to learn.
+							</span>
 						</p>
 					</div>
 				</div>
 
-				<div class="mt-16 border-y border-slate-200 py-6">
-					<div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm font-semibold text-slate-500">
-						<span class="text-[#0F2747]">NOVA Learning Centre</span>
-						<span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:block"></span>
-						<span>Kelapa Gading</span>
-						<span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:block"></span>
-						<span>Academic Support</span>
-						<span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:block"></span>
-						<span>Skills Development</span>
-						<span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:block"></span>
-						<span>Digital Learning</span>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- BRAND MANIFESTO -->
-		<section class="bg-[#0F2747] text-white">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-				<div class="grid gap-16 lg:grid-cols-[0.7fr_1.3fr]">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
-							Our Belief
-						</p>
-
-						<p class="mt-5 text-sm leading-7 text-blue-100">
-							Prinsip sederhana yang menjadi dasar cara kami merancang pengalaman belajar.
-						</p>
-					</div>
-
-					<div>
-						<p class="max-w-4xl text-3xl font-semibold leading-[1.35] tracking-tight text-white md:text-4xl lg:text-5xl">
-							Siswa berkembang paling baik ketika mereka mendapat
-							<span class="text-[#F3BC34]">arah yang jelas</span>,
-							tetapi tetap memiliki ruang untuk
-							<span class="text-[#F3BC34]">berpikir, mencoba, dan menemukan.</span>
-						</p>
-
-						<div class="mt-12 grid gap-8 border-t border-white/15 pt-10 md:grid-cols-2">
-							<p class="text-base leading-8 text-blue-100">
-								Karena itu, pembelajaran di NOVA tidak sepenuhnya teacher-centered dan tidak juga
-								melepas siswa belajar sendiri tanpa struktur.
-							</p>
-
-							<p class="text-base leading-8 text-blue-100">
-								Pengajar memberi kerangka dan dukungan yang dibutuhkan, sementara siswa tetap aktif
-								mengambil bagian dalam proses belajarnya.
-							</p>
-						</div>
+				<div class="reveal mt-14 border-y border-slate-200 py-6">
+					<div class="flex flex-wrap items-center gap-x-7 gap-y-3 text-sm font-semibold text-slate-500">
+						<span class="text-[#1d2f5c]">NOVA Learning Centre</span>
+						<span class="hidden h-1 w-1 rounded-full bg-[#f3bc34] sm:block"></span>
+						<span>Academic Learning</span>
+						<span class="hidden h-1 w-1 rounded-full bg-[#f3bc34] sm:block"></span>
+						<span>Skills & Enrichment</span>
+						<span class="hidden h-1 w-1 rounded-full bg-[#f3bc34] sm:block"></span>
+						<span>E-Learning</span>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- THREE PILLARS -->
-		<section class="bg-[#F7F8FC] py-24">
+		<!-- OUR STORY -->
+		<section class="bg-[#f7f8fc] py-24">
+			<div class="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+				<div class="reveal">
+					<p class="section-label">
+						<span class="lang-id">Cerita Kami</span>
+						<span class="lang-en">Our Story</span>
+					</p>
+
+					<h2
+						class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+					>
+						<span class="lang-id">NOVA lahir dari sebuah pertanyaan sederhana.</span>
+						<span class="lang-en">NOVA began with a simple question.</span>
+					</h2>
+				</div>
+
+				<div class="reveal space-y-6 text-lg leading-8 text-slate-600">
+					<p>
+						<span class="lang-id">
+							Bagaimana jika sebuah learning centre tidak hanya membantu siswa
+							menyelesaikan pelajaran hari ini, tetapi juga membantu mereka
+							membangun cara berpikir, kebiasaan belajar, dan kepercayaan diri
+							untuk masa depan?
+						</span>
+
+						<span class="lang-en">
+							What if a learning centre could do more than help students complete
+							today’s lessons — and instead help them build stronger thinking
+							skills, learning habits and confidence for the future?
+						</span>
+					</p>
+
+					<p>
+						<span class="lang-id">
+							Dari pemikiran tersebut, NOVA dirancang sebagai ruang belajar yang
+							memadukan pendampingan pengajar, kelompok kecil, pembelajaran aktif,
+							teknologi, serta program pengayaan yang relevan dengan perkembangan
+							anak dan remaja.
+						</span>
+
+						<span class="lang-en">
+							From that idea, NOVA was designed as a learning space that combines
+							teacher guidance, small groups, active learning, technology and
+							enrichment programs relevant to children and teenagers.
+						</span>
+					</p>
+
+					<p class="font-bold text-[#1d2f5c]">
+						Inspiring Young Minds, Building Bright Futures.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOUNDING TEAM -->
+		<section class="bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Apa yang Kami Bangun
+				<div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+					<div class="reveal">
+						<p class="section-label">
+							<span class="lang-id">Founders & Leadership</span>
+							<span class="lang-en">Founders & Leadership</span>
 						</p>
 
-						<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-							Bukan hanya nilai.
+						<h2
+							class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+						>
+							<span class="lang-id">Sebuah visi yang dibangun bersama.</span>
+							<span class="lang-en">A vision built together.</span>
+						</h2>
+					</div>
+
+					<p class="reveal max-w-2xl text-lg leading-8 text-slate-600 lg:justify-self-end">
+						<span class="lang-id">
+							NOVA dikembangkan dengan menggabungkan perspektif pendidikan dan
+							bisnis untuk membangun learning centre yang berkualitas, relevan,
+							dan berkelanjutan bagi siswa dan keluarga.
+						</span>
+
+						<span class="lang-en">
+							NOVA brings together education and business perspectives to build
+							a high-quality, relevant and sustainable learning centre for
+							students and families.
+						</span>
+					</p>
+				</div>
+
+				<div class="mt-12 grid gap-6 md:grid-cols-2">
+					{
+						founders.map((founder) => (
+							<article class="founder-card reveal grid overflow-hidden border border-slate-200 bg-[#f7f8fc] sm:grid-cols-[210px_1fr]">
+								<div class="relative min-h-[270px] bg-[#f3bc34]">
+									<img
+										src={founder.photo}
+										alt={founder.name}
+										class="absolute inset-0 h-full w-full object-cover"
+										loading="lazy"
+									/>
+								</div>
+
+								<div class="p-7">
+									<p class="text-xs font-extrabold uppercase tracking-[0.16em] text-[#1d2f5c]/50">
+										<span class="lang-id">{founder.roleId}</span>
+										<span class="lang-en">{founder.roleEn}</span>
+									</p>
+
+									<h3 class="mt-2 text-2xl font-extrabold text-[#1d2f5c]">
+										{founder.name}
+									</h3>
+
+									<p class="mt-4 text-sm leading-7 text-slate-600">
+										<span class="lang-id">{founder.descriptionId}</span>
+										<span class="lang-en">{founder.descriptionEn}</span>
+									</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- NOVA NAME + VALUES -->
+		<section class="bg-[#1d2f5c] py-24 text-white">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="grid gap-12 lg:grid-cols-[0.78fr_1.22fr]">
+					<div class="reveal">
+						<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
+							<span class="lang-id">Arti NOVA</span>
+							<span class="lang-en">What NOVA Stands For</span>
+						</p>
+
+						<h2
+							class="mt-4 text-4xl font-extrabold tracking-[-0.035em] md:text-5xl"
+						>
+							<span class="lang-id">
+								Empat nilai yang membentuk cara kami bertumbuh.
+							</span>
+
+							<span class="lang-en">
+								Four values that shape the way we grow.
+							</span>
 						</h2>
 
-						<p class="mt-5 max-w-md text-lg leading-8 text-slate-600">
-							Hasil akademik penting, tetapi cara siswa sampai ke sana juga penting.
+						<p class="mt-6 max-w-xl text-lg leading-8 text-white/70">
+							<span class="lang-id">
+								Nama NOVA bukan hanya identitas. Setiap huruf mewakili prinsip
+								yang ingin kami hadirkan dalam pengalaman belajar setiap siswa.
+							</span>
+
+							<span class="lang-en">
+								NOVA is more than a name. Each letter represents a principle
+								we want every student to experience throughout their learning
+								journey.
+							</span>
 						</p>
 					</div>
 
-					<div class="divide-y divide-slate-200 border-y border-slate-200">
+					<div class="grid gap-4 sm:grid-cols-2">
 						{
-							pillars.map((pillar) => (
-								<article class="grid gap-5 py-8 sm:grid-cols-[76px_1fr] sm:items-start">
-									<div class="text-4xl font-bold tracking-tight text-[#F3BC34]">
-										{pillar.number}
-									</div>
-
-									<div class="grid gap-4 md:grid-cols-[0.8fr_1.2fr]">
-										<div>
-											<p class="text-xs font-bold uppercase tracking-[0.18em] text-[#A87300]">
-												{pillar.title}
-											</p>
-
-											<h3 class="mt-2 text-2xl font-bold text-[#0F2747]">
-												{pillar.kicker}
-											</h3>
+							coreValues.map((value) => (
+								<article class="value-card reveal border border-white/15 bg-white/[0.06] p-6 transition hover:-translate-y-1 hover:border-[#f3bc34] hover:bg-white/[0.09]">
+									<div class="flex items-center gap-4">
+										<div class="flex h-14 w-14 shrink-0 items-center justify-center bg-[#f3bc34] text-2xl font-black text-[#1d2f5c]">
+											{value.letter}
 										</div>
 
-										<p class="text-base leading-7 text-slate-600">
-											{pillar.description}
-										</p>
+										<h3 class="text-xl font-extrabold">{value.title}</h3>
 									</div>
+
+									<p class="mt-5 text-sm leading-7 text-white/72">
+										<span class="lang-id">{value.descriptionId}</span>
+										<span class="lang-en">{value.descriptionEn}</span>
+									</p>
 								</article>
 							))
 						}
@@ -308,91 +371,151 @@ const footerLinks = [
 			</div>
 		</section>
 
-		<!-- STORY / WHY NOVA -->
+		<!-- VISION & MISSION -->
 		<section class="bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-14 lg:grid-cols-2 lg:items-start">
-					<div class="lg:sticky lg:top-28">
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Mengapa NOVA Ada
+				<div class="reveal text-center">
+					<p class="section-label justify-center">
+						<span class="lang-id">Visi & Misi</span>
+						<span class="lang-en">Vision & Mission</span>
+					</p>
+
+					<h2
+						class="mx-auto mt-4 max-w-4xl text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+					>
+						<span class="lang-id">
+							Membangun pengalaman belajar yang relevan untuk hari ini dan masa depan.
+						</span>
+
+						<span class="lang-en">
+							Building learning experiences that are relevant for today and the future.
+						</span>
+					</h2>
+				</div>
+
+				<div class="mt-12 grid gap-5 lg:grid-cols-2">
+					<article class="reveal border-t-4 border-[#f3bc34] bg-[#f7f8fc] p-8 md:p-10">
+						<p class="text-xs font-extrabold uppercase tracking-[0.16em] text-[#1d2f5c]/50">
+							<span class="lang-id">Visi</span>
+							<span class="lang-en">Vision</span>
 						</p>
 
-						<h2 class="mt-4 max-w-xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-							Karena banyak siswa sebenarnya mampu—mereka hanya belum menemukan cara belajar yang tepat.
-						</h2>
-					</div>
+						<h3 class="mt-5 text-2xl font-extrabold leading-9 text-[#1d2f5c]">
+							<span class="lang-id">
+								Menjadi learning centre yang membantu siswa tumbuh menjadi
+								pembelajar yang percaya diri, mandiri, dan siap menghadapi masa depan.
+							</span>
 
-					<div class="space-y-10">
-						<div class="border-l border-slate-200 pl-7">
-							<p class="text-xl leading-9 text-[#0F2747]">
-								Ada siswa yang memahami konsep setelah satu penjelasan. Ada yang membutuhkan visual,
-								contoh konkret, diskusi, atau kesempatan mencoba beberapa kali.
-							</p>
-						</div>
+							<span class="lang-en">
+								To be a learning centre that helps students grow into confident,
+								independent and future-ready learners.
+							</span>
+						</h3>
+					</article>
 
-						<div class="border-l border-slate-200 pl-7">
-							<p class="text-base leading-8 text-slate-600">
-								Perbedaan itu bukan masalah. Tantangannya adalah memastikan siswa tetap mendapat
-								struktur yang cukup, tanpa membuat mereka terlalu bergantung pada pengajar.
-							</p>
-						</div>
+					<article class="reveal border-t-4 border-[#1d2f5c] bg-[#f7f8fc] p-8 md:p-10">
+						<p class="text-xs font-extrabold uppercase tracking-[0.16em] text-[#1d2f5c]/50">
+							<span class="lang-id">Misi</span>
+							<span class="lang-en">Mission</span>
+						</p>
 
-						<div class="border-l border-[#F3BC34] pl-7">
-							<p class="text-base leading-8 text-slate-600">
-								NOVA dibangun untuk menemukan keseimbangan tersebut: pengajar hadir ketika siswa
-								membutuhkan arah, kemudian perlahan memberi ruang agar siswa semakin mampu mengambil
-								tanggung jawab atas proses belajarnya sendiri.
-							</p>
-						</div>
+						<ul class="mt-5 grid gap-4 text-base leading-7 text-slate-600">
+							<li class="flex gap-3">
+								<span class="mt-2 h-2 w-2 shrink-0 bg-[#f3bc34]"></span>
+								<span class="lang-id">
+									Memberikan pembelajaran yang terarah, personal, dan relevan
+									dengan kebutuhan siswa.
+								</span>
+								<span class="lang-en">
+									Provide focused, personalised learning that responds to each
+									student's needs.
+								</span>
+							</li>
 
-						<div class="rounded-2xl bg-[#F3BC34] p-7">
-							<p class="text-xs font-bold uppercase tracking-[0.2em] text-[#0F2747]/55">
-								Tujuan Kami
-							</p>
+							<li class="flex gap-3">
+								<span class="mt-2 h-2 w-2 shrink-0 bg-[#f3bc34]"></span>
+								<span class="lang-id">
+									Membangun lingkungan yang aman untuk bertanya, mencoba,
+									berkolaborasi, dan berkembang.
+								</span>
+								<span class="lang-en">
+									Build a safe environment to ask, explore, collaborate and grow.
+								</span>
+							</li>
 
-							<p class="mt-3 text-2xl font-bold leading-tight text-[#0F2747]">
-								Membantu siswa menjadi lebih paham, lebih mandiri, dan lebih percaya diri.
-							</p>
-						</div>
-					</div>
+							<li class="flex gap-3">
+								<span class="mt-2 h-2 w-2 shrink-0 bg-[#f3bc34]"></span>
+								<span class="lang-id">
+									Menggabungkan kualitas pengajar, pembelajaran aktif, dan
+									teknologi untuk mendukung perkembangan siswa.
+								</span>
+								<span class="lang-en">
+									Combine strong educators, active learning and technology to
+									support student development.
+								</span>
+							</li>
+						</ul>
+					</article>
 				</div>
 			</div>
 		</section>
 
-		<!-- LEARNING METHOD -->
-		<section class="bg-[#0F2747] py-24 text-white">
+		<!-- MEET THE TEAM -->
+		<section id="team" class="bg-[#f7f8fc] py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="max-w-3xl">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
-						How Learning Happens
+				<div class="reveal">
+					<p class="section-label">
+						Meet the Team
 					</p>
 
-					<h2 class="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-						Empat langkah. Satu proses yang terus berulang.
+					<h2
+						class="mt-4 max-w-4xl text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+					>
+						<span class="lang-id">
+							Orang-orang yang membantu NOVA berjalan setiap hari.
+						</span>
+
+						<span class="lang-en">
+							The people who help NOVA move forward every day.
+						</span>
 					</h2>
+
+					<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+						<span class="lang-id">
+							Dari pengembangan akademik hingga dukungan siswa, setiap anggota tim
+							memiliki peran untuk menciptakan pengalaman belajar yang lebih baik.
+						</span>
+
+						<span class="lang-en">
+							From academic development to student support, every member of the
+							team contributes to creating a better learning experience.
+						</span>
+					</p>
 				</div>
 
-				<div class="mt-16">
+				<div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 					{
-						learningStages.map((stage, index) => (
-							<article class="grid gap-6 border-t border-white/15 py-8 md:grid-cols-[90px_0.7fr_1.3fr] md:items-start">
-								<div class="text-sm font-bold text-[#F3BC34]">
-									0{index + 1}
+						team.map((member) => (
+							<article class="team-card reveal overflow-hidden border border-slate-200 bg-white transition hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-xl">
+								<div class="relative aspect-[4/4.6] bg-[#f3bc34]">
+									<img
+										src={member.photo}
+										alt={member.name}
+										class="absolute inset-0 h-full w-full object-cover"
+										loading="lazy"
+									/>
 								</div>
 
-								<div>
-									<p class="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-										{stage.label}
-									</p>
-
-									<h3 class="mt-2 text-2xl font-bold">
-										{stage.title}
+								<div class="p-5">
+									<h3 class="text-lg font-extrabold text-[#1d2f5c]">
+										{member.name}
 									</h3>
-								</div>
 
-								<p class="max-w-2xl text-base leading-8 text-blue-100">
-									{stage.text}
-								</p>
+									<p class="mt-2 text-sm leading-6 text-slate-500">
+										<span class="lang-id">{member.roleId}</span>
+										<span class="lang-en">{member.roleEn}</span>
+									</p>
+								</div>
 							</article>
 						))
 					}
@@ -400,258 +523,106 @@ const footerLinks = [
 			</div>
 		</section>
 
-		<!-- COMMITMENT -->
-		<section class="bg-white py-24">
-			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-14 lg:grid-cols-[1fr_1fr]">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Komitmen NOVA
-						</p>
-
-						<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-							Pengalaman belajar yang terasa dekat, jelas, dan relevan.
-						</h2>
-
-						<p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-							Kami merancang pengalaman belajar yang tidak terasa seperti kelas tambahan yang
-							berulang, tetapi sebagai ruang untuk memahami, berkembang, dan membangun kebiasaan baru.
-						</p>
-					</div>
-
-					<div class="divide-y divide-slate-200 border-y border-slate-200">
-						{
-							commitments.map((commitment, index) => (
-								<div class="flex items-start gap-5 py-5">
-									<span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-xs font-bold text-[#0F2747]">
-										{index + 1}
-									</span>
-
-									<p class="text-base font-medium leading-7 text-[#0F2747]">
-										{commitment}
-									</p>
-								</div>
-							))
-						}
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ECOSYSTEM BAND -->
-		<section class="border-y border-slate-200 bg-[#F7F8FC]">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-				<div class="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							NOVA Learning Ecosystem
-						</p>
-
-						<h2 class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-							Belajar tidak berhenti ketika kelas selesai.
-						</h2>
-					</div>
-
-					<div class="grid gap-4 sm:grid-cols-3">
-						<div class="border-l-2 border-[#0F2747] pl-5">
-							<p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-								Onsite
-							</p>
-							<p class="mt-2 font-bold text-[#0F2747]">
-								Learn & Discuss
-							</p>
-						</div>
-
-						<div class="border-l-2 border-[#F3BC34] pl-5">
-							<p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-								Practice
-							</p>
-							<p class="mt-2 font-bold text-[#0F2747]">
-								Review & Apply
-							</p>
-						</div>
-
-						<div class="border-l-2 border-[#0F2747] pl-5">
-							<p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-								E-Learning
-							</p>
-							<p class="mt-2 font-bold text-[#0F2747]">
-								Continue Anytime
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<!-- CTA -->
-		<section class="bg-white py-24">
-			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-8 border-t-4 border-[#F3BC34] pt-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Kenali NOVA Lebih Dekat
-						</p>
+		<section class="bg-[#f3bc34] py-20">
+			<div class="reveal mx-auto max-w-4xl px-6 text-center">
+				<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#1d2f5c]/60">
+					<span class="lang-id">Kenal Lebih Dekat</span>
+					<span class="lang-en">Get to Know NOVA</span>
+				</p>
 
-						<h2 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl">
-							Temukan lingkungan belajar yang sesuai untuk perkembangan siswa.
-						</h2>
-					</div>
+				<h2
+					class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+				>
+					<span class="lang-id">
+						Mari tumbuh dan belajar bersama NOVA.
+					</span>
 
-					<div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
-						<a
-							href="/programs"
-							class="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3.5 font-semibold text-[#0F2747] transition hover:border-[#0F2747]"
-						>
-							Lihat Program
-						</a>
+					<span class="lang-en">
+						Learn and grow with NOVA.
+					</span>
+				</h2>
 
-						<a
-							href="/contact"
-							class="inline-flex items-center justify-center rounded-xl bg-[#F3BC34] px-6 py-3.5 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Konsultasi Gratis
-						</a>
-					</div>
-				</div>
+				<a
+					href="/contact"
+					class="mt-8 inline-flex rounded-lg bg-[#1d2f5c] px-8 py-4 font-bold text-white transition hover:-translate-y-0.5 hover:shadow-xl"
+				>
+					<span class="lang-id">Temukan Program NOVA</span>
+					<span class="lang-en">Discover NOVA Programs</span>
+				</a>
 			</div>
 		</section>
 	</main>
-
-	<!-- FOOTER -->
-	<footer class="bg-[#091D36] text-white">
-		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
-				<div>
-					<a href="/" aria-label="NOVA Learning Centre">
-						<img
-							src="/images/primary-logo.png"
-							alt="NOVA Learning Centre"
-							class="h-14 w-auto brightness-0 invert"
-						/>
-					</a>
-
-					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
-						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
-						sepanjang hayat melalui kelas tatap muka dan e-learning.
-					</p>
-
-					<p class="mt-6 text-sm font-semibold text-[#F3BC34]">
-						Learn with purpose. Grow with confidence.
-					</p>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Navigasi
-					</h3>
-
-					<div class="mt-6 grid gap-3">
-						{
-							footerLinks.map((item) => (
-								<a href={item.href} class="text-sm text-blue-100 transition hover:text-white">
-									{item.name}
-								</a>
-							))
-						}
-					</div>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Hubungi Kami
-					</h3>
-
-					<div class="mt-6 space-y-5 text-sm text-blue-100">
-						<div>
-							<p class="font-semibold text-white">Lokasi</p>
-							<p class="mt-1 leading-6">Kelapa Gading, Jakarta Utara</p>
-						</div>
-
-						<div>
-							<p class="font-semibold text-white">Email</p>
-							<a
-								href="mailto:novalearningcentre@gmail.com"
-								class="mt-1 block break-all transition hover:text-white"
-							>
-								novalearningcentre@gmail.com
-							</a>
-						</div>
-
-						<div>
-							<p class="font-semibold text-white">
-								Phone
-							</p>
-
-							<a
-								href="https://wa.me/6285195511236"
-								class="mt-1 block break-all transition hover:text-white"
-							>
-								+62 851 9551 1236
-							</a>
-						</div>
-
-						<a
-							href="/contact"
-							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Hubungi NOVA
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div
-				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
-			>
-				<p>© {currentYear} NOVA Learning Centre. All rights reserved.</p>
-
-				<div class="flex gap-5">
-					<a href="/privacy" class="transition hover:text-white">
-						Kebijakan Privasi
-					</a>
-
-					<a href="/terms" class="transition hover:text-white">
-						Syarat & Ketentuan
-					</a>
-				</div>
-			</div>
-		</div>
-	</footer>
 </Layout>
 
 <script>
-	const mobileMenuButton =
-		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
-	const mobileMenu =
-		document.querySelector<HTMLElement>('#mobile-menu');
-	const mobileNavLinks =
-		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+	const revealElements = document.querySelectorAll<HTMLElement>('.reveal');
 
-	const closeMobileMenu = () => {
-		mobileMenu?.classList.add('hidden');
-		mobileMenuButton?.setAttribute('aria-expanded', 'false');
-	};
+	if ('IntersectionObserver' in window) {
+		const revealObserver = new IntersectionObserver(
+			(entries, observer) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.12 },
+		);
 
-	mobileMenuButton?.addEventListener('click', () => {
-		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
-		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
-	});
-
-	mobileNavLinks.forEach((link) => {
-		link.addEventListener('click', closeMobileMenu);
-	});
+		revealElements.forEach((element) => revealObserver.observe(element));
+	} else {
+		revealElements.forEach((element) => element.classList.add('is-visible'));
+	}
 </script>
 
 <style>
-	@media (prefers-reduced-motion: reduce) {
-		* {
-			scroll-behavior: auto !important;
-		}
+	.section-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.875rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
+	}
 
-		a,
-		button {
-			transition-duration: 0.01ms !important;
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
+	}
+
+	.reveal {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 650ms ease,
+			transform 650ms ease;
+	}
+
+	.reveal.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.founder-card img,
+	.team-card img {
+		transition: transform 500ms ease;
+	}
+
+	.founder-card:hover img,
+	.team-card:hover img {
+		transform: scale(1.035);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.reveal {
+			opacity: 1;
+			transform: none;
 		}
 	}
 </style>

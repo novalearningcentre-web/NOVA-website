@@ -1,0 +1,1902 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const currentYear = new Date().getFullYear();
+
+/*
+	Ganti setelah NOVA memiliki jumlah siswa aktif yang bisa dipublikasikan.
+	Contoh: const studentCount = 48;
+*/
+const studentCount = 0;
+
+type Statistic = {
+	value: string;
+	label: string;
+};
+
+type Program = {
+	number: string;
+	title: string;
+	description: string;
+	label: string;
+	href: string;
+};
+
+type Teacher = {
+	initials: string;
+	name: string;
+	photo?: string;
+	credentials: string;
+	subjects: string[];
+	quote: string;
+};
+
+type Testimonial = {
+	quote: string;
+	name: string;
+	relation: string;
+	program: string;
+	rating: number;
+	photo?: string;
+	demo?: boolean;
+};
+
+const navItems = [
+	{ name: 'Beranda', href: '/' },
+	{ name: 'Tentang Kami', href: '/about' },
+	{ name: 'Program', href: '/programs' },
+	{ name: 'Fasilitas', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Kontak', href: '/contact' },
+];
+
+const statistics: Statistic[] =
+	studentCount > 0
+		? [
+				{
+					value: `${studentCount}+`,
+					label: 'Siswa telah bergabung',
+				},
+				{
+					value: '4+',
+					label: 'Jenjang pendidikan',
+				},
+				{
+					value: 'Small Group',
+					label: 'Kelas lebih terarah',
+				},
+				{
+					value: 'Onsite & Online',
+					label: 'Pilihan pembelajaran',
+				},
+			]
+		: [
+				{
+					value: 'Angkatan 1',
+					label: 'Pendaftaran segera dibuka',
+				},
+				{
+					value: '4+',
+					label: 'Jenjang pendidikan',
+				},
+				{
+					value: 'Small Group',
+					label: 'Kelas lebih terarah',
+				},
+				{
+					value: 'Onsite & Online',
+					label: 'Pilihan pembelajaran',
+				},
+			];
+
+const programs: Program[] = [
+	{
+		number: '01',
+		title: 'Early Learners',
+		description:
+			'Program eksploratif untuk PAUD dan TK melalui aktivitas bermain, bergerak, berkomunikasi, dan belajar.',
+		label: 'Usia 3–6 tahun',
+		href: '/programs#early-learners',
+	},
+	{
+		number: '02',
+		title: 'Primary',
+		description:
+			'Pendampingan akademik untuk membangun fondasi konsep, kebiasaan belajar, dan kepercayaan diri.',
+		label: 'SD Kelas 1–6',
+		href: '/programs#primary',
+	},
+	{
+		number: '03',
+		title: 'Secondary',
+		description:
+			'Program terarah untuk memahami konsep, mengembangkan strategi belajar, dan mempersiapkan ujian.',
+		label: 'SMP & SMA',
+		href: '/programs#secondary',
+	},
+	{
+		number: '04',
+		title: 'Language & Skills',
+		description:
+			'Kelas bahasa dan keterampilan praktis untuk anak, remaja, mahasiswa, dan pembelajar dewasa.',
+		label: 'Semua jenjang',
+		href: '/programs#language-skills',
+	},
+];
+
+/*
+	Untuk menampilkan foto:
+	Foto teacher disimpan langsung di public/images/
+	Path pada data teacher sudah disesuaikan dengan nama file yang digunakan.
+	Jika photo dikosongkan, sistem tetap menampilkan inisial.
+*/
+/*
+	CATATAN:
+	Empat profil selain Halley Kuncoro masih placeholder untuk preview website.
+	Ganti nama, gelar, mata pelajaran, dan quote sebelum website dipublikasikan.
+*/
+const teachers: Teacher[] = [
+	{
+		initials: 'HK',
+		name: 'Halley Kuncoro',
+		photo: '/images/teacher-1.png',
+		credentials:
+			'Master of Educational Technology · STEM Certified Educator · Google Certified Educator',
+		subjects: ['Matematika', 'ICT', 'Computing'],
+		quote:
+			'Belajar bukan hanya memahami materi, tetapi membangun cara berpikir dan rasa percaya diri.',
+	},
+	{
+		initials: 'MP',
+		name: 'Monica Putri Pertiwi',
+		photo: '/images/teacher-4.png',
+		credentials:
+			'S.pd Early Childhood & English Educator',
+		subjects: ['English', 'Pre-School', 'Primary'],
+		quote:
+			'Nurturing young minds to grow, explore, and shine.',
+	},
+	{
+		initials: 'KF',
+		name: 'Karimah Fajriani',
+		photo: '/images/teacher-5.png',
+		credentials:
+			'S.Pd., • Physics Educator',
+		subjects: ['Science', 'Matematika', 'SMP', 'Fisika', 'SMA'],
+		quote:
+			'Menciptakan ruang belajar yang mendorong siswa untuk bertanya, memahami, dan percaya pada kemampuannya.',
+	},
+	{
+		initials: 'JS',
+		name: 'Juli Silaen',
+		photo: '/images/teacher-6.png',
+		credentials:
+			'S.Psi. · Early Childhood Educator · Child-Centered Learning',
+		subjects: ['PAUD', 'TK', 'School Readiness'],
+		quote:
+			'Anak belajar paling baik ketika kegiatan terasa aman, menyenangkan, dan sesuai tahap perkembangannya.',
+	},
+	{
+		initials: 'ON',
+		name: 'Olivia Novita',
+		photo: '/images/teacher-2.png',
+		credentials:
+			'MBA · Business & Marketing Educator · Early Childhood Educator',
+		subjects: ['English', 'Language Skills'],
+		quote:
+			'Kemampuan bahasa tumbuh lewat latihan yang konsisten, konteks yang nyata, dan keberanian untuk berkomunikasi.',
+	},
+];
+
+/*
+	CONTOH COPY TESTIMONI UNTUK PREVIEW DESAIN.
+	Jangan dipublikasikan seolah-olah ini testimoni nyata.
+	Sebelum website go-live, ganti teks, nama, dan foto dengan testimoni asli
+	yang sudah mendapat izin dari siswa/orang tua.
+*/
+const testimonials: Testimonial[] = [
+	{
+		quote:
+			'Yang paling terasa, anak saya sekarang lebih berani bertanya ketika belum paham. Belajarnya juga jadi lebih teratur dan tidak lagi terasa seperti beban.',
+		name: 'Rina Santoso',
+		relation: 'Orang tua siswa SD',
+		program: 'Program Primary',
+		rating: 5,
+		photo: '',
+		demo: true,
+	},
+	{
+		quote:
+			'Saya suka karena pengajarnya tidak hanya mengejar banyak soal. Konsepnya benar-benar dijelaskan sampai anak paham, lalu baru dilatih supaya lebih mandiri.',
+		name: 'Melissa Wijaya',
+		relation: 'Orang tua siswa SMP',
+		program: 'Program Secondary',
+		rating: 5,
+		photo: '',
+		demo: true,
+	},
+	{
+		quote:
+			'Kelasnya terasa nyaman dan tidak membuat saya takut salah. Saya jadi lebih percaya diri untuk mencoba, bertanya, dan menjelaskan jawaban saya sendiri.',
+		name: 'Jessica Tan',
+		relation: 'Siswa SMP',
+		program: 'English & Academic Skills',
+		rating: 5,
+		photo: '',
+		demo: true,
+	},
+	{
+		quote:
+			'Komunikasi dengan orang tua jelas dan perkembangan belajar anak lebih mudah dipantau. Kami jadi tahu bagian mana yang sudah kuat dan mana yang masih perlu dibantu.',
+		name: 'Dewi Anggraini',
+		relation: 'Orang tua siswa',
+		program: 'Private Class',
+		rating: 5,
+		photo: '',
+		demo: true,
+	},
+	{
+		quote:
+			'Materi online membantu saya mengulang pelajaran kapan saja. Kalau ada bagian yang belum paham, saya bisa kembali ke materinya sebelum lanjut ke latihan berikutnya.',
+		name: 'Ethan Hartono',
+		relation: 'Siswa SMA',
+		program: 'NOVA E-Learning',
+		rating: 5,
+		photo: '',
+		demo: true,
+	},
+];
+
+const footerLinks = [
+	{ name: 'Beranda', href: '/' },
+	{ name: 'Tentang Kami', href: '/about' },
+	{ name: 'Program', href: '/programs' },
+	{ name: 'Fasilitas', href: '/facilities' },
+	{ name: 'E-Learning', href: '/elearning' },
+	{ name: 'Kontak', href: '/contact' },
+];
+---
+
+<Layout
+	title="NOVA Learning Centre"
+	description="Pusat pembelajaran modern untuk anak, remaja, dan pembelajar sepanjang hayat di Kelapa Gading."
+>
+	<!-- NAVBAR -->
+	<header
+		class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl"
+	>
+		<nav
+			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
+			aria-label="Navigasi utama"
+		>
+			<a
+				href="/"
+				class="flex items-center"
+				aria-label="NOVA Learning Centre"
+			>
+				<img
+					src="/images/primary-logo.png"
+					alt="NOVA Learning Centre"
+					class="h-30 w-30 object-contain sm:hidden"
+				/>
+
+				<img
+					src="/images/primary-logo.png"
+					alt="NOVA Learning Centre"
+					class="hidden h-20 w-auto object-contain sm:block"
+				/>
+			</a>
+
+			<div class="hidden items-center gap-7 lg:flex">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class="text-sm font-semibold text-slate-600 transition hover:text-[#A87300]"
+						>
+							{item.name}
+						</a>
+					))
+				}
+			</div>
+
+			<a
+				href="/contact"
+				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#DFA722] lg:inline-flex"
+			>
+				Konsultasi Gratis
+			</a>
+
+			<button
+				id="mobile-menu-button"
+				type="button"
+				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
+				aria-label="Buka menu navigasi"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
+			>
+				<svg
+					width="23"
+					height="23"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<path d="M4 7h16"></path>
+					<path d="M4 12h16"></path>
+					<path d="M4 17h16"></path>
+				</svg>
+			</button>
+		</nav>
+
+		<div
+			id="mobile-menu"
+			class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden"
+		>
+			<div class="flex flex-col gap-4">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
+						>
+							{item.name}
+						</a>
+					))
+				}
+
+				<a
+					href="/contact"
+					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
+				>
+					Konsultasi Gratis
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<main class="overflow-hidden">
+		<!-- HERO -->
+		<section class="relative bg-[#F7F8FC]">
+			<div
+				class="absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#F3BC34]/20 blur-3xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<div
+				class="absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-blue-200/40 blur-3xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<div
+				class="relative mx-auto grid min-h-[760px] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-24"
+			>
+				<div class="relative z-10">
+					<div
+						class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#F3BC34]/35 bg-white px-4 py-2 shadow-sm"
+					>
+						<span class="h-2 w-2 rounded-full bg-[#F3BC34]"></span>
+
+						<span class="text-sm font-semibold text-[#0F2747]">
+							Pusat Belajar Modern di Kelapa Gading
+						</span>
+					</div>
+
+					<h1
+						class="max-w-3xl text-5xl font-bold leading-[1.08] tracking-[-0.04em] text-[#0F2747] sm:text-6xl lg:text-7xl"
+					>
+						Belajar lebih terarah.
+
+						<span class="block text-[#F3BC34]">
+							Tumbuh lebih percaya diri.
+						</span>
+					</h1>
+
+					<p class="mt-7 max-w-2xl text-lg leading-8 text-slate-600">
+						NOVA menghadirkan pembelajaran personal melalui kelas tatap
+						muka, kelompok kecil, private class, dan kursus e-learning yang
+						fleksibel.
+					</p>
+
+					<div class="mt-9 flex flex-col gap-4 sm:flex-row">
+						<a
+							href="/programs"
+							class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#F3BC34] px-7 py-4 font-bold text-[#0F2747] shadow-lg shadow-[#F3BC34]/20 transition hover:-translate-y-0.5 hover:bg-[#DFA722]"
+						>
+							Lihat Program
+
+							<svg
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								aria-hidden="true"
+							>
+								<path d="M5 12h14"></path>
+								<path d="m13 6 6 6-6 6"></path>
+							</svg>
+						</a>
+
+						<a
+							href="/contact"
+							class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-7 py-4 font-semibold text-[#0F2747] transition hover:border-[#0F2747] hover:bg-slate-50"
+						>
+							Konsultasi Gratis
+						</a>
+					</div>
+
+					<div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
+						<div class="flex items-center gap-3">
+							<div
+								class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-700"
+							>
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									aria-hidden="true"
+								>
+									<path d="m5 12 4 4L19 6"></path>
+								</svg>
+							</div>
+
+							<div>
+								<p class="text-sm font-semibold text-[#0F2747]">
+									Kelas kelompok kecil
+								</p>
+
+								<p class="text-xs text-slate-500">
+									Belajar lebih fokus
+								</p>
+							</div>
+						</div>
+
+						<div class="flex items-center gap-3">
+							<div
+								class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700"
+							>
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									aria-hidden="true"
+								>
+									<circle cx="12" cy="12" r="9"></circle>
+									<path d="M12 7v5l3 2"></path>
+								</svg>
+							</div>
+
+							<div>
+								<p class="text-sm font-semibold text-[#0F2747]">
+									Jadwal fleksibel
+								</p>
+
+								<p class="text-xs text-slate-500">
+									Online dan onsite
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- HERO VISUAL -->
+				<div class="relative mx-auto w-full max-w-xl lg:max-w-none">
+					<div
+						class="absolute -left-8 top-16 h-40 w-40 rounded-full bg-[#F3BC34]/20 blur-2xl"
+						aria-hidden="true"
+					>
+					</div>
+
+					<div
+						class="relative overflow-hidden rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_30px_80px_rgba(15,39,71,0.16)]"
+					>
+						<div
+							class="relative min-h-[560px] overflow-hidden rounded-[24px] bg-[#0F2747]"
+						>
+							<div
+								class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,130,32,0.32),transparent_42%)]"
+								aria-hidden="true"
+							>
+							</div>
+
+							<div
+								class="absolute left-7 right-7 top-7 flex items-center justify-between"
+							>
+								<div class="flex items-center gap-3">
+									<div
+										class="flex h-10 w-10 items-center justify-center rounded-xl bg-white"
+									>
+										<img
+											src="/images/primary-logo-icon.png"
+											alt=""
+											class="h-8 w-8 object-contain"
+										/>
+									</div>
+
+									<div>
+										<p class="text-sm font-bold text-white">
+											NOVA Learning
+										</p>
+
+										<p class="text-xs text-blue-200">
+											Personalized Learning
+										</p>
+									</div>
+								</div>
+
+								<div class="flex gap-2" aria-hidden="true">
+									<span class="h-2 w-2 rounded-full bg-white/40"></span>
+									<span class="h-2 w-2 rounded-full bg-white/70"></span>
+									<span class="h-2 w-2 rounded-full bg-[#F3BC34]"></span>
+								</div>
+							</div>
+
+							<div class="absolute inset-x-7 top-28">
+								<div
+									class="rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md"
+								>
+									<div class="flex items-start justify-between gap-5">
+										<div>
+											<p
+												class="text-xs font-semibold uppercase tracking-[0.18em] text-[#F3BC34]"
+											>
+												Program NOVA
+											</p>
+
+											<h2 class="mt-3 text-3xl font-bold text-white">
+												Belajar sesuai kebutuhan setiap siswa.
+											</h2>
+										</div>
+
+										<div
+											class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F3BC34] text-[#0F2747]"
+										>
+											<svg
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												aria-hidden="true"
+											>
+												<path d="m5 12 4 4L19 6"></path>
+											</svg>
+										</div>
+									</div>
+
+									<div class="mt-8">
+										<div class="flex items-center justify-between text-sm">
+											<span class="text-blue-100">
+												Perkembangan belajar
+											</span>
+
+											<span class="font-semibold text-white">
+												78%
+											</span>
+										</div>
+
+										<div
+											class="mt-3 h-2 overflow-hidden rounded-full bg-white/15"
+										>
+											<div
+												class="h-full w-[78%] rounded-full bg-[#F3BC34]"
+											>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div
+								class="absolute bottom-7 left-7 right-7 grid gap-4 sm:grid-cols-2"
+							>
+								<div class="rounded-2xl bg-white p-5 shadow-xl">
+									<div class="flex items-center justify-between">
+										<div
+											class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F3BC34]/20 text-[#F3BC34]"
+										>
+											<svg
+												width="20"
+												height="20"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												aria-hidden="true"
+											>
+												<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20">
+												</path>
+												<path
+													d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"
+												>
+												</path>
+											</svg>
+										</div>
+
+										<span
+											class="rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700"
+										>
+											Aktif
+										</span>
+									</div>
+
+									<p class="mt-5 text-sm font-semibold text-slate-500">
+										Kelas Tatap Muka
+									</p>
+
+									<p class="mt-1 text-xl font-bold text-[#0F2747]">
+										Small Group Class
+									</p>
+								</div>
+
+								<div
+									class="rounded-2xl bg-[#F3BC34] p-5 text-[#0F2747] shadow-xl"
+								>
+									<div
+										class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20"
+									>
+										<svg
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											aria-hidden="true"
+										>
+											<polygon points="5 3 19 12 5 21 5 3"></polygon>
+										</svg>
+									</div>
+
+									<p class="mt-5 text-sm font-semibold text-[#FFF0BF]">
+										E-Learning
+									</p>
+
+									<p class="mt-1 text-xl font-bold">
+										Belajar Kapan Saja
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- STATISTICS -->
+		<section class="border-y border-slate-200 bg-white">
+			<div
+				class="mx-auto grid max-w-7xl grid-cols-2 px-6 py-8 md:grid-cols-4 lg:px-8"
+			>
+				{
+					statistics.map((stat) => (
+						<div class="border-slate-200 px-4 py-5 text-center even:border-l md:border-l md:px-6 md:first:border-l-0">
+							<p class="text-2xl font-bold text-[#0F2747] md:text-3xl">
+								{stat.value}
+							</p>
+
+							<p class="mt-2 text-sm leading-5 text-slate-500">
+								{stat.label}
+							</p>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- PROGRAMS -->
+		<section class="bg-white py-24">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div
+					class="flex flex-col justify-between gap-8 md:flex-row md:items-end"
+				>
+					<div>
+						<p
+							class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+						>
+							Program NOVA
+						</p>
+
+						<h2
+							class="mt-4 max-w-2xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
+						>
+							Program belajar untuk setiap tahap perkembangan.
+						</h2>
+					</div>
+
+					<a
+						href="/programs"
+						class="inline-flex items-center gap-2 font-semibold text-[#0F2747] transition hover:text-[#A87300]"
+					>
+						Lihat semua program
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+
+				<div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+					{
+						programs.map((program) => (
+							<a
+								href={program.href}
+								class="group rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34]/35 hover:shadow-xl hover:shadow-slate-200/60"
+							>
+								<div class="flex items-center justify-between">
+									<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747] text-lg font-bold text-white transition group-hover:bg-[#F3BC34] group-hover:text-[#0F2747]">
+										{program.number}
+									</div>
+
+									<span class="text-xl text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#A87300]">
+										→
+									</span>
+								</div>
+
+								<p class="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-[#A87300]">
+									{program.label}
+								</p>
+
+								<h3 class="mt-3 text-xl font-bold text-[#0F2747]">
+									{program.title}
+								</h3>
+
+								<p class="mt-3 text-sm leading-6 text-slate-500">
+									{program.description}
+								</p>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- WHY NOVA -->
+		<section class="bg-[#0F2747] py-24 text-white">
+			<div
+				class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8"
+			>
+				<div>
+					<p
+						class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+					>
+						Mengapa NOVA?
+					</p>
+
+					<h2
+						class="mt-4 max-w-xl text-4xl font-bold tracking-tight md:text-5xl"
+					>
+						Bukan sekadar tambahan pelajaran.
+					</h2>
+
+					<p class="mt-6 max-w-xl text-lg leading-8 text-blue-100">
+						Kami membantu siswa memahami cara belajar, membangun kebiasaan
+						yang sehat, dan mengembangkan kepercayaan diri secara bertahap.
+					</p>
+
+					<a
+						href="/about"
+						class="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-7 py-4 font-semibold text-[#0F2747] transition hover:bg-[#F3BC34]/10"
+					>
+						Pelajari pendekatan NOVA
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+
+				<div class="grid gap-4 sm:grid-cols-2">
+					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
+						<div
+							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
+						>
+							01
+						</div>
+
+						<h3 class="mt-5 text-xl font-bold">
+							Terarah & Aktif
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Pengajar memberi arahan saat dibutuhkan, sementara siswa tetap
+							aktif bertanya, mencoba, berdiskusi, dan memecahkan masalah.
+						</p>
+					</article>
+
+					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
+						<div
+							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
+						>
+							02
+						</div>
+
+						<h3 class="mt-5 text-xl font-bold">
+							Kelompok Kecil
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Interaksi lebih dekat agar pengajar dapat memberikan
+							pendampingan yang lebih terarah.
+						</p>
+					</article>
+
+					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
+						<div
+							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
+						>
+							03
+						</div>
+
+						<h3 class="mt-5 text-xl font-bold">
+							Active Learning
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Siswa aktif berdiskusi, mencoba, memecahkan masalah, dan
+							merefleksikan proses belajar.
+						</p>
+					</article>
+
+					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
+						<div
+							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
+						>
+							04
+						</div>
+
+						<h3 class="mt-5 text-xl font-bold">
+							Learning Progress
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-blue-100">
+							Perkembangan belajar dicatat agar program dapat dievaluasi
+							dan disesuaikan secara berkala.
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<!-- TEACHER SLIDER -->
+		<section class="relative overflow-hidden bg-[#F7F8FC] py-20">
+			<div
+				class="absolute -left-32 top-20 h-72 w-72 rounded-full bg-[#F3BC34]/20 blur-3xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<div
+				class="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-blue-200/30 blur-3xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+				<div
+					class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+				>
+					<div class="max-w-3xl">
+						<p
+							class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+						>
+							Tim Pengajar
+						</p>
+
+						<h2
+							class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
+						>
+							Belajar bersama pengajar yang kompeten dan peduli.
+						</h2>
+
+						<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+							Kenali para pengajar yang akan mendampingi siswa dalam
+							proses belajar yang lebih personal, terarah, dan
+							menyenangkan.
+						</p>
+					</div>
+
+					<div class="flex shrink-0 items-center gap-3">
+						<button
+							id="teacher-prev"
+							type="button"
+							aria-label="Lihat guru sebelumnya"
+							class="flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-[#0F2747] shadow-sm transition hover:border-[#F3BC34] hover:bg-[#F3BC34] hover:text-[#0F2747]"
+						>
+							<svg
+								width="21"
+								height="21"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="m15 18-6-6 6-6"></path>
+							</svg>
+						</button>
+
+						<button
+							id="teacher-next"
+							type="button"
+							aria-label="Lihat guru berikutnya"
+							class="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F2747] text-white shadow-sm transition hover:bg-[#F3BC34] hover:text-[#0F2747]"
+						>
+							<svg
+								width="21"
+								height="21"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="m9 18 6-6-6-6"></path>
+							</svg>
+						</button>
+					</div>
+				</div>
+
+				<div
+					id="teacher-slider"
+					class="horizontal-slider mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6"
+				>
+					{
+						teachers.map((teacher) => (
+							<article
+								data-teacher-card
+								class="group w-[280px] flex-none snap-start rounded-3xl border border-slate-200 bg-white px-6 py-7 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34]/35 hover:shadow-xl sm:w-[300px] lg:w-[320px]"
+							>
+								<div class="relative mx-auto w-fit">
+									<div
+										class="absolute inset-0 scale-110 rounded-full bg-[#F3BC34]/20 transition duration-300 group-hover:scale-[1.16]"
+										aria-hidden="true"
+									>
+									</div>
+
+									<div
+										class="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-[#0F2747] shadow-lg"
+									>
+										{teacher.photo ? (
+											<img
+												src={teacher.photo}
+												alt={`Foto ${teacher.name}`}
+												class="h-full w-full object-cover"
+												loading="lazy"
+											/>
+										) : (
+											<span class="text-3xl font-bold text-white">
+												{teacher.initials}
+											</span>
+										)}
+									</div>
+
+									<div
+										class="absolute bottom-1 right-0 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#F3BC34] text-[#0F2747] shadow-md"
+										title="Pengajar NOVA"
+									>
+										<svg
+											width="15"
+											height="15"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="3"
+											aria-hidden="true"
+										>
+											<path d="m5 12 4 4L19 6"></path>
+										</svg>
+									</div>
+								</div>
+
+								<h3 class="mt-6 text-xl font-bold text-[#0F2747]">
+									{teacher.name}
+								</h3>
+
+								<p class="mt-2 min-h-12 text-sm font-medium leading-6 text-slate-500">
+									{teacher.credentials}
+								</p>
+
+								<div
+									class="mt-5 flex min-h-16 flex-wrap content-start justify-center gap-2"
+								>
+									{
+										teacher.subjects.map((subject) => (
+											<span class="rounded-full border border-[#F3BC34]/30 bg-[#F3BC34]/10 px-3 py-1.5 text-xs font-semibold text-[#A87300]">
+												{subject}
+											</span>
+										))
+									}
+								</div>
+
+								<div class="mt-6 border-t border-slate-100 pt-5">
+									<blockquote class="text-sm italic leading-6 text-slate-600">
+										“{teacher.quote}”
+									</blockquote>
+								</div>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="mt-3 text-center">
+					<a
+						href="/about#teachers"
+						class="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2747] transition hover:text-[#A87300]"
+					>
+						Kenali seluruh tim pengajar
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- FACILITIES -->
+		<section class="bg-white py-24">
+			<div
+				class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8"
+			>
+				<div
+					class="relative min-h-[500px] overflow-hidden rounded-[32px] bg-[#0F2747] p-7"
+				>
+					<div
+						class="absolute right-0 top-0 h-52 w-52 rounded-bl-full bg-[#F3BC34]"
+						aria-hidden="true"
+					>
+					</div>
+
+					<div
+						class="relative flex min-h-[446px] flex-col justify-end rounded-[24px] border border-white/10 bg-white/5 p-8"
+					>
+						<p
+							class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+						>
+							NOVA Learning Space
+						</p>
+
+						<h3 class="mt-4 max-w-md text-3xl font-bold text-white">
+							Ruang belajar yang nyaman untuk fokus dan berkolaborasi.
+						</h3>
+
+						<div class="mt-8 grid grid-cols-2 gap-3">
+							<div class="rounded-xl bg-white p-4">
+								<p class="font-bold text-[#0F2747]">
+									Small Group
+								</p>
+								<p class="mt-1 text-xs text-slate-500">
+									Kelas kelompok kecil
+								</p>
+							</div>
+
+							<div class="rounded-xl bg-white p-4">
+								<p class="font-bold text-[#0F2747]">
+									Private Class
+								</p>
+								<p class="mt-1 text-xs text-slate-500">
+									Pendampingan individual
+								</p>
+							</div>
+
+							<div class="rounded-xl bg-white p-4">
+								<p class="font-bold text-[#0F2747]">
+									Open Space
+								</p>
+								<p class="mt-1 text-xs text-slate-500">
+									Belajar dan berdiskusi
+								</p>
+							</div>
+
+							<div class="rounded-xl bg-white p-4">
+								<p class="font-bold text-[#0F2747]">
+									Digital Learning
+								</p>
+								<p class="mt-1 text-xs text-slate-500">
+									Teknologi pendukung belajar
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<p
+						class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+					>
+						Fasilitas
+					</p>
+
+					<h2
+						class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
+					>
+						Dirancang untuk berbagai cara belajar.
+					</h2>
+
+					<p class="mt-6 text-lg leading-8 text-slate-600">
+						NOVA memiliki area belajar untuk kelas kelompok, kelas privat,
+						pembelajaran bahasa, diskusi, dan aktivitas kolaboratif.
+					</p>
+
+					<div class="mt-8 space-y-5">
+						<div class="flex items-start gap-4">
+							<div
+								class="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34]/20 text-sm font-bold text-[#F3BC34]"
+							>
+								✓
+							</div>
+
+							<div>
+								<h3 class="font-bold text-[#0F2747]">
+									Lingkungan belajar yang nyaman
+								</h3>
+
+								<p class="mt-1 text-sm leading-6 text-slate-500">
+									Penataan ruang mendukung fokus, interaksi, dan
+									kenyamanan siswa.
+								</p>
+							</div>
+						</div>
+
+						<div class="flex items-start gap-4">
+							<div
+								class="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34]/20 text-sm font-bold text-[#F3BC34]"
+							>
+								✓
+							</div>
+
+							<div>
+								<h3 class="font-bold text-[#0F2747]">
+									Ruang untuk berbagai ukuran kelas
+								</h3>
+
+								<p class="mt-1 text-sm leading-6 text-slate-500">
+									Tersedia ruang untuk private class, semi-private, dan
+									kelompok kecil.
+								</p>
+							</div>
+						</div>
+
+						<div class="flex items-start gap-4">
+							<div
+								class="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34]/20 text-sm font-bold text-[#F3BC34]"
+							>
+								✓
+							</div>
+
+							<div>
+								<h3 class="font-bold text-[#0F2747]">
+									Pembelajaran terintegrasi
+								</h3>
+
+								<p class="mt-1 text-sm leading-6 text-slate-500">
+									Aktivitas onsite dapat dilengkapi materi dan latihan
+									dari platform e-learning.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<a
+						href="/facilities"
+						class="mt-9 inline-flex items-center gap-2 rounded-xl bg-[#0F2747] px-7 py-4 font-semibold text-white transition hover:bg-[#17385f]"
+					>
+						Lihat fasilitas NOVA
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- E-LEARNING -->
+		<section class="bg-[#F7F8FC] py-24">
+			<div
+				class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8"
+			>
+				<div>
+					<p
+						class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+					>
+						NOVA E-Learning
+					</p>
+
+					<h2
+						class="mt-4 max-w-2xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
+					>
+						Belajar mandiri dengan struktur yang tetap terarah.
+					</h2>
+
+					<p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+						Akses video pembelajaran, materi interaktif, worksheet, kuis,
+						progres belajar, dan sertifikat dalam satu platform.
+					</p>
+
+					<a
+						href="/elearning"
+						class="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#F3BC34] px-7 py-4 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
+					>
+						Jelajahi E-Learning
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+
+				<div
+					class="rounded-[28px] bg-[#0F2747] p-4 text-[#0F2747] shadow-2xl"
+				>
+					<div class="rounded-[20px] bg-white p-6">
+						<div class="flex items-center justify-between gap-5">
+							<div>
+								<p class="text-sm text-slate-500">
+									Lanjutkan belajar
+								</p>
+
+								<h3 class="mt-1 text-xl font-bold">
+									Matematika Dasar Kelas 7
+								</h3>
+							</div>
+
+							<div
+								class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-[#0F2747]"
+							>
+								▶
+							</div>
+						</div>
+
+						<div class="mt-8 rounded-2xl bg-slate-50 p-5">
+							<div class="flex justify-between text-sm">
+								<span class="font-semibold">
+									Modul 4 dari 8
+								</span>
+
+								<span class="text-slate-500">
+									50%
+								</span>
+							</div>
+
+							<div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+								<div class="h-full w-1/2 rounded-full bg-[#F3BC34]">
+								</div>
+							</div>
+
+							<div
+								class="mt-6 grid grid-cols-3 divide-x divide-slate-200 text-center"
+							>
+								<div>
+									<p class="font-bold">12</p>
+									<p class="text-xs text-slate-500">Video</p>
+								</div>
+
+								<div>
+									<p class="font-bold">8</p>
+									<p class="text-xs text-slate-500">Worksheet</p>
+								</div>
+
+								<div>
+									<p class="font-bold">4</p>
+									<p class="text-xs text-slate-500">Kuis</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="mt-4 grid gap-3 sm:grid-cols-2">
+							<div class="rounded-xl border border-slate-200 p-4">
+								<p class="text-xs font-semibold text-slate-500">
+									Kursus berikutnya
+								</p>
+								<p class="mt-2 font-bold text-[#0F2747]">
+									English Conversation
+								</p>
+							</div>
+
+							<div class="rounded-xl border border-slate-200 p-4">
+								<p class="text-xs font-semibold text-slate-500">
+									Pencapaian
+								</p>
+								<p class="mt-2 font-bold text-[#0F2747]">
+									3 Sertifikat
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- COMPACT TESTIMONIAL SLIDER -->
+		<section class="relative overflow-hidden bg-[#0F2747] py-20 text-white">
+			<div
+				class="absolute -left-24 top-8 h-64 w-64 rounded-full bg-[#F3BC34]/15 blur-3xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<div
+				class="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-blue-400/15 blur-3xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+				<div
+					class="flex flex-col gap-7 md:flex-row md:items-end md:justify-between"
+				>
+					<div class="max-w-2xl">
+						<p
+							class="text-sm font-bold uppercase tracking-[0.2em] text-[#F3BC34]"
+						>
+							Cerita Bersama NOVA
+						</p>
+
+						<h2
+							class="mt-4 text-4xl font-bold tracking-tight md:text-5xl"
+						>
+							Apa kata mereka tentang pengalaman belajar di NOVA?
+						</h2>
+
+						<p class="mt-4 max-w-xl text-base leading-7 text-blue-100">
+							Cerita singkat dari siswa dan orang tua tentang proses belajar,
+							pendampingan, dan perkembangan mereka.
+						</p>
+					</div>
+
+					<div class="flex shrink-0 items-center gap-3">
+						<button
+							id="testimonial-prev"
+							type="button"
+							aria-label="Lihat testimoni sebelumnya"
+							class="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#F3BC34] hover:bg-[#F3BC34] hover:text-[#0F2747]"
+						>
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="m15 18-6-6 6-6"></path>
+							</svg>
+						</button>
+
+						<button
+							id="testimonial-next"
+							type="button"
+							aria-label="Lihat testimoni berikutnya"
+							class="flex h-11 w-11 items-center justify-center rounded-full bg-[#F3BC34] text-[#0F2747] transition hover:bg-[#DFA722]"
+						>
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="m9 18 6-6-6-6"></path>
+							</svg>
+						</button>
+					</div>
+				</div>
+
+				<div
+					id="testimonial-slider"
+					class="horizontal-slider -mx-6 mt-11 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 py-5 lg:-mx-8 lg:px-8"
+					aria-label="Daftar testimoni"
+				>
+					{
+						testimonials.map((testimonial, index) => (
+							<article
+								data-testimonial-card
+								class:list={[
+									'testimonial-card relative w-[84%] flex-none snap-center overflow-hidden rounded-2xl border border-white/10 bg-white px-6 py-6 text-[#0F2747] shadow-xl sm:w-[360px] lg:w-[370px]',
+									index === 0 ? 'is-active' : '',
+								]}
+							>
+								<div
+									class="absolute -right-2 -top-7 select-none text-[92px] font-black leading-none text-[#F3BC34]/15"
+									aria-hidden="true"
+								>
+									“
+								</div>
+
+								<div class="relative flex min-h-[300px] flex-col">
+									<div class="flex items-start justify-between gap-4">
+										<div class="flex gap-0.5 text-sm text-[#F3BC34]">
+											{
+												Array.from({ length: testimonial.rating }).map(() => (
+													<span aria-hidden="true">★</span>
+												))
+											}
+										</div>
+
+										{testimonial.demo && (
+											<span class="rounded-full bg-slate-100 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-slate-500">
+												Contoh
+											</span>
+										)}
+									</div>
+
+									<blockquote
+										class="mt-5 line-clamp-5 text-[17px] font-medium leading-7 text-[#0F2747]"
+									>
+										“{testimonial.quote}”
+									</blockquote>
+
+									<div class="mt-auto pt-6">
+										<div class="mb-5 h-px bg-slate-100"></div>
+
+										<div class="flex items-center gap-3">
+											<div
+												class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#0F2747] text-xs font-bold text-white ring-2 ring-[#F3BC34]/25"
+											>
+												{testimonial.photo ? (
+													<img
+														src={testimonial.photo}
+														alt={`Foto ${testimonial.name}`}
+														class="h-full w-full object-cover"
+														loading="lazy"
+													/>
+												) : (
+													<span>
+														{testimonial.name
+															.split(' ')
+															.map((part) => part.charAt(0))
+															.slice(0, 2)
+															.join('')}
+													</span>
+												)}
+											</div>
+
+											<div class="min-w-0">
+												<p class="truncate text-sm font-bold text-[#0F2747]">
+													{testimonial.name}
+												</p>
+
+												<p class="mt-0.5 truncate text-xs text-slate-500">
+													{testimonial.relation} · {testimonial.program}
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+						))
+					}
+				</div>
+
+				<div
+					class="mt-3 flex flex-col items-center justify-between gap-5 sm:flex-row"
+				>
+					<div
+						id="testimonial-dots"
+						class="flex items-center gap-2"
+						aria-label="Pilih testimoni"
+					>
+						{
+							testimonials.map((_, index) => (
+								<button
+									type="button"
+									data-testimonial-dot={index}
+									class:list={[
+										'testimonial-dot h-2 rounded-full bg-white/25 transition-all',
+										index === 0 ? 'is-active' : '',
+									]}
+									aria-label={`Tampilkan testimoni ${index + 1}`}
+								>
+								</button>
+							))
+						}
+					</div>
+
+					<a
+						href="/testimonials"
+						class="group inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#F3BC34]"
+					>
+						Lihat seluruh testimoni
+						<span class="transition group-hover:translate-x-1" aria-hidden="true">
+							→
+						</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- FINAL CTA -->
+		<section class="bg-[#F3BC34]/12 py-20">
+			<div class="mx-auto max-w-4xl px-6 text-center">
+				<p
+					class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
+				>
+					Mulai bersama NOVA
+				</p>
+
+				<h2
+					class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
+				>
+					Temukan program yang sesuai dengan kebutuhan belajar.
+				</h2>
+
+				<p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+					Konsultasikan kebutuhan siswa bersama tim NOVA untuk menentukan
+					program dan jadwal yang paling tepat.
+				</p>
+
+				<a
+					href="/contact"
+					class="mt-8 inline-flex rounded-xl bg-[#0F2747] px-8 py-4 font-semibold text-white transition hover:bg-[#17385f]"
+				>
+					Jadwalkan Konsultasi
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<!-- FOOTER -->
+	<footer class="bg-[#091D36] text-white">
+		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
+				<div>
+					<a href="/" aria-label="NOVA Learning Centre">
+						<img
+							src="/images/primary-logo.png"
+							alt="NOVA Learning Centre"
+							class="h-14 w-auto brightness-0 invert"
+						/>
+					</a>
+
+					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
+						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
+						sepanjang hayat melalui kelas tatap muka dan e-learning.
+					</p>
+
+					<p class="mt-6 text-sm font-semibold text-[#A87300]">
+						Learn with purpose. Grow with confidence.
+					</p>
+				</div>
+
+				<div>
+					<h3
+						class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]"
+					>
+						Navigasi
+					</h3>
+
+					<div class="mt-6 grid gap-3">
+						{
+							footerLinks.map((item) => (
+								<a
+									href={item.href}
+									class="text-sm text-blue-100 transition hover:text-white"
+								>
+									{item.name}
+								</a>
+							))
+						}
+					</div>
+				</div>
+
+				<div>
+					<h3
+						class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]"
+					>
+						Hubungi Kami
+					</h3>
+
+					<div class="mt-6 space-y-5 text-sm text-blue-100">
+						<div>
+							<p class="font-semibold text-white">
+								Lokasi
+							</p>
+
+							<p class="mt-1 leading-6">
+								Kelapa Gading, Jakarta Utara
+							</p>
+						</div>
+
+						<div>
+							<p class="font-semibold text-white">
+								Email
+							</p>
+
+							<a
+								href="mailto:novalearningcentre@gmail.com"
+								class="mt-1 block break-all transition hover:text-white"
+							>
+								novalearningcentre@gmail.com
+							</a>
+						</div>
+
+						<a
+							href="/contact"
+							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
+						>
+							Hubungi NOVA
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
+			>
+				<p>
+					© {currentYear} NOVA Learning Centre. All rights reserved.
+				</p>
+
+				<div class="flex gap-5">
+					<a href="/privacy" class="transition hover:text-white">
+						Kebijakan Privasi
+					</a>
+
+					<a href="/terms" class="transition hover:text-white">
+						Syarat & Ketentuan
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</Layout>
+
+<script>
+	// MOBILE MENU
+	const mobileMenuButton =
+		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
+	const mobileMenu =
+		document.querySelector<HTMLElement>('#mobile-menu');
+	const mobileNavLinks =
+		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+
+	const closeMobileMenu = () => {
+		mobileMenu?.classList.add('hidden');
+		mobileMenuButton?.setAttribute('aria-expanded', 'false');
+	};
+
+	mobileMenuButton?.addEventListener('click', () => {
+		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
+		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
+	});
+
+	mobileNavLinks.forEach((link) => {
+		link.addEventListener('click', closeMobileMenu);
+	});
+
+	// TEACHER SLIDER
+	const teacherSlider =
+		document.querySelector<HTMLElement>('#teacher-slider');
+	const teacherPreviousButton =
+		document.querySelector<HTMLButtonElement>('#teacher-prev');
+	const teacherNextButton =
+		document.querySelector<HTMLButtonElement>('#teacher-next');
+
+	const getSliderGap = (element: HTMLElement) => {
+		const computedStyle = window.getComputedStyle(element);
+		const rawGap = computedStyle.columnGap || computedStyle.gap || '0';
+		const gap = Number.parseFloat(rawGap);
+
+		return Number.isFinite(gap) ? gap : 0;
+	};
+
+	const moveTeacherSlider = (direction: number) => {
+		if (!teacherSlider) return;
+
+		const firstCard =
+			teacherSlider.querySelector<HTMLElement>('[data-teacher-card]');
+
+		const step =
+			(firstCard?.offsetWidth ?? 300) + getSliderGap(teacherSlider);
+
+		teacherSlider.scrollBy({
+			left: direction * step,
+			behavior: 'smooth',
+		});
+	};
+
+	teacherPreviousButton?.addEventListener('click', () => {
+		moveTeacherSlider(-1);
+	});
+
+	teacherNextButton?.addEventListener('click', () => {
+		moveTeacherSlider(1);
+	});
+
+	// TESTIMONIAL SLIDER
+	const testimonialSlider =
+		document.querySelector<HTMLElement>('#testimonial-slider');
+	const testimonialCards = Array.from(
+		document.querySelectorAll<HTMLElement>('[data-testimonial-card]'),
+	);
+	const testimonialDots = Array.from(
+		document.querySelectorAll<HTMLButtonElement>('[data-testimonial-dot]'),
+	);
+	const testimonialPreviousButton =
+		document.querySelector<HTMLButtonElement>('#testimonial-prev');
+	const testimonialNextButton =
+		document.querySelector<HTMLButtonElement>('#testimonial-next');
+
+	let testimonialIndex = 0;
+	let testimonialTimer: number | undefined;
+	let testimonialScrollFrame: number | undefined;
+
+	const updateTestimonialDots = () => {
+		testimonialDots.forEach((dot, index) => {
+			const isActive = index === testimonialIndex;
+			dot.classList.toggle('is-active', isActive);
+			dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+		});
+
+		testimonialCards.forEach((card, index) => {
+			card.classList.toggle('is-active', index === testimonialIndex);
+		});
+	};
+
+	const goToTestimonial = (index: number, smooth = true) => {
+		if (!testimonialSlider || testimonialCards.length === 0) return;
+
+		testimonialIndex =
+			(index + testimonialCards.length) % testimonialCards.length;
+
+		const activeCard = testimonialCards[testimonialIndex];
+		const centeredPosition =
+			activeCard.offsetLeft -
+			(testimonialSlider.clientWidth - activeCard.offsetWidth) / 2;
+
+		testimonialSlider.scrollTo({
+			left: centeredPosition,
+			behavior: smooth ? 'smooth' : 'auto',
+		});
+
+		updateTestimonialDots();
+	};
+
+	const startTestimonialAutoPlay = () => {
+		window.clearInterval(testimonialTimer);
+
+		testimonialTimer = window.setInterval(() => {
+			goToTestimonial(testimonialIndex + 1);
+		}, 6000);
+	};
+
+	const stopTestimonialAutoPlay = () => {
+		window.clearInterval(testimonialTimer);
+	};
+
+	testimonialPreviousButton?.addEventListener('click', () => {
+		goToTestimonial(testimonialIndex - 1);
+		startTestimonialAutoPlay();
+	});
+
+	testimonialNextButton?.addEventListener('click', () => {
+		goToTestimonial(testimonialIndex + 1);
+		startTestimonialAutoPlay();
+	});
+
+	testimonialDots.forEach((dot, index) => {
+		dot.addEventListener('click', () => {
+			goToTestimonial(index);
+			startTestimonialAutoPlay();
+		});
+	});
+
+	testimonialSlider?.addEventListener('scroll', () => {
+		if (testimonialScrollFrame) {
+			window.cancelAnimationFrame(testimonialScrollFrame);
+		}
+
+		testimonialScrollFrame = window.requestAnimationFrame(() => {
+			if (!testimonialSlider || testimonialCards.length === 0) return;
+
+			const sliderCenter =
+				testimonialSlider.scrollLeft + testimonialSlider.clientWidth / 2;
+
+			let closestIndex = 0;
+			let closestDistance = Number.POSITIVE_INFINITY;
+
+			testimonialCards.forEach((card, index) => {
+				const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+				const distance = Math.abs(cardCenter - sliderCenter);
+
+				if (distance < closestDistance) {
+					closestDistance = distance;
+					closestIndex = index;
+				}
+			});
+
+			if (closestIndex !== testimonialIndex) {
+				testimonialIndex = closestIndex;
+				updateTestimonialDots();
+			}
+		});
+	});
+
+	testimonialSlider?.addEventListener('mouseenter', stopTestimonialAutoPlay);
+	testimonialSlider?.addEventListener('mouseleave', startTestimonialAutoPlay);
+	testimonialSlider?.addEventListener('focusin', stopTestimonialAutoPlay);
+	testimonialSlider?.addEventListener('focusout', startTestimonialAutoPlay);
+	testimonialSlider?.addEventListener('touchstart', stopTestimonialAutoPlay, {
+		passive: true,
+	});
+	testimonialSlider?.addEventListener('touchend', startTestimonialAutoPlay, {
+		passive: true,
+	});
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.hidden) {
+			stopTestimonialAutoPlay();
+		} else {
+			startTestimonialAutoPlay();
+		}
+	});
+
+	updateTestimonialDots();
+	startTestimonialAutoPlay();
+
+	window.addEventListener('resize', () => {
+		goToTestimonial(testimonialIndex, false);
+	});
+</script>
+
+<style>
+	.horizontal-slider {
+		scrollbar-width: none;
+		overscroll-behavior-inline: contain;
+	}
+
+	.horizontal-slider::-webkit-scrollbar {
+		display: none;
+	}
+
+	.testimonial-card {
+		opacity: 0.68;
+		transform: scale(0.96);
+		transition:
+			opacity 300ms ease,
+			transform 300ms ease,
+			border-color 300ms ease,
+			box-shadow 300ms ease;
+	}
+
+	.testimonial-card.is-active {
+		opacity: 1;
+		transform: scale(1);
+		border-color: rgba(243, 188, 52, 0.45);
+		box-shadow: 0 24px 55px rgba(0, 0, 0, 0.2);
+	}
+
+	.testimonial-dot {
+		width: 0.5rem;
+	}
+
+	.testimonial-dot.is-active {
+		width: 1.75rem;
+		background: #F3BC34;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			scroll-behavior: auto !important;
+		}
+
+		.group,
+		a,
+		button {
+			transition-duration: 0.01ms !important;
+		}
+	}
+</style>

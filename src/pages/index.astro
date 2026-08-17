@@ -1,24 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const currentYear = new Date().getFullYear();
-
-/*
-	Ganti setelah NOVA memiliki jumlah siswa aktif yang bisa dipublikasikan.
-	Contoh: const studentCount = 48;
-*/
 const studentCount = 0;
 
 type Statistic = {
 	value: string;
-	label: string;
+	labelId: string;
+	labelEn: string;
 };
 
 type Program = {
 	number: string;
-	title: string;
-	description: string;
-	label: string;
+	titleId: string;
+	titleEn: string;
+	descriptionId: string;
+	descriptionEn: string;
+	labelId: string;
+	labelEn: string;
+	href: string;
+};
+
+type Activity = {
+	titleId: string;
+	titleEn: string;
+	descriptionId: string;
+	descriptionEn: string;
+	image: string;
 	href: string;
 };
 
@@ -28,670 +35,425 @@ type Teacher = {
 	photo?: string;
 	credentials: string;
 	subjects: string[];
-	quote: string;
+	quoteId: string;
+	quoteEn: string;
 };
 
 type Testimonial = {
-	quote: string;
+	quoteId: string;
+	quoteEn: string;
 	name: string;
-	relation: string;
-	program: string;
+	relationId: string;
+	relationEn: string;
+	programId: string;
+	programEn: string;
 	rating: number;
 	photo?: string;
 	demo?: boolean;
 };
 
-const navItems = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
 
 const statistics: Statistic[] =
 	studentCount > 0
 		? [
 				{
 					value: `${studentCount}+`,
-					label: 'Siswa telah bergabung',
+					labelId: 'Siswa telah bergabung',
+					labelEn: 'Students have joined',
 				},
 				{
 					value: '4+',
-					label: 'Jenjang pendidikan',
+					labelId: 'Jenjang pendidikan',
+					labelEn: 'Education levels',
 				},
 				{
 					value: 'Small Group',
-					label: 'Kelas lebih terarah',
+					labelId: 'Kelas lebih terarah',
+					labelEn: 'More focused learning',
 				},
 				{
 					value: 'Onsite & Online',
-					label: 'Pilihan pembelajaran',
+					labelId: 'Pilihan pembelajaran',
+					labelEn: 'Flexible learning options',
 				},
 			]
 		: [
 				{
 					value: 'Angkatan 1',
-					label: 'Pendaftaran segera dibuka',
+					labelId: 'Pendaftaran segera dibuka',
+					labelEn: 'Enrolment opening soon',
 				},
 				{
 					value: '4+',
-					label: 'Jenjang pendidikan',
+					labelId: 'Jenjang pendidikan',
+					labelEn: 'Education levels',
 				},
 				{
 					value: 'Small Group',
-					label: 'Kelas lebih terarah',
+					labelId: 'Kelas lebih terarah',
+					labelEn: 'More focused learning',
 				},
 				{
 					value: 'Onsite & Online',
-					label: 'Pilihan pembelajaran',
+					labelId: 'Pilihan pembelajaran',
+					labelEn: 'Flexible learning options',
 				},
 			];
 
 const programs: Program[] = [
 	{
 		number: '01',
-		title: 'Early Learners',
-		description:
+		titleId: 'Early Learners',
+		titleEn: 'Early Learners',
+		descriptionId:
 			'Program eksploratif untuk PAUD dan TK melalui aktivitas bermain, bergerak, berkomunikasi, dan belajar.',
-		label: 'Usia 3–6 tahun',
+		descriptionEn:
+			'Exploratory learning for preschool and kindergarten through play, movement, communication and guided discovery.',
+		labelId: 'Usia 3–6 tahun',
+		labelEn: 'Ages 3–6',
 		href: '/programs#early-learners',
 	},
 	{
 		number: '02',
-		title: 'Primary',
-		description:
+		titleId: 'Primary',
+		titleEn: 'Primary',
+		descriptionId:
 			'Pendampingan akademik untuk membangun fondasi konsep, kebiasaan belajar, dan kepercayaan diri.',
-		label: 'SD Kelas 1–6',
+		descriptionEn:
+			'Academic support that strengthens conceptual foundations, learning habits and confidence.',
+		labelId: 'SD Kelas 1–6',
+		labelEn: 'Primary Years 1–6',
 		href: '/programs#primary',
 	},
 	{
 		number: '03',
-		title: 'Secondary',
-		description:
+		titleId: 'Secondary',
+		titleEn: 'Secondary',
+		descriptionId:
 			'Program terarah untuk memahami konsep, mengembangkan strategi belajar, dan mempersiapkan ujian.',
-		label: 'SMP & SMA',
+		descriptionEn:
+			'Focused support to deepen understanding, build effective learning strategies and prepare for assessments.',
+		labelId: 'SMP & SMA',
+		labelEn: 'Junior & Senior Secondary',
 		href: '/programs#secondary',
 	},
 	{
 		number: '04',
-		title: 'Language & Skills',
-		description:
-			'Kelas bahasa dan keterampilan praktis untuk anak, remaja, mahasiswa, dan pembelajar dewasa.',
-		label: 'Semua jenjang',
-		href: '/programs#language-skills',
+		titleId: 'Skills & Enrichment',
+		titleEn: 'Skills & Enrichment',
+		descriptionId:
+			'Program pengayaan melalui coding, robotics, sensory class, creative art, dan keterampilan praktis.',
+		descriptionEn:
+			'Enrichment through coding, robotics, sensory learning, creative art and practical future-ready skills.',
+		labelId: 'Beragam jenjang',
+		labelEn: 'Multiple age groups',
+		href: '/programs#skills',
 	},
 ];
 
-/*
-	Untuk menampilkan foto:
-	Foto teacher disimpan langsung di public/images/
-	Path pada data teacher sudah disesuaikan dengan nama file yang digunakan.
-	Jika photo dikosongkan, sistem tetap menampilkan inisial.
-*/
-/*
-	CATATAN:
-	Empat profil selain Halley Kuncoro masih placeholder untuk preview website.
-	Ganti nama, gelar, mata pelajaran, dan quote sebelum website dipublikasikan.
-*/
+const activities: Activity[] = [
+	{
+		titleId: 'Academic Learning',
+		titleEn: 'Academic Learning',
+		descriptionId: 'Pendampingan akademik yang terarah dan interaktif.',
+		descriptionEn: 'Focused and interactive academic support.',
+		image: '/images/program-academic-class.png',
+		href: '/programs#academic',
+	},
+	{
+		titleId: 'Coding & Robotics',
+		titleEn: 'Coding & Robotics',
+		descriptionId: 'Belajar teknologi melalui proyek dan pemecahan masalah.',
+		descriptionEn: 'Learn technology through projects and problem-solving.',
+		image: '/images/program-coding-robotics.png',
+		href: '/programs#coding-robotics',
+	},
+	{
+		titleId: 'Sensory Class',
+		titleEn: 'Sensory Class',
+		descriptionId: 'Eksplorasi sensorik untuk mendukung perkembangan anak usia dini.',
+		descriptionEn: 'Sensory exploration designed for early childhood development.',
+		image: '/images/program-sensory-class.png',
+		href: '/programs#sensory',
+	},
+	{
+		titleId: 'Drawing & Art',
+		titleEn: 'Drawing & Art',
+		descriptionId: 'Ruang kreatif untuk menggambar, bereksperimen, dan berekspresi.',
+		descriptionEn: 'A creative space to draw, experiment and express ideas.',
+		image: '/images/program-drawing-art.png',
+		href: '/programs#drawing-art',
+	},
+];
+
 const teachers: Teacher[] = [
 	{
 		initials: 'HK',
 		name: 'Halley Kuncoro',
-		photo: '/images/teacher-halley-kuncoro.jpeg',
+		photo: '/images/teacher-1.png',
 		credentials:
 			'Master of Educational Technology · STEM Certified Educator · Google Certified Educator',
 		subjects: ['Matematika', 'ICT', 'Computing'],
-		quote:
+		quoteId:
 			'Belajar bukan hanya memahami materi, tetapi membangun cara berpikir dan rasa percaya diri.',
+		quoteEn:
+			'Learning is not only about understanding content, but also about building strong thinking skills and confidence.',
 	},
 	{
 		initials: 'MP',
 		name: 'Monica Putri Pertiwi',
-		photo: '/images/teacher-female-1.png',
-		credentials:
-			'S.pd Early Childhood & English Educator',
+		photo: '/images/teacher-4.png',
+		credentials: 'S.Pd. · Early Childhood & English Educator',
 		subjects: ['English', 'Pre-School', 'Primary'],
-		quote:
-			'Nurturing young minds to grow, explore, and shine.',
-	},
-	{
-		initials: 'CM',
-		name: 'Citra Maharani',
-		photo: '/images/teacher-female-2.png',
-		credentials:
-			'S.Psi. · Early Childhood Educator · Child-Centered Learning',
-		subjects: ['PAUD', 'TK', 'School Readiness'],
-		quote:
-			'Anak belajar paling baik ketika kegiatan terasa aman, menyenangkan, dan sesuai tahap perkembangannya.',
+		quoteId: 'Nurturing young minds to grow, explore, and shine.',
+		quoteEn: 'Nurturing young minds to grow, explore, and shine.',
 	},
 	{
 		initials: 'KF',
 		name: 'Karimah Fajriani',
-		photo: '/images/teacher-female-hijab.png',
-		credentials:
-			'S.Pd., • Physics Educator',
+		photo: '/images/teacher-5.png',
+		credentials: 'S.Pd. · Physics Educator',
 		subjects: ['Science', 'Matematika', 'SMP', 'Fisika', 'SMA'],
-		quote:
+		quoteId:
 			'Menciptakan ruang belajar yang mendorong siswa untuk bertanya, memahami, dan percaya pada kemampuannya.',
+		quoteEn:
+			'Creating a learning space that encourages students to ask questions, understand deeply and believe in their abilities.',
 	},
 	{
-		initials: 'KW',
-		name: 'Kevin Wijaya',
-		photo: '/images/teacher-male-2.png',
+		initials: 'JS',
+		name: 'Juli Silaen',
+		photo: '/images/teacher-6.png',
 		credentials:
-			'B.Ed. · Language Educator · Mandarin & English Learning',
-		subjects: ['Mandarin', 'English', 'Language Skills'],
-		quote:
+			'S.I.Kom. · Early Childhood Educator · Child-Centred Learning',
+		subjects: ['PAUD', 'TK', 'School Readiness'],
+		quoteId:
+			'Anak belajar paling baik ketika kegiatan terasa aman, menyenangkan, dan sesuai tahap perkembangannya.',
+		quoteEn:
+			'Children learn best when activities feel safe, enjoyable and appropriate for their stage of development.',
+	},
+	{
+		initials: 'ON',
+		name: 'Olivia Novita',
+		photo: '/images/teacher-2.png',
+		credentials:
+			'MBA · Business & Marketing Educator · Early Childhood Educator',
+		subjects: ['English', 'Language Skills'],
+		quoteId:
 			'Kemampuan bahasa tumbuh lewat latihan yang konsisten, konteks yang nyata, dan keberanian untuk berkomunikasi.',
+		quoteEn:
+			'Language skills grow through consistent practice, authentic contexts and the confidence to communicate.',
 	},
 ];
 
 /*
-	CONTOH COPY TESTIMONI UNTUK PREVIEW DESAIN.
-	Jangan dipublikasikan seolah-olah ini testimoni nyata.
-	Sebelum website go-live, ganti teks, nama, dan foto dengan testimoni asli
-	yang sudah mendapat izin dari siswa/orang tua.
+	CONTOH TESTIMONI UNTUK PREVIEW DESAIN.
+	Jangan dipublikasikan sebagai testimoni nyata.
 */
 const testimonials: Testimonial[] = [
 	{
-		quote:
+		quoteId:
 			'Yang paling terasa, anak saya sekarang lebih berani bertanya ketika belum paham. Belajarnya juga jadi lebih teratur dan tidak lagi terasa seperti beban.',
+		quoteEn:
+			'The biggest change is that my child is now more confident asking questions when something is unclear. Learning also feels more structured and less overwhelming.',
 		name: 'Rina Santoso',
-		relation: 'Orang tua siswa SD',
-		program: 'Program Primary',
+		relationId: 'Orang tua siswa SD',
+		relationEn: 'Primary school parent',
+		programId: 'Program Primary',
+		programEn: 'Primary Program',
 		rating: 5,
 		photo: '',
 		demo: true,
 	},
 	{
-		quote:
+		quoteId:
 			'Saya suka karena pengajarnya tidak hanya mengejar banyak soal. Konsepnya benar-benar dijelaskan sampai anak paham, lalu baru dilatih supaya lebih mandiri.',
+		quoteEn:
+			'I like that the teachers do not simply rush through worksheets. Concepts are explained clearly first, then students are guided to become more independent.',
 		name: 'Melissa Wijaya',
-		relation: 'Orang tua siswa SMP',
-		program: 'Program Secondary',
+		relationId: 'Orang tua siswa SMP',
+		relationEn: 'Secondary school parent',
+		programId: 'Program Secondary',
+		programEn: 'Secondary Program',
 		rating: 5,
 		photo: '',
 		demo: true,
 	},
 	{
-		quote:
+		quoteId:
 			'Kelasnya terasa nyaman dan tidak membuat saya takut salah. Saya jadi lebih percaya diri untuk mencoba, bertanya, dan menjelaskan jawaban saya sendiri.',
+		quoteEn:
+			'The class feels comfortable and I am not afraid of making mistakes. I feel more confident trying, asking questions and explaining my own answers.',
 		name: 'Jessica Tan',
-		relation: 'Siswa SMP',
-		program: 'English & Academic Skills',
+		relationId: 'Siswa SMP',
+		relationEn: 'Secondary student',
+		programId: 'English & Academic Skills',
+		programEn: 'English & Academic Skills',
 		rating: 5,
 		photo: '',
 		demo: true,
 	},
 	{
-		quote:
+		quoteId:
 			'Komunikasi dengan orang tua jelas dan perkembangan belajar anak lebih mudah dipantau. Kami jadi tahu bagian mana yang sudah kuat dan mana yang masih perlu dibantu.',
+		quoteEn:
+			'Communication with parents is clear and learning progress is easier to monitor. We can see what is already strong and what still needs support.',
 		name: 'Dewi Anggraini',
-		relation: 'Orang tua siswa',
-		program: 'Private Class',
+		relationId: 'Orang tua siswa',
+		relationEn: 'Parent',
+		programId: 'Private Class',
+		programEn: 'Private Class',
 		rating: 5,
 		photo: '',
 		demo: true,
 	},
 	{
-		quote:
+		quoteId:
 			'Materi online membantu saya mengulang pelajaran kapan saja. Kalau ada bagian yang belum paham, saya bisa kembali ke materinya sebelum lanjut ke latihan berikutnya.',
+		quoteEn:
+			'The online materials help me revise whenever I need to. If I do not understand something, I can revisit it before moving on to the next activity.',
 		name: 'Ethan Hartono',
-		relation: 'Siswa SMA',
-		program: 'NOVA E-Learning',
+		relationId: 'Siswa SMA',
+		relationEn: 'Senior secondary student',
+		programId: 'NOVA E-Learning',
+		programEn: 'NOVA E-Learning',
 		rating: 5,
 		photo: '',
 		demo: true,
 	},
 ];
 
-const footerLinks = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
+const whatsappUrl =
+	'https://wa.me/6285195511236?text=Halo%20NOVA%20Learning%20Centre%2C%20saya%20ingin%20bertanya%20mengenai%20program%20belajar.';
 ---
 
 <Layout
 	title="NOVA Learning Centre"
-	description="Pusat pembelajaran modern untuk anak, remaja, dan pembelajar sepanjang hayat di Kelapa Gading."
+	description="Pusat pembelajaran modern untuk anak dan remaja di Kelapa Gading."
 >
-	<!-- NAVBAR -->
-	<header
-		class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl"
-	>
-		<nav
-			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
-			aria-label="Navigasi utama"
-		>
-			<a
-				href="/"
-				class="flex items-center"
-				aria-label="NOVA Learning Centre"
-			>
-				<img
-					src="/images/primary-logo-icon.png"
-					alt="NOVA Learning Centre"
-					class="h-10 w-10 object-contain sm:hidden"
-				/>
-
-				<img
-					src="/images/primary-logo.png"
-					alt="NOVA Learning Centre"
-					class="hidden h-11 w-auto object-contain sm:block"
-				/>
-			</a>
-
-			<div class="hidden items-center gap-7 lg:flex">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="text-sm font-semibold text-slate-600 transition hover:text-[#A87300]"
-						>
-							{item.name}
-						</a>
-					))
-				}
-			</div>
-
-			<a
-				href="/contact"
-				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#DFA722] lg:inline-flex"
-			>
-				Konsultasi Gratis
-			</a>
-
-			<button
-				id="mobile-menu-button"
-				type="button"
-				class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 bg-white text-[#0F2747] lg:hidden"
-				aria-label="Buka menu navigasi"
-				aria-expanded="false"
-				aria-controls="mobile-menu"
-			>
-				<svg
-					width="23"
-					height="23"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					aria-hidden="true"
-				>
-					<path d="M4 7h16"></path>
-					<path d="M4 12h16"></path>
-					<path d="M4 17h16"></path>
-				</svg>
-			</button>
-		</nav>
-
-		<div
-			id="mobile-menu"
-			class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden"
-		>
-			<div class="flex flex-col gap-4">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
-						>
-							{item.name}
-						</a>
-					))
-				}
-
-				<a
-					href="/contact"
-					class="mobile-nav-link mt-2 rounded-xl bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
-				>
-					Konsultasi Gratis
-				</a>
-			</div>
-		</div>
-	</header>
-
 	<main class="overflow-hidden">
 		<!-- HERO -->
-		<section class="relative bg-[#F7F8FC]">
-			<div
-				class="absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#F3BC34]/20 blur-3xl"
-				aria-hidden="true"
-			>
-			</div>
+		<section class="relative bg-[#f7f8fc]">
+			<div class="absolute -left-24 top-16 h-72 w-72 rounded-full bg-[#f3bc34]/18 blur-3xl" aria-hidden="true"></div>
+			<div class="absolute -right-28 bottom-0 h-80 w-80 rounded-full bg-[#1d2f5c]/10 blur-3xl" aria-hidden="true"></div>
 
-			<div
-				class="absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-blue-200/40 blur-3xl"
-				aria-hidden="true"
-			>
-			</div>
-
-			<div
-				class="relative mx-auto grid min-h-[760px] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-24"
-			>
-				<div class="relative z-10">
-					<div
-						class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#F3BC34]/35 bg-white px-4 py-2 shadow-sm"
-					>
-						<span class="h-2 w-2 rounded-full bg-[#F3BC34]"></span>
-
-						<span class="text-sm font-semibold text-[#0F2747]">
-							Pusat Belajar Modern di Kelapa Gading
+			<div class="relative mx-auto grid min-h-[700px] max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[0.93fr_1.07fr] lg:px-8 lg:py-20">
+				<div class="reveal relative z-10">
+					<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#f3bc34]/50 bg-white px-4 py-2 shadow-sm">
+						<span class="h-2 w-2 rounded-full bg-[#f3bc34]"></span>
+						<span class="text-sm font-semibold text-[#1d2f5c]">
+							Inspiring Young Minds, Building Bright Futures
 						</span>
 					</div>
 
-					<h1
-						class="max-w-3xl text-5xl font-bold leading-[1.08] tracking-[-0.04em] text-[#0F2747] sm:text-6xl lg:text-7xl"
-					>
-						Belajar lebih terarah.
+					<h1 class="max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-[-0.045em] text-[#1d2f5c] sm:text-6xl lg:text-[68px]">
+						<span class="lang-id">
+							Belajar lebih terarah.
+							<span class="mt-2 block text-[#1d2f5c]">
+								Tumbuh lebih <span class="relative inline-block">
+									percaya diri.
+									<span class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/65" aria-hidden="true"></span>
+								</span>
+							</span>
+						</span>
 
-						<span class="block text-[#F3BC34]">
-							Tumbuh lebih percaya diri.
+						<span class="lang-en">
+							Learn with direction.
+							<span class="mt-2 block text-[#1d2f5c]">
+								Grow with <span class="relative inline-block">
+									confidence.
+									<span class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/65" aria-hidden="true"></span>
+								</span>
+							</span>
 						</span>
 					</h1>
 
-					<p class="mt-7 max-w-2xl text-lg leading-8 text-slate-600">
-						NOVA menghadirkan pembelajaran personal melalui kelas tatap
-						muka, kelompok kecil, private class, dan kursus e-learning yang
-						fleksibel.
+					<p class="mt-7 max-w-xl text-lg leading-8 text-slate-600">
+						<span class="lang-id">
+							NOVA menghadirkan pembelajaran personal melalui kelas tatap muka, kelompok kecil, private class, dan e-learning yang fleksibel.
+						</span>
+						<span class="lang-en">
+							NOVA provides personalised learning through face-to-face classes, small groups, private lessons and flexible e-learning.
+						</span>
 					</p>
 
-					<div class="mt-9 flex flex-col gap-4 sm:flex-row">
-						<a
-							href="/programs"
-							class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#F3BC34] px-7 py-4 font-bold text-[#0F2747] shadow-lg shadow-[#F3BC34]/20 transition hover:-translate-y-0.5 hover:bg-[#DFA722]"
-						>
-							Lihat Program
-
-							<svg
-								width="18"
-								height="18"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								aria-hidden="true"
-							>
-								<path d="M5 12h14"></path>
-								<path d="m13 6 6 6-6 6"></path>
-							</svg>
+					<div class="mt-9 flex flex-col gap-3 sm:flex-row">
+						<a href="/programs" class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#f3bc34] px-7 py-4 font-bold text-[#1d2f5c] shadow-lg shadow-[#f3bc34]/20 transition hover:-translate-y-0.5 hover:shadow-xl">
+							<span class="lang-id">Lihat Program</span>
+							<span class="lang-en">Explore Programs</span>
+							<span aria-hidden="true">→</span>
 						</a>
 
-						<a
-							href="/contact"
-							class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-7 py-4 font-semibold text-[#0F2747] transition hover:border-[#0F2747] hover:bg-slate-50"
-						>
-							Konsultasi Gratis
+						<a href={whatsappUrl} target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-lg border border-[#1d2f5c]/20 bg-white px-7 py-4 font-semibold text-[#1d2f5c] transition hover:border-[#1d2f5c] hover:bg-[#1d2f5c] hover:text-white">
+							<span class="lang-id">Chat via WhatsApp</span>
+							<span class="lang-en">Chat on WhatsApp</span>
 						</a>
 					</div>
 
-					<div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
-						<div class="flex items-center gap-3">
-							<div
-								class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-700"
-							>
-								<svg
-									width="20"
-									height="20"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									aria-hidden="true"
-								>
-									<path d="m5 12 4 4L19 6"></path>
-								</svg>
-							</div>
-
-							<div>
-								<p class="text-sm font-semibold text-[#0F2747]">
-									Kelas kelompok kecil
-								</p>
-
-								<p class="text-xs text-slate-500">
-									Belajar lebih fokus
-								</p>
-							</div>
-						</div>
-
-						<div class="flex items-center gap-3">
-							<div
-								class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700"
-							>
-								<svg
-									width="20"
-									height="20"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									aria-hidden="true"
-								>
-									<circle cx="12" cy="12" r="9"></circle>
-									<path d="M12 7v5l3 2"></path>
-								</svg>
-							</div>
-
-							<div>
-								<p class="text-sm font-semibold text-[#0F2747]">
-									Jadwal fleksibel
-								</p>
-
-								<p class="text-xs text-slate-500">
-									Online dan onsite
-								</p>
-							</div>
-						</div>
+					<div class="mt-9 flex flex-wrap gap-3 text-sm font-semibold text-[#1d2f5c]">
+						<span class="rounded-full border border-slate-200 bg-white px-4 py-2">
+							<span class="lang-id">Kelompok Kecil</span>
+							<span class="lang-en">Small Groups</span>
+						</span>
+						<span class="rounded-full border border-slate-200 bg-white px-4 py-2">
+							<span class="lang-id">Pendampingan Personal</span>
+							<span class="lang-en">Personalised Support</span>
+						</span>
+						<span class="rounded-full border border-slate-200 bg-white px-4 py-2">
+							<span class="lang-id">Onsite & Online</span>
+							<span class="lang-en">Onsite & Online</span>
+						</span>
 					</div>
 				</div>
 
-				<!-- HERO VISUAL -->
-				<div class="relative mx-auto w-full max-w-xl lg:max-w-none">
-					<div
-						class="absolute -left-8 top-16 h-40 w-40 rounded-full bg-[#F3BC34]/20 blur-2xl"
-						aria-hidden="true"
-					>
-					</div>
+				<div class="reveal relative mx-auto w-full max-w-2xl">
+					<div class="absolute -bottom-6 -left-6 h-28 w-28 bg-[#f3bc34]" aria-hidden="true"></div>
+					<div class="absolute -right-5 -top-5 h-24 w-24 border-2 border-[#1d2f5c]" aria-hidden="true"></div>
 
-					<div
-						class="relative overflow-hidden rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_30px_80px_rgba(15,39,71,0.16)]"
-					>
-						<div
-							class="relative min-h-[560px] overflow-hidden rounded-[24px] bg-[#0F2747]"
-						>
-							<div
-								class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,130,32,0.32),transparent_42%)]"
-								aria-hidden="true"
-							>
+					<div class="hero-photo relative overflow-hidden rounded-[28px] bg-white p-3 shadow-[0_30px_80px_rgba(29,47,92,0.18)]">
+						<img
+							src="/images/homepage-learning-activity.png"
+							alt="Students learning together with a NOVA teacher"
+							class="h-[520px] w-full rounded-[20px] object-cover"
+							fetchpriority="high"
+						/>
+
+						<div class="absolute bottom-7 left-7 right-7 grid gap-3 sm:grid-cols-2">
+							<div class="rounded-xl bg-white/95 p-4 shadow-lg backdrop-blur">
+								<p class="text-xs font-bold uppercase tracking-[0.14em] text-[#1d2f5c]/50">
+									<span class="lang-id">Cara Belajar</span>
+									<span class="lang-en">Learning Approach</span>
+								</p>
+								<p class="mt-1 font-bold text-[#1d2f5c]">
+									<span class="lang-id">Terarah & Aktif</span>
+									<span class="lang-en">Guided & Active</span>
+								</p>
 							</div>
 
-							<div
-								class="absolute left-7 right-7 top-7 flex items-center justify-between"
-							>
-								<div class="flex items-center gap-3">
-									<div
-										class="flex h-10 w-10 items-center justify-center rounded-xl bg-white"
-									>
-										<img
-											src="/images/primary-logo-icon.png"
-											alt=""
-											class="h-8 w-8 object-contain"
-										/>
-									</div>
-
-									<div>
-										<p class="text-sm font-bold text-white">
-											NOVA Learning
-										</p>
-
-										<p class="text-xs text-blue-200">
-											Personalized Learning
-										</p>
-									</div>
-								</div>
-
-								<div class="flex gap-2" aria-hidden="true">
-									<span class="h-2 w-2 rounded-full bg-white/40"></span>
-									<span class="h-2 w-2 rounded-full bg-white/70"></span>
-									<span class="h-2 w-2 rounded-full bg-[#F3BC34]"></span>
-								</div>
-							</div>
-
-							<div class="absolute inset-x-7 top-28">
-								<div
-									class="rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md"
-								>
-									<div class="flex items-start justify-between gap-5">
-										<div>
-											<p
-												class="text-xs font-semibold uppercase tracking-[0.18em] text-[#F3BC34]"
-											>
-												Program NOVA
-											</p>
-
-											<h2 class="mt-3 text-3xl font-bold text-white">
-												Belajar sesuai kebutuhan setiap siswa.
-											</h2>
-										</div>
-
-										<div
-											class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F3BC34] text-[#0F2747]"
-										>
-											<svg
-												width="24"
-												height="24"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2"
-												aria-hidden="true"
-											>
-												<path d="m5 12 4 4L19 6"></path>
-											</svg>
-										</div>
-									</div>
-
-									<div class="mt-8">
-										<div class="flex items-center justify-between text-sm">
-											<span class="text-blue-100">
-												Perkembangan belajar
-											</span>
-
-											<span class="font-semibold text-white">
-												78%
-											</span>
-										</div>
-
-										<div
-											class="mt-3 h-2 overflow-hidden rounded-full bg-white/15"
-										>
-											<div
-												class="h-full w-[78%] rounded-full bg-[#F3BC34]"
-											>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div
-								class="absolute bottom-7 left-7 right-7 grid gap-4 sm:grid-cols-2"
-							>
-								<div class="rounded-2xl bg-white p-5 shadow-xl">
-									<div class="flex items-center justify-between">
-										<div
-											class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F3BC34]/20 text-[#F3BC34]"
-										>
-											<svg
-												width="20"
-												height="20"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2"
-												aria-hidden="true"
-											>
-												<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20">
-												</path>
-												<path
-													d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"
-												>
-												</path>
-											</svg>
-										</div>
-
-										<span
-											class="rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700"
-										>
-											Aktif
-										</span>
-									</div>
-
-									<p class="mt-5 text-sm font-semibold text-slate-500">
-										Kelas Tatap Muka
-									</p>
-
-									<p class="mt-1 text-xl font-bold text-[#0F2747]">
-										Small Group Class
-									</p>
-								</div>
-
-								<div
-									class="rounded-2xl bg-[#F3BC34] p-5 text-[#0F2747] shadow-xl"
-								>
-									<div
-										class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20"
-									>
-										<svg
-											width="20"
-											height="20"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											aria-hidden="true"
-										>
-											<polygon points="5 3 19 12 5 21 5 3"></polygon>
-										</svg>
-									</div>
-
-									<p class="mt-5 text-sm font-semibold text-[#FFF0BF]">
-										E-Learning
-									</p>
-
-									<p class="mt-1 text-xl font-bold">
-										Belajar Kapan Saja
-									</p>
-								</div>
+							<div class="rounded-xl bg-[#1d2f5c]/95 p-4 text-white shadow-lg backdrop-blur">
+								<p class="text-xs font-bold uppercase tracking-[0.14em] text-[#f3bc34]">
+									NOVA
+								</p>
+								<p class="mt-1 font-bold">
+									<span class="lang-id">Belajar dengan percaya diri</span>
+									<span class="lang-en">Learn with confidence</span>
+								</p>
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>
 
 		<!-- STATISTICS -->
 		<section class="border-y border-slate-200 bg-white">
-			<div
-				class="mx-auto grid max-w-7xl grid-cols-2 px-6 py-8 md:grid-cols-4 lg:px-8"
-			>
+			<div class="mx-auto grid max-w-7xl grid-cols-2 px-6 py-7 md:grid-cols-4 lg:px-8">
 				{
 					statistics.map((stat) => (
-						<div class="border-slate-200 px-4 py-5 text-center even:border-l md:border-l md:px-6 md:first:border-l-0">
-							<p class="text-2xl font-bold text-[#0F2747] md:text-3xl">
-								{stat.value}
-							</p>
-
+						<div class="border-slate-200 px-4 py-5 text-center even:border-l md:border-l md:first:border-l-0">
+							<p class="text-2xl font-extrabold text-[#1d2f5c] md:text-3xl">{stat.value}</p>
 							<p class="mt-2 text-sm leading-5 text-slate-500">
-								{stat.label}
+								<span class="lang-id">{stat.labelId}</span>
+								<span class="lang-en">{stat.labelEn}</span>
 							</p>
 						</div>
 					))
@@ -702,60 +464,91 @@ const footerLinks = [
 		<!-- PROGRAMS -->
 		<section class="bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div
-					class="flex flex-col justify-between gap-8 md:flex-row md:items-end"
-				>
+				<div class="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end">
 					<div>
-						<p
-							class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-						>
-							Program NOVA
+						<p class="section-label">
+							<span class="lang-id">Program NOVA</span>
+							<span class="lang-en">NOVA Programs</span>
 						</p>
 
-						<h2
-							class="mt-4 max-w-2xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
-						>
-							Program belajar untuk setiap tahap perkembangan.
+						<h2 class="mt-4 max-w-3xl text-4xl font-extrabold tracking-[-0.03em] text-[#1d2f5c] md:text-5xl">
+							<span class="lang-id">Program belajar untuk setiap tahap perkembangan.</span>
+							<span class="lang-en">Learning programs for every stage of development.</span>
 						</h2>
 					</div>
 
-					<a
-						href="/programs"
-						class="inline-flex items-center gap-2 font-semibold text-[#0F2747] transition hover:text-[#A87300]"
-					>
-						Lihat semua program
+					<a href="/programs" class="inline-flex items-center gap-2 font-bold text-[#1d2f5c] transition hover:text-[#1d2f5c]/65">
+						<span class="lang-id">Lihat semua program</span>
+						<span class="lang-en">View all programs</span>
 						<span aria-hidden="true">→</span>
 					</a>
 				</div>
 
-				<div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				<div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
 					{
 						programs.map((program) => (
-							<a
-								href={program.href}
-								class="group rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34]/35 hover:shadow-xl hover:shadow-slate-200/60"
-							>
+							<a href={program.href} class="reveal group border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-xl">
 								<div class="flex items-center justify-between">
-									<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F2747] text-lg font-bold text-white transition group-hover:bg-[#F3BC34] group-hover:text-[#0F2747]">
+									<div class="flex h-11 w-11 items-center justify-center bg-[#1d2f5c] text-sm font-extrabold text-white transition group-hover:bg-[#f3bc34] group-hover:text-[#1d2f5c]">
 										{program.number}
 									</div>
-
-									<span class="text-xl text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#A87300]">
-										→
-									</span>
+									<span class="text-lg text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#1d2f5c]">→</span>
 								</div>
 
-								<p class="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-[#A87300]">
-									{program.label}
+								<p class="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-[#1d2f5c]/50">
+									<span class="lang-id">{program.labelId}</span>
+									<span class="lang-en">{program.labelEn}</span>
 								</p>
 
-								<h3 class="mt-3 text-xl font-bold text-[#0F2747]">
-									{program.title}
+								<h3 class="mt-2 text-xl font-extrabold text-[#1d2f5c]">
+									<span class="lang-id">{program.titleId}</span>
+									<span class="lang-en">{program.titleEn}</span>
 								</h3>
 
 								<p class="mt-3 text-sm leading-6 text-slate-500">
-									{program.description}
+									<span class="lang-id">{program.descriptionId}</span>
+									<span class="lang-en">{program.descriptionEn}</span>
 								</p>
+							</a>
+						))
+					}
+				</div>
+
+				<!-- ACTIVITY IMAGES -->
+				<div class="reveal mt-16 flex items-end justify-between gap-6">
+					<div>
+						<p class="section-label">
+							<span class="lang-id">NOVA dalam Kegiatan</span>
+							<span class="lang-en">Learning at NOVA</span>
+						</p>
+						<h3 class="mt-3 text-3xl font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Belajar lebih mudah dibayangkan ketika bisa melihat kegiatannya.</span>
+							<span class="lang-en">See what learning can look like at NOVA.</span>
+						</h3>
+					</div>
+				</div>
+
+				<div class="mt-8 grid gap-5 md:grid-cols-2">
+					{
+						activities.map((activity) => (
+							<a href={activity.href} class="activity-card reveal group relative min-h-[330px] overflow-hidden">
+								<img
+									src={activity.image}
+									alt={activity.titleEn}
+									class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+									loading="lazy"
+								/>
+								<div class="absolute inset-0 bg-gradient-to-t from-[#1d2f5c]/90 via-[#1d2f5c]/18 to-transparent"></div>
+								<div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+									<h4 class="text-2xl font-extrabold">
+										<span class="lang-id">{activity.titleId}</span>
+										<span class="lang-en">{activity.titleEn}</span>
+									</h4>
+									<p class="mt-2 max-w-md text-sm leading-6 text-white/80">
+										<span class="lang-id">{activity.descriptionId}</span>
+										<span class="lang-en">{activity.descriptionEn}</span>
+									</p>
+								</div>
 							</a>
 						))
 					}
@@ -764,258 +557,132 @@ const footerLinks = [
 		</section>
 
 		<!-- WHY NOVA -->
-		<section class="bg-[#0F2747] py-24 text-white">
-			<div
-				class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8"
-			>
-				<div>
-					<p
-						class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-					>
-						Mengapa NOVA?
+		<section class="bg-[#1d2f5c] py-24 text-white">
+			<div class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8">
+				<div class="reveal">
+					<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
+						<span class="lang-id">Mengapa NOVA?</span>
+						<span class="lang-en">Why NOVA?</span>
 					</p>
 
-					<h2
-						class="mt-4 max-w-xl text-4xl font-bold tracking-tight md:text-5xl"
-					>
-						Bukan sekadar tambahan pelajaran.
+					<h2 class="mt-4 max-w-xl text-4xl font-extrabold tracking-[-0.03em] md:text-5xl">
+						<span class="lang-id">Bukan sekadar tambahan pelajaran.</span>
+						<span class="lang-en">More than extra lessons.</span>
 					</h2>
 
-					<p class="mt-6 max-w-xl text-lg leading-8 text-blue-100">
-						Kami membantu siswa memahami cara belajar, membangun kebiasaan
-						yang sehat, dan mengembangkan kepercayaan diri secara bertahap.
+					<p class="mt-6 max-w-xl text-lg leading-8 text-white/75">
+						<span class="lang-id">
+							Kami membantu siswa memahami cara belajar, membangun kebiasaan yang sehat, dan mengembangkan kepercayaan diri secara bertahap.
+						</span>
+						<span class="lang-en">
+							We help students understand how they learn, build positive learning habits and develop confidence step by step.
+						</span>
 					</p>
 
-					<a
-						href="/about"
-						class="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-7 py-4 font-semibold text-[#0F2747] transition hover:bg-[#F3BC34]/10"
-					>
-						Pelajari pendekatan NOVA
+					<a href="/about" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#f3bc34] px-7 py-4 font-bold text-[#1d2f5c] transition hover:-translate-y-0.5">
+						<span class="lang-id">Pelajari pendekatan NOVA</span>
+						<span class="lang-en">Discover the NOVA approach</span>
 						<span aria-hidden="true">→</span>
 					</a>
 				</div>
 
 				<div class="grid gap-4 sm:grid-cols-2">
-					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
-						<div
-							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
-						>
-							01
-						</div>
-
-						<h3 class="mt-5 text-xl font-bold">
-							Terarah & Aktif
+					<article class="reveal border border-white/10 bg-white/8 p-6">
+						<div class="flex h-10 w-10 items-center justify-center bg-[#f3bc34] font-extrabold text-[#1d2f5c]">01</div>
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Terarah & Aktif</span>
+							<span class="lang-en">Guided & Active</span>
 						</h3>
-
-						<p class="mt-3 text-sm leading-7 text-blue-100">
-							Pengajar memberi arahan saat dibutuhkan, sementara siswa tetap
-							aktif bertanya, mencoba, berdiskusi, dan memecahkan masalah.
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">Pengajar memberi arahan saat dibutuhkan, sementara siswa tetap aktif mencoba, bertanya, dan berdiskusi.</span>
+							<span class="lang-en">Teachers provide guidance when needed while students remain active through questions, exploration and discussion.</span>
 						</p>
 					</article>
 
-					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
-						<div
-							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
-						>
-							02
-						</div>
-
-						<h3 class="mt-5 text-xl font-bold">
-							Kelompok Kecil
+					<article class="reveal border border-white/10 bg-white/8 p-6">
+						<div class="flex h-10 w-10 items-center justify-center bg-[#f3bc34] font-extrabold text-[#1d2f5c]">02</div>
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Kelompok Kecil</span>
+							<span class="lang-en">Small Groups</span>
 						</h3>
-
-						<p class="mt-3 text-sm leading-7 text-blue-100">
-							Interaksi lebih dekat agar pengajar dapat memberikan
-							pendampingan yang lebih terarah.
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">Interaksi lebih dekat agar pengajar dapat memberikan pendampingan yang lebih terarah.</span>
+							<span class="lang-en">Closer interaction enables more focused and personalised support.</span>
 						</p>
 					</article>
 
-					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
-						<div
-							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
-						>
-							03
-						</div>
-
-						<h3 class="mt-5 text-xl font-bold">
-							Active Learning
-						</h3>
-
-						<p class="mt-3 text-sm leading-7 text-blue-100">
-							Siswa aktif berdiskusi, mencoba, memecahkan masalah, dan
-							merefleksikan proses belajar.
+					<article class="reveal border border-white/10 bg-white/8 p-6">
+						<div class="flex h-10 w-10 items-center justify-center bg-[#f3bc34] font-extrabold text-[#1d2f5c]">03</div>
+						<h3 class="mt-5 text-xl font-extrabold">Active Learning</h3>
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">Siswa aktif berdiskusi, mencoba, memecahkan masalah, dan merefleksikan proses belajar.</span>
+							<span class="lang-en">Students discuss, experiment, solve problems and reflect on their learning process.</span>
 						</p>
 					</article>
 
-					<article class="rounded-2xl bg-white/10 p-6 backdrop-blur">
-						<div
-							class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F3BC34] font-bold text-[#0F2747]"
-						>
-							04
-						</div>
-
-						<h3 class="mt-5 text-xl font-bold">
-							Learning Progress
+					<article class="reveal border border-white/10 bg-white/8 p-6">
+						<div class="flex h-10 w-10 items-center justify-center bg-[#f3bc34] font-extrabold text-[#1d2f5c]">04</div>
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Learning Progress</span>
+							<span class="lang-en">Learning Progress</span>
 						</h3>
-
-						<p class="mt-3 text-sm leading-7 text-blue-100">
-							Perkembangan belajar dicatat agar program dapat dievaluasi
-							dan disesuaikan secara berkala.
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">Perkembangan belajar dicatat agar program dapat dievaluasi dan disesuaikan secara berkala.</span>
+							<span class="lang-en">Progress is recorded so learning plans can be reviewed and adjusted over time.</span>
 						</p>
 					</article>
 				</div>
 			</div>
 		</section>
 
-		<!-- TEACHER SLIDER -->
-		<section class="relative overflow-hidden bg-[#F7F8FC] py-20">
-			<div
-				class="absolute -left-32 top-20 h-72 w-72 rounded-full bg-[#F3BC34]/20 blur-3xl"
-				aria-hidden="true"
-			>
-			</div>
-
-			<div
-				class="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-blue-200/30 blur-3xl"
-				aria-hidden="true"
-			>
-			</div>
-
-			<div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-				<div
-					class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
-				>
+		<!-- TEACHERS -->
+		<section class="relative overflow-hidden bg-[#f7f8fc] py-20">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="reveal flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
 					<div class="max-w-3xl">
-						<p
-							class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-						>
-							Tim Pengajar
+						<p class="section-label">
+							<span class="lang-id">Tim Pengajar</span>
+							<span class="lang-en">Teaching Team</span>
 						</p>
 
-						<h2
-							class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
-						>
-							Belajar bersama pengajar yang kompeten dan peduli.
+						<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] text-[#1d2f5c] md:text-5xl">
+							<span class="lang-id">Belajar bersama pengajar yang kompeten dan peduli.</span>
+							<span class="lang-en">Learn with educators who are capable, supportive and committed.</span>
 						</h2>
-
-						<p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-							Kenali para pengajar yang akan mendampingi siswa dalam
-							proses belajar yang lebih personal, terarah, dan
-							menyenangkan.
-						</p>
 					</div>
 
 					<div class="flex shrink-0 items-center gap-3">
-						<button
-							id="teacher-prev"
-							type="button"
-							aria-label="Lihat guru sebelumnya"
-							class="flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-[#0F2747] shadow-sm transition hover:border-[#F3BC34] hover:bg-[#F3BC34] hover:text-[#0F2747]"
-						>
-							<svg
-								width="21"
-								height="21"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="m15 18-6-6 6-6"></path>
-							</svg>
+						<button id="teacher-prev" type="button" aria-label="Previous teacher" class="slider-button border border-[#1d2f5c]/20 bg-white text-[#1d2f5c]">
+							←
 						</button>
-
-						<button
-							id="teacher-next"
-							type="button"
-							aria-label="Lihat guru berikutnya"
-							class="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F2747] text-white shadow-sm transition hover:bg-[#F3BC34] hover:text-[#0F2747]"
-						>
-							<svg
-								width="21"
-								height="21"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="m9 18 6-6-6-6"></path>
-							</svg>
+						<button id="teacher-next" type="button" aria-label="Next teacher" class="slider-button bg-[#1d2f5c] text-white">
+							→
 						</button>
 					</div>
 				</div>
 
-				<div
-					id="teacher-slider"
-					class="horizontal-slider mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6"
-				>
+				<div id="teacher-slider" class="horizontal-slider mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6">
 					{
 						teachers.map((teacher) => (
-							<article
-								data-teacher-card
-								class="group w-[280px] flex-none snap-start rounded-3xl border border-slate-200 bg-white px-6 py-7 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34]/35 hover:shadow-xl sm:w-[300px] lg:w-[320px]"
-							>
+							<article data-teacher-card class="group w-[280px] flex-none snap-start border border-slate-200 bg-white px-6 py-7 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-xl sm:w-[300px] lg:w-[320px]">
 								<div class="relative mx-auto w-fit">
-									<div
-										class="absolute inset-0 scale-110 rounded-full bg-[#F3BC34]/20 transition duration-300 group-hover:scale-[1.16]"
-										aria-hidden="true"
-									>
-									</div>
-
-									<div
-										class="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-[#0F2747] shadow-lg"
-									>
+									<div class="absolute inset-0 scale-110 rounded-full bg-[#f3bc34]/25" aria-hidden="true"></div>
+									<div class="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-[#1d2f5c] shadow-lg">
 										{teacher.photo ? (
-											<img
-												src={teacher.photo}
-												alt={`Foto ${teacher.name}`}
-												class="h-full w-full object-cover"
-												loading="lazy"
-											/>
+											<img src={teacher.photo} alt={`Foto ${teacher.name}`} class="h-full w-full object-cover" loading="lazy" />
 										) : (
-											<span class="text-3xl font-bold text-white">
-												{teacher.initials}
-											</span>
+											<span class="text-3xl font-extrabold text-white">{teacher.initials}</span>
 										)}
-									</div>
-
-									<div
-										class="absolute bottom-1 right-0 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#F3BC34] text-[#0F2747] shadow-md"
-										title="Pengajar NOVA"
-									>
-										<svg
-											width="15"
-											height="15"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="3"
-											aria-hidden="true"
-										>
-											<path d="m5 12 4 4L19 6"></path>
-										</svg>
 									</div>
 								</div>
 
-								<h3 class="mt-6 text-xl font-bold text-[#0F2747]">
-									{teacher.name}
-								</h3>
+								<h3 class="mt-6 text-xl font-extrabold text-[#1d2f5c]">{teacher.name}</h3>
+								<p class="mt-2 min-h-12 text-sm font-medium leading-6 text-slate-500">{teacher.credentials}</p>
 
-								<p class="mt-2 min-h-12 text-sm font-medium leading-6 text-slate-500">
-									{teacher.credentials}
-								</p>
-
-								<div
-									class="mt-5 flex min-h-16 flex-wrap content-start justify-center gap-2"
-								>
+								<div class="mt-5 flex min-h-16 flex-wrap content-start justify-center gap-2">
 									{
 										teacher.subjects.map((subject) => (
-											<span class="rounded-full border border-[#F3BC34]/30 bg-[#F3BC34]/10 px-3 py-1.5 text-xs font-semibold text-[#A87300]">
+											<span class="rounded-full border border-[#1d2f5c]/12 bg-[#f7f8fc] px-3 py-1.5 text-xs font-semibold text-[#1d2f5c]">
 												{subject}
 											</span>
 										))
@@ -1024,175 +691,69 @@ const footerLinks = [
 
 								<div class="mt-6 border-t border-slate-100 pt-5">
 									<blockquote class="text-sm italic leading-6 text-slate-600">
-										“{teacher.quote}”
+										“<span class="lang-id">{teacher.quoteId}</span><span class="lang-en">{teacher.quoteEn}</span>”
 									</blockquote>
 								</div>
 							</article>
 						))
 					}
 				</div>
-
-				<div class="mt-3 text-center">
-					<a
-						href="/about#teachers"
-						class="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2747] transition hover:text-[#A87300]"
-					>
-						Kenali seluruh tim pengajar
-						<span aria-hidden="true">→</span>
-					</a>
-				</div>
 			</div>
 		</section>
 
 		<!-- FACILITIES -->
 		<section class="bg-white py-24">
-			<div
-				class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8"
-			>
-				<div
-					class="relative min-h-[500px] overflow-hidden rounded-[32px] bg-[#0F2747] p-7"
-				>
-					<div
-						class="absolute right-0 top-0 h-52 w-52 rounded-bl-full bg-[#F3BC34]"
-						aria-hidden="true"
-					>
-					</div>
+			<div class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8">
+				<div class="reveal relative min-h-[500px] overflow-hidden bg-[#1d2f5c] p-7">
+					<div class="absolute right-0 top-0 h-48 w-48 bg-[#f3bc34]" aria-hidden="true"></div>
 
-					<div
-						class="relative flex min-h-[446px] flex-col justify-end rounded-[24px] border border-white/10 bg-white/5 p-8"
-					>
-						<p
-							class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-						>
+					<div class="relative flex min-h-[446px] flex-col justify-end border border-white/15 bg-white/5 p-8">
+						<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
 							NOVA Learning Space
 						</p>
-
-						<h3 class="mt-4 max-w-md text-3xl font-bold text-white">
-							Ruang belajar yang nyaman untuk fokus dan berkolaborasi.
+						<h3 class="mt-4 max-w-md text-3xl font-extrabold text-white">
+							<span class="lang-id">Ruang belajar yang nyaman untuk fokus dan berkolaborasi.</span>
+							<span class="lang-en">A comfortable learning environment for focus and collaboration.</span>
 						</h3>
 
 						<div class="mt-8 grid grid-cols-2 gap-3">
-							<div class="rounded-xl bg-white p-4">
-								<p class="font-bold text-[#0F2747]">
-									Small Group
-								</p>
-								<p class="mt-1 text-xs text-slate-500">
-									Kelas kelompok kecil
-								</p>
+							<div class="bg-white p-4">
+								<p class="font-extrabold text-[#1d2f5c]">Small Group</p>
+								<p class="mt-1 text-xs text-slate-500"><span class="lang-id">Kelompok kecil</span><span class="lang-en">Small-group learning</span></p>
 							</div>
-
-							<div class="rounded-xl bg-white p-4">
-								<p class="font-bold text-[#0F2747]">
-									Private Class
-								</p>
-								<p class="mt-1 text-xs text-slate-500">
-									Pendampingan individual
-								</p>
+							<div class="bg-white p-4">
+								<p class="font-extrabold text-[#1d2f5c]">Private Class</p>
+								<p class="mt-1 text-xs text-slate-500"><span class="lang-id">Pendampingan individual</span><span class="lang-en">Individual support</span></p>
 							</div>
-
-							<div class="rounded-xl bg-white p-4">
-								<p class="font-bold text-[#0F2747]">
-									Open Space
-								</p>
-								<p class="mt-1 text-xs text-slate-500">
-									Belajar dan berdiskusi
-								</p>
+							<div class="bg-white p-4">
+								<p class="font-extrabold text-[#1d2f5c]">Open Space</p>
+								<p class="mt-1 text-xs text-slate-500"><span class="lang-id">Belajar & berdiskusi</span><span class="lang-en">Learn & collaborate</span></p>
 							</div>
-
-							<div class="rounded-xl bg-white p-4">
-								<p class="font-bold text-[#0F2747]">
-									Digital Learning
-								</p>
-								<p class="mt-1 text-xs text-slate-500">
-									Teknologi pendukung belajar
-								</p>
+							<div class="bg-white p-4">
+								<p class="font-extrabold text-[#1d2f5c]">Digital Learning</p>
+								<p class="mt-1 text-xs text-slate-500"><span class="lang-id">Teknologi pendukung</span><span class="lang-en">Technology-enabled</span></p>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div>
-					<p
-						class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-					>
-						Fasilitas
+				<div class="reveal">
+					<p class="section-label">
+						<span class="lang-id">Fasilitas</span>
+						<span class="lang-en">Facilities</span>
 					</p>
-
-					<h2
-						class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
-					>
-						Dirancang untuk berbagai cara belajar.
+					<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] text-[#1d2f5c] md:text-5xl">
+						<span class="lang-id">Dirancang untuk berbagai cara belajar.</span>
+						<span class="lang-en">Designed for different ways of learning.</span>
 					</h2>
-
 					<p class="mt-6 text-lg leading-8 text-slate-600">
-						NOVA memiliki area belajar untuk kelas kelompok, kelas privat,
-						pembelajaran bahasa, diskusi, dan aktivitas kolaboratif.
+						<span class="lang-id">NOVA memiliki area untuk kelompok kecil, private class, diskusi, dan aktivitas kolaboratif.</span>
+						<span class="lang-en">NOVA provides spaces for small groups, private lessons, discussion and collaborative learning.</span>
 					</p>
 
-					<div class="mt-8 space-y-5">
-						<div class="flex items-start gap-4">
-							<div
-								class="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34]/20 text-sm font-bold text-[#F3BC34]"
-							>
-								✓
-							</div>
-
-							<div>
-								<h3 class="font-bold text-[#0F2747]">
-									Lingkungan belajar yang nyaman
-								</h3>
-
-								<p class="mt-1 text-sm leading-6 text-slate-500">
-									Penataan ruang mendukung fokus, interaksi, dan
-									kenyamanan siswa.
-								</p>
-							</div>
-						</div>
-
-						<div class="flex items-start gap-4">
-							<div
-								class="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34]/20 text-sm font-bold text-[#F3BC34]"
-							>
-								✓
-							</div>
-
-							<div>
-								<h3 class="font-bold text-[#0F2747]">
-									Ruang untuk berbagai ukuran kelas
-								</h3>
-
-								<p class="mt-1 text-sm leading-6 text-slate-500">
-									Tersedia ruang untuk private class, semi-private, dan
-									kelompok kecil.
-								</p>
-							</div>
-						</div>
-
-						<div class="flex items-start gap-4">
-							<div
-								class="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3BC34]/20 text-sm font-bold text-[#F3BC34]"
-							>
-								✓
-							</div>
-
-							<div>
-								<h3 class="font-bold text-[#0F2747]">
-									Pembelajaran terintegrasi
-								</h3>
-
-								<p class="mt-1 text-sm leading-6 text-slate-500">
-									Aktivitas onsite dapat dilengkapi materi dan latihan
-									dari platform e-learning.
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<a
-						href="/facilities"
-						class="mt-9 inline-flex items-center gap-2 rounded-xl bg-[#0F2747] px-7 py-4 font-semibold text-white transition hover:bg-[#17385f]"
-					>
-						Lihat fasilitas NOVA
+					<a href="/facilities" class="mt-9 inline-flex items-center gap-2 rounded-lg bg-[#1d2f5c] px-7 py-4 font-bold text-white transition hover:-translate-y-0.5 hover:shadow-lg">
+						<span class="lang-id">Lihat fasilitas NOVA</span>
+						<span class="lang-en">Explore our facilities</span>
 						<span aria-hidden="true">→</span>
 					</a>
 				</div>
@@ -1200,277 +761,107 @@ const footerLinks = [
 		</section>
 
 		<!-- E-LEARNING -->
-		<section class="bg-[#F7F8FC] py-24">
-			<div
-				class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8"
-			>
-				<div>
-					<p
-						class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-					>
-						NOVA E-Learning
-					</p>
-
-					<h2
-						class="mt-4 max-w-2xl text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
-					>
-						Belajar mandiri dengan struktur yang tetap terarah.
+		<section class="bg-[#f7f8fc] py-24">
+			<div class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8">
+				<div class="reveal">
+					<p class="section-label">NOVA E-Learning</p>
+					<h2 class="mt-4 max-w-2xl text-4xl font-extrabold tracking-[-0.03em] text-[#1d2f5c] md:text-5xl">
+						<span class="lang-id">Belajar mandiri dengan struktur yang tetap terarah.</span>
+						<span class="lang-en">Independent learning with a clear structure.</span>
 					</h2>
-
 					<p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-						Akses video pembelajaran, materi interaktif, worksheet, kuis,
-						progres belajar, dan sertifikat dalam satu platform.
+						<span class="lang-id">Akses video pembelajaran, materi interaktif, worksheet, kuis, dan progres belajar dalam satu platform.</span>
+						<span class="lang-en">Access learning videos, interactive materials, worksheets, quizzes and progress tracking in one place.</span>
 					</p>
-
-					<a
-						href="/elearning"
-						class="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#F3BC34] px-7 py-4 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-					>
-						Jelajahi E-Learning
+					<a href="/elearning" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#f3bc34] px-7 py-4 font-bold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-lg">
+						<span class="lang-id">Jelajahi E-Learning</span>
+						<span class="lang-en">Explore E-Learning</span>
 						<span aria-hidden="true">→</span>
 					</a>
 				</div>
 
-				<div
-					class="rounded-[28px] bg-[#0F2747] p-4 text-[#0F2747] shadow-2xl"
-				>
-					<div class="rounded-[20px] bg-white p-6">
+				<div class="reveal bg-[#1d2f5c] p-4 shadow-2xl">
+					<div class="bg-white p-6">
 						<div class="flex items-center justify-between gap-5">
 							<div>
-								<p class="text-sm text-slate-500">
-									Lanjutkan belajar
-								</p>
-
-								<h3 class="mt-1 text-xl font-bold">
-									Matematika Dasar Kelas 7
-								</h3>
+								<p class="text-sm text-slate-500"><span class="lang-id">Lanjutkan belajar</span><span class="lang-en">Continue learning</span></p>
+								<h3 class="mt-1 text-xl font-extrabold text-[#1d2f5c]"><span class="lang-id">Matematika Dasar Kelas 7</span><span class="lang-en">Year 7 Mathematics Foundations</span></h3>
 							</div>
-
-							<div
-								class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F3BC34] text-[#0F2747]"
-							>
-								▶
-							</div>
+							<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f3bc34] text-[#1d2f5c]">▶</div>
 						</div>
-
-						<div class="mt-8 rounded-2xl bg-slate-50 p-5">
+						<div class="mt-8 bg-slate-50 p-5">
 							<div class="flex justify-between text-sm">
-								<span class="font-semibold">
-									Modul 4 dari 8
-								</span>
-
-								<span class="text-slate-500">
-									50%
-								</span>
+								<span class="font-semibold text-[#1d2f5c]"><span class="lang-id">Modul 4 dari 8</span><span class="lang-en">Module 4 of 8</span></span>
+								<span class="text-slate-500">50%</span>
 							</div>
-
-							<div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
-								<div class="h-full w-1/2 rounded-full bg-[#F3BC34]">
-								</div>
-							</div>
-
-							<div
-								class="mt-6 grid grid-cols-3 divide-x divide-slate-200 text-center"
-							>
-								<div>
-									<p class="font-bold">12</p>
-									<p class="text-xs text-slate-500">Video</p>
-								</div>
-
-								<div>
-									<p class="font-bold">8</p>
-									<p class="text-xs text-slate-500">Worksheet</p>
-								</div>
-
-								<div>
-									<p class="font-bold">4</p>
-									<p class="text-xs text-slate-500">Kuis</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="mt-4 grid gap-3 sm:grid-cols-2">
-							<div class="rounded-xl border border-slate-200 p-4">
-								<p class="text-xs font-semibold text-slate-500">
-									Kursus berikutnya
-								</p>
-								<p class="mt-2 font-bold text-[#0F2747]">
-									English Conversation
-								</p>
-							</div>
-
-							<div class="rounded-xl border border-slate-200 p-4">
-								<p class="text-xs font-semibold text-slate-500">
-									Pencapaian
-								</p>
-								<p class="mt-2 font-bold text-[#0F2747]">
-									3 Sertifikat
-								</p>
-							</div>
+							<div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-200"><div class="h-full w-1/2 rounded-full bg-[#f3bc34]"></div></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- COMPACT TESTIMONIAL SLIDER -->
-		<section class="relative overflow-hidden bg-[#0F2747] py-20 text-white">
-			<div
-				class="absolute -left-24 top-8 h-64 w-64 rounded-full bg-[#F3BC34]/15 blur-3xl"
-				aria-hidden="true"
-			>
-			</div>
-
-			<div
-				class="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-blue-400/15 blur-3xl"
-				aria-hidden="true"
-			>
-			</div>
-
-			<div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-				<div
-					class="flex flex-col gap-7 md:flex-row md:items-end md:justify-between"
-				>
+		<!-- TESTIMONIALS -->
+		<section class="relative overflow-hidden bg-[#1d2f5c] py-20 text-white">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="reveal flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
 					<div class="max-w-2xl">
-						<p
-							class="text-sm font-bold uppercase tracking-[0.2em] text-[#F3BC34]"
-						>
-							Cerita Bersama NOVA
+						<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
+							<span class="lang-id">Cerita Bersama NOVA</span>
+							<span class="lang-en">NOVA Stories</span>
 						</p>
-
-						<h2
-							class="mt-4 text-4xl font-bold tracking-tight md:text-5xl"
-						>
-							Apa kata mereka tentang pengalaman belajar di NOVA?
+						<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl">
+							<span class="lang-id">Apa kata mereka tentang pengalaman belajar di NOVA?</span>
+							<span class="lang-en">What do families say about learning at NOVA?</span>
 						</h2>
-
-						<p class="mt-4 max-w-xl text-base leading-7 text-blue-100">
-							Cerita singkat dari siswa dan orang tua tentang proses belajar,
-							pendampingan, dan perkembangan mereka.
-						</p>
 					</div>
 
 					<div class="flex shrink-0 items-center gap-3">
-						<button
-							id="testimonial-prev"
-							type="button"
-							aria-label="Lihat testimoni sebelumnya"
-							class="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#F3BC34] hover:bg-[#F3BC34] hover:text-[#0F2747]"
-						>
-							<svg
-								width="20"
-								height="20"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="m15 18-6-6 6-6"></path>
-							</svg>
-						</button>
-
-						<button
-							id="testimonial-next"
-							type="button"
-							aria-label="Lihat testimoni berikutnya"
-							class="flex h-11 w-11 items-center justify-center rounded-full bg-[#F3BC34] text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							<svg
-								width="20"
-								height="20"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="m9 18 6-6-6-6"></path>
-							</svg>
-						</button>
+						<button id="testimonial-prev" type="button" aria-label="Previous testimonial" class="slider-button border border-white/20 bg-white/10 text-white">←</button>
+						<button id="testimonial-next" type="button" aria-label="Next testimonial" class="slider-button bg-[#f3bc34] text-[#1d2f5c]">→</button>
 					</div>
 				</div>
 
-				<div
-					id="testimonial-slider"
-					class="horizontal-slider -mx-6 mt-11 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 py-5 lg:-mx-8 lg:px-8"
-					aria-label="Daftar testimoni"
-				>
+				<div id="testimonial-slider" class="horizontal-slider -mx-6 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 py-5 lg:-mx-8 lg:px-8">
 					{
 						testimonials.map((testimonial, index) => (
 							<article
 								data-testimonial-card
 								class:list={[
-									'testimonial-card relative w-[84%] flex-none snap-center overflow-hidden rounded-2xl border border-white/10 bg-white px-6 py-6 text-[#0F2747] shadow-xl sm:w-[360px] lg:w-[370px]',
+									'testimonial-card relative w-[84%] flex-none snap-center overflow-hidden border border-white/10 bg-white px-6 py-6 text-[#1d2f5c] shadow-xl sm:w-[360px] lg:w-[370px]',
 									index === 0 ? 'is-active' : '',
 								]}
 							>
-								<div
-									class="absolute -right-2 -top-7 select-none text-[92px] font-black leading-none text-[#F3BC34]/15"
-									aria-hidden="true"
-								>
-									“
-								</div>
-
-								<div class="relative flex min-h-[300px] flex-col">
+								<div class="flex min-h-[300px] flex-col">
 									<div class="flex items-start justify-between gap-4">
-										<div class="flex gap-0.5 text-sm text-[#F3BC34]">
-											{
-												Array.from({ length: testimonial.rating }).map(() => (
-													<span aria-hidden="true">★</span>
-												))
-											}
+										<div class="flex gap-0.5 text-sm text-[#f3bc34]">
+											{Array.from({ length: testimonial.rating }).map(() => <span aria-hidden="true">★</span>)}
 										</div>
-
 										{testimonial.demo && (
 											<span class="rounded-full bg-slate-100 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-slate-500">
-												Contoh
+												Demo
 											</span>
 										)}
 									</div>
 
-									<blockquote
-										class="mt-5 line-clamp-5 text-[17px] font-medium leading-7 text-[#0F2747]"
-									>
-										“{testimonial.quote}”
+									<blockquote class="mt-5 line-clamp-5 text-[17px] font-medium leading-7">
+										“<span class="lang-id">{testimonial.quoteId}</span><span class="lang-en">{testimonial.quoteEn}</span>”
 									</blockquote>
 
 									<div class="mt-auto pt-6">
 										<div class="mb-5 h-px bg-slate-100"></div>
-
 										<div class="flex items-center gap-3">
-											<div
-												class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#0F2747] text-xs font-bold text-white ring-2 ring-[#F3BC34]/25"
-											>
-												{testimonial.photo ? (
-													<img
-														src={testimonial.photo}
-														alt={`Foto ${testimonial.name}`}
-														class="h-full w-full object-cover"
-														loading="lazy"
-													/>
-												) : (
-													<span>
-														{testimonial.name
-															.split(' ')
-															.map((part) => part.charAt(0))
-															.slice(0, 2)
-															.join('')}
-													</span>
-												)}
+											<div class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#1d2f5c] text-xs font-bold text-white ring-2 ring-[#f3bc34]/35">
+												<span>
+													{testimonial.name.split(' ').map((part) => part.charAt(0)).slice(0, 2).join('')}
+												</span>
 											</div>
 
 											<div class="min-w-0">
-												<p class="truncate text-sm font-bold text-[#0F2747]">
-													{testimonial.name}
-												</p>
-
+												<p class="truncate text-sm font-extrabold">{testimonial.name}</p>
 												<p class="mt-0.5 truncate text-xs text-slate-500">
-													{testimonial.relation} · {testimonial.program}
+													<span class="lang-id">{testimonial.relationId} · {testimonial.programId}</span>
+													<span class="lang-en">{testimonial.relationEn} · {testimonial.programEn}</span>
 												</p>
 											</div>
 										</div>
@@ -1481,205 +872,52 @@ const footerLinks = [
 					}
 				</div>
 
-				<div
-					class="mt-3 flex flex-col items-center justify-between gap-5 sm:flex-row"
-				>
-					<div
-						id="testimonial-dots"
-						class="flex items-center gap-2"
-						aria-label="Pilih testimoni"
-					>
-						{
-							testimonials.map((_, index) => (
-								<button
-									type="button"
-									data-testimonial-dot={index}
-									class:list={[
-										'testimonial-dot h-2 rounded-full bg-white/25 transition-all',
-										index === 0 ? 'is-active' : '',
-									]}
-									aria-label={`Tampilkan testimoni ${index + 1}`}
-								>
-								</button>
-							))
-						}
-					</div>
-
-					<a
-						href="/testimonials"
-						class="group inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#F3BC34]"
-					>
-						Lihat seluruh testimoni
-						<span class="transition group-hover:translate-x-1" aria-hidden="true">
-							→
-						</span>
-					</a>
+				<div id="testimonial-dots" class="mt-3 flex items-center gap-2">
+					{
+						testimonials.map((_, index) => (
+							<button
+								type="button"
+								data-testimonial-dot={index}
+								class:list={['testimonial-dot h-2 rounded-full bg-white/25 transition-all', index === 0 ? 'is-active' : '']}
+								aria-label={`Testimonial ${index + 1}`}
+							></button>
+						))
+					}
 				</div>
 			</div>
 		</section>
 
 		<!-- FINAL CTA -->
-		<section class="bg-[#F3BC34]/12 py-20">
-			<div class="mx-auto max-w-4xl px-6 text-center">
-				<p
-					class="text-sm font-bold uppercase tracking-[0.2em] text-[#A87300]"
-				>
-					Mulai bersama NOVA
+		<section class="bg-[#f3bc34] py-20">
+			<div class="reveal mx-auto max-w-4xl px-6 text-center">
+				<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#1d2f5c]/60">
+					<span class="lang-id">Mulai bersama NOVA</span>
+					<span class="lang-en">Start with NOVA</span>
 				</p>
 
-				<h2
-					class="mt-4 text-4xl font-bold tracking-tight text-[#0F2747] md:text-5xl"
-				>
-					Temukan program yang sesuai dengan kebutuhan belajar.
+				<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] text-[#1d2f5c] md:text-5xl">
+					<span class="lang-id">Temukan program yang sesuai dengan kebutuhan belajar.</span>
+					<span class="lang-en">Find the right program for your learning needs.</span>
 				</h2>
 
-				<p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-					Konsultasikan kebutuhan siswa bersama tim NOVA untuk menentukan
-					program dan jadwal yang paling tepat.
+				<p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#1d2f5c]/75">
+					<span class="lang-id">Konsultasikan kebutuhan siswa bersama tim NOVA untuk menentukan program dan jadwal yang paling tepat.</span>
+					<span class="lang-en">Speak with the NOVA team to find a suitable program and schedule for your child.</span>
 				</p>
 
-				<a
-					href="/contact"
-					class="mt-8 inline-flex rounded-xl bg-[#0F2747] px-8 py-4 font-semibold text-white transition hover:bg-[#17385f]"
-				>
-					Jadwalkan Konsultasi
+				<a href={whatsappUrl} target="_blank" rel="noreferrer" class="mt-8 inline-flex rounded-lg bg-[#1d2f5c] px-8 py-4 font-bold text-white transition hover:-translate-y-0.5 hover:shadow-xl">
+					<span class="lang-id">Chat dengan NOVA</span>
+					<span class="lang-en">Chat with NOVA</span>
 				</a>
 			</div>
 		</section>
 	</main>
 
-	<!-- FOOTER -->
-	<footer class="bg-[#091D36] text-white">
-		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
-				<div>
-					<a href="/" aria-label="NOVA Learning Centre">
-						<img
-							src="/images/primary-logo.png"
-							alt="NOVA Learning Centre"
-							class="h-14 w-auto brightness-0 invert"
-						/>
-					</a>
-
-					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
-						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
-						sepanjang hayat melalui kelas tatap muka dan e-learning.
-					</p>
-
-					<p class="mt-6 text-sm font-semibold text-[#A87300]">
-						Learn with purpose. Grow with confidence.
-					</p>
-				</div>
-
-				<div>
-					<h3
-						class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]"
-					>
-						Navigasi
-					</h3>
-
-					<div class="mt-6 grid gap-3">
-						{
-							footerLinks.map((item) => (
-								<a
-									href={item.href}
-									class="text-sm text-blue-100 transition hover:text-white"
-								>
-									{item.name}
-								</a>
-							))
-						}
-					</div>
-				</div>
-
-				<div>
-					<h3
-						class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]"
-					>
-						Hubungi Kami
-					</h3>
-
-					<div class="mt-6 space-y-5 text-sm text-blue-100">
-						<div>
-							<p class="font-semibold text-white">
-								Lokasi
-							</p>
-
-							<p class="mt-1 leading-6">
-								Kelapa Gading, Jakarta Utara
-							</p>
-						</div>
-
-						<div>
-							<p class="font-semibold text-white">
-								Email
-							</p>
-
-							<a
-								href="mailto:novalearningcentre@gmail.com"
-								class="mt-1 block break-all transition hover:text-white"
-							>
-								novalearningcentre@gmail.com
-							</a>
-						</div>
-
-						<a
-							href="/contact"
-							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Hubungi NOVA
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div
-				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
-			>
-				<p>
-					© {currentYear} NOVA Learning Centre. All rights reserved.
-				</p>
-
-				<div class="flex gap-5">
-					<a href="/privacy" class="transition hover:text-white">
-						Kebijakan Privasi
-					</a>
-
-					<a href="/terms" class="transition hover:text-white">
-						Syarat & Ketentuan
-					</a>
-				</div>
-			</div>
-		</div>
-	</footer>
 </Layout>
 
 <script>
-	// MOBILE MENU
-	const mobileMenuButton =
-		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
-	const mobileMenu =
-		document.querySelector<HTMLElement>('#mobile-menu');
-	const mobileNavLinks =
-		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
-
-	const closeMobileMenu = () => {
-		mobileMenu?.classList.add('hidden');
-		mobileMenuButton?.setAttribute('aria-expanded', 'false');
-	};
-
-	mobileMenuButton?.addEventListener('click', () => {
-		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
-		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
-	});
-
-	mobileNavLinks.forEach((link) => {
-		link.addEventListener('click', closeMobileMenu);
-	});
-
 	// TEACHER SLIDER
-	const teacherSlider =
-		document.querySelector<HTMLElement>('#teacher-slider');
+	const teacherSlider = document.querySelector<HTMLElement>('#teacher-slider');
 	const teacherPreviousButton =
 		document.querySelector<HTMLButtonElement>('#teacher-prev');
 	const teacherNextButton =
@@ -1689,16 +927,13 @@ const footerLinks = [
 		const computedStyle = window.getComputedStyle(element);
 		const rawGap = computedStyle.columnGap || computedStyle.gap || '0';
 		const gap = Number.parseFloat(rawGap);
-
 		return Number.isFinite(gap) ? gap : 0;
 	};
 
 	const moveTeacherSlider = (direction: number) => {
 		if (!teacherSlider) return;
-
 		const firstCard =
 			teacherSlider.querySelector<HTMLElement>('[data-teacher-card]');
-
 		const step =
 			(firstCard?.offsetWidth ?? 300) + getSliderGap(teacherSlider);
 
@@ -1708,13 +943,8 @@ const footerLinks = [
 		});
 	};
 
-	teacherPreviousButton?.addEventListener('click', () => {
-		moveTeacherSlider(-1);
-	});
-
-	teacherNextButton?.addEventListener('click', () => {
-		moveTeacherSlider(1);
-	});
+	teacherPreviousButton?.addEventListener('click', () => moveTeacherSlider(-1));
+	teacherNextButton?.addEventListener('click', () => moveTeacherSlider(1));
 
 	// TESTIMONIAL SLIDER
 	const testimonialSlider =
@@ -1767,7 +997,6 @@ const footerLinks = [
 
 	const startTestimonialAutoPlay = () => {
 		window.clearInterval(testimonialTimer);
-
 		testimonialTimer = window.setInterval(() => {
 			goToTestimonial(testimonialIndex + 1);
 		}, 6000);
@@ -1829,20 +1058,6 @@ const footerLinks = [
 	testimonialSlider?.addEventListener('mouseleave', startTestimonialAutoPlay);
 	testimonialSlider?.addEventListener('focusin', stopTestimonialAutoPlay);
 	testimonialSlider?.addEventListener('focusout', startTestimonialAutoPlay);
-	testimonialSlider?.addEventListener('touchstart', stopTestimonialAutoPlay, {
-		passive: true,
-	});
-	testimonialSlider?.addEventListener('touchend', startTestimonialAutoPlay, {
-		passive: true,
-	});
-
-	document.addEventListener('visibilitychange', () => {
-		if (document.hidden) {
-			stopTestimonialAutoPlay();
-		} else {
-			startTestimonialAutoPlay();
-		}
-	});
 
 	updateTestimonialDots();
 	startTestimonialAutoPlay();
@@ -1850,9 +1065,70 @@ const footerLinks = [
 	window.addEventListener('resize', () => {
 		goToTestimonial(testimonialIndex, false);
 	});
+
+	// SCROLL REVEAL
+	const revealElements =
+		document.querySelectorAll<HTMLElement>('.reveal');
+
+	if ('IntersectionObserver' in window) {
+		const revealObserver = new IntersectionObserver(
+			(entries, observer) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.12 },
+		);
+
+		revealElements.forEach((element) => revealObserver.observe(element));
+	} else {
+		revealElements.forEach((element) => element.classList.add('is-visible'));
+	}
 </script>
 
-<style>
+<style is:global>
+	.section-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.875rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
+	}
+
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
+	}
+
+	.slider-button {
+		display: flex;
+		width: 3rem;
+		height: 3rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		font-size: 1.15rem;
+		font-weight: 800;
+		transition:
+			transform 180ms ease,
+			background-color 180ms ease,
+			color 180ms ease;
+	}
+
+	.slider-button:hover {
+		transform: translateY(-2px);
+		background: #f3bc34;
+		color: #1d2f5c;
+	}
+
 	.horizontal-slider {
 		scrollbar-width: none;
 		overscroll-behavior-inline: contain;
@@ -1863,8 +1139,8 @@ const footerLinks = [
 	}
 
 	.testimonial-card {
-		opacity: 0.68;
-		transform: scale(0.96);
+		opacity: 0.72;
+		transform: scale(0.97);
 		transition:
 			opacity 300ms ease,
 			transform 300ms ease,
@@ -1875,7 +1151,7 @@ const footerLinks = [
 	.testimonial-card.is-active {
 		opacity: 1;
 		transform: scale(1);
-		border-color: rgba(243, 188, 52, 0.45);
+		border-color: rgba(243, 188, 52, 0.55);
 		box-shadow: 0 24px 55px rgba(0, 0, 0, 0.2);
 	}
 
@@ -1885,18 +1161,46 @@ const footerLinks = [
 
 	.testimonial-dot.is-active {
 		width: 1.75rem;
-		background: #F3BC34;
+		background: #f3bc34;
 	}
 
+	.reveal {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 650ms ease,
+			transform 650ms ease;
+	}
+
+	.reveal.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.hero-photo img {
+		transition: transform 7s ease;
+	}
+
+	.hero-photo:hover img {
+		transform: scale(1.035);
+	}
+
+	.activity-card {
+		box-shadow: 0 16px 36px rgba(29, 47, 92, 0.12);
+	}
 	@media (prefers-reduced-motion: reduce) {
-		* {
-			scroll-behavior: auto !important;
+
+		*,
+		*::before,
+		*::after {
+			transition-duration: 0.01ms !important;
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
 		}
 
-		.group,
-		a,
-		button {
-			transition-duration: 0.01ms !important;
+		.reveal {
+			opacity: 1;
+			transform: none;
 		}
 	}
 </style>

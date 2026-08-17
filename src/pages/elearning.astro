@@ -1,551 +1,760 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const currentYear = new Date().getFullYear();
+type LearningContent = {
+	number: string;
+	titleId: string;
+	titleEn: string;
+	descriptionId: string;
+	descriptionEn: string;
+};
 
-const navItems = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
-];
+type Course = {
+	titleId: string;
+	titleEn: string;
+	levelId: string;
+	levelEn: string;
+	descriptionId: string;
+	descriptionEn: string;
+	progress: string;
+	image: string;
+};
 
-/*
-	Ganti thumbnail nanti jika sudah ada:
-	thumbnail: '/images/elearning/math-grade7.jpg'
-*/
-const courses = [
+const learningContents: LearningContent[] = [
 	{
-		title: 'Matematika Dasar Kelas 7',
-		category: 'Matematika',
-		level: 'SMP',
-		modules: '8 modul',
-		duration: '± 6 jam',
-		thumbnail: '',
+		number: '01',
+		titleId: 'Concept Video',
+		titleEn: 'Concept Video',
+		descriptionId:
+			'Video singkat untuk menjelaskan konsep utama dengan visual dan contoh yang mudah diikuti.',
+		descriptionEn:
+			'Short videos explaining key concepts using clear visuals and easy-to-follow examples.',
 	},
 	{
-		title: 'English Grammar Essentials',
-		category: 'English',
-		level: 'Primary–Secondary',
-		modules: '6 modul',
-		duration: '± 4 jam',
-		thumbnail: '',
+		number: '02',
+		titleId: 'Worked Example',
+		titleEn: 'Worked Example',
+		descriptionId:
+			'Contoh soal dibahas langkah demi langkah agar siswa memahami proses, bukan hanya jawabannya.',
+		descriptionEn:
+			'Worked examples are explained step by step so students understand the process, not only the answer.',
 	},
 	{
-		title: 'Science Foundations',
-		category: 'Science',
-		level: 'Primary',
-		modules: '7 modul',
-		duration: '± 5 jam',
-		thumbnail: '',
+		number: '03',
+		titleId: 'Practice & Worksheet',
+		titleEn: 'Practice & Worksheet',
+		descriptionId:
+			'Latihan terstruktur untuk membantu siswa menerapkan konsep secara mandiri.',
+		descriptionEn:
+			'Structured practice helps students apply concepts independently.',
 	},
 	{
-		title: 'Creative Coding Basics',
-		category: 'Coding',
-		level: 'Primary',
-		modules: '6 modul',
-		duration: '± 5 jam',
-		thumbnail: '',
-	},
-	{
-		title: 'Python for Beginners',
-		category: 'Coding',
-		level: 'SMP–SMA',
-		modules: '8 modul',
-		duration: '± 7 jam',
-		thumbnail: '',
-	},
-	{
-		title: 'Mandarin Foundations',
-		category: 'Mandarin',
-		level: 'Beginner',
-		modules: '6 modul',
-		duration: '± 4 jam',
-		thumbnail: '',
+		number: '04',
+		titleId: 'Quiz & Progress Check',
+		titleEn: 'Quiz & Progress Check',
+		descriptionId:
+			'Kuis singkat digunakan untuk mengecek pemahaman sebelum melanjutkan ke modul berikutnya.',
+		descriptionEn:
+			'Short quizzes check understanding before students continue to the next module.',
 	},
 ];
 
-const footerLinks = [
-	{ name: 'Beranda', href: '/' },
-	{ name: 'Tentang Kami', href: '/about' },
-	{ name: 'Program', href: '/programs' },
-	{ name: 'Fasilitas', href: '/facilities' },
-	{ name: 'E-Learning', href: '/elearning' },
-	{ name: 'Kontak', href: '/contact' },
+const courses: Course[] = [
+	{
+		titleId: 'Matematika Dasar',
+		titleEn: 'Mathematics Foundations',
+		levelId: 'SMP / Lower Secondary',
+		levelEn: 'Lower Secondary',
+		descriptionId:
+			'Konsep, worked examples, latihan, dan quiz untuk membantu siswa membangun fondasi matematika yang lebih kuat.',
+		descriptionEn:
+			'Concepts, worked examples, practice and quizzes designed to strengthen mathematical foundations.',
+		progress: '8 Modules',
+		image: '/images/program-academic-class.png',
+	},
+	{
+		titleId: 'Spreadsheet Skills',
+		titleEn: 'Spreadsheet Skills',
+		levelId: 'ICT / Computing',
+		levelEn: 'ICT / Computing',
+		descriptionId:
+			'Pembelajaran fungsi spreadsheet, formula, data modelling, dan latihan aplikasi secara bertahap.',
+		descriptionEn:
+			'Step-by-step learning in spreadsheet functions, formulas, data modelling and practical application.',
+		progress: '6 Modules',
+		image: '/images/multimedia-classroom.png',
+	},
+	{
+		titleId: 'Coding Fundamentals',
+		titleEn: 'Coding Fundamentals',
+		levelId: 'Coding & Digital',
+		levelEn: 'Coding & Digital',
+		descriptionId:
+			'Belajar logika coding melalui video, project kecil, latihan, dan challenge sederhana.',
+		descriptionEn:
+			'Learn coding logic through videos, mini projects, practice tasks and simple challenges.',
+		progress: '8 Modules',
+		image: '/images/program-coding-robotics.png',
+	},
 ];
+
+const whatsappUrl =
+	'https://wa.me/6285195511236?text=Halo%20NOVA%20Learning%20Centre%2C%20saya%20ingin%20bertanya%20mengenai%20NOVA%20E-Learning.';
 ---
 
 <Layout
 	title="E-Learning | NOVA Learning Centre"
-	description="Belajar mandiri melalui kursus asynchronous NOVA Learning Centre."
+	description="NOVA E-Learning menghadirkan video pembelajaran, worked examples, worksheet, quiz, dan progress tracking dalam satu alur belajar yang terstruktur."
 >
-	<!-- NAVBAR -->
-	<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-		<nav
-			class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
-			aria-label="Navigasi utama"
-		>
-			<a href="/" class="flex items-center" aria-label="NOVA Learning Centre">
-				<img
-					src="/images/primary-logo-icon.png"
-					alt="NOVA Learning Centre"
-					class="h-10 w-10 object-contain sm:hidden"
-				/>
-
-				<img
-					src="/images/primary-logo.png"
-					alt="NOVA Learning Centre"
-					class="hidden h-11 w-auto object-contain sm:block"
-				/>
-			</a>
-
-			<div class="hidden items-center gap-7 lg:flex">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class:list={[
-								'text-sm font-semibold transition',
-								item.href === '/elearning'
-									? 'text-[#0F2747]'
-									: 'text-slate-600 hover:text-[#A87300]',
-							]}
-						>
-							{item.name}
-						</a>
-					))
-				}
-			</div>
-
-			<a
-				href="/contact"
-				class="hidden rounded-xl bg-[#F3BC34] px-5 py-3 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722] lg:inline-flex"
-			>
-				Konsultasi Gratis
-			</a>
-
-			<button
-				id="mobile-menu-button"
-				type="button"
-				class="flex h-11 w-11 items-center justify-center border border-slate-300 bg-white text-[#0F2747] lg:hidden"
-				aria-label="Buka menu navigasi"
-				aria-expanded="false"
-				aria-controls="mobile-menu"
-			>
-				<svg
-					width="23"
-					height="23"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					aria-hidden="true"
-				>
-					<path d="M4 7h16"></path>
-					<path d="M4 12h16"></path>
-					<path d="M4 17h16"></path>
-				</svg>
-			</button>
-		</nav>
-
-		<div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-5 lg:hidden">
-			<div class="flex flex-col gap-4">
-				{
-					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="mobile-nav-link text-sm font-semibold text-slate-700 transition hover:text-[#A87300]"
-						>
-							{item.name}
-						</a>
-					))
-				}
-
-				<a
-					href="/contact"
-					class="mobile-nav-link mt-2 bg-[#F3BC34] px-5 py-3 text-center text-sm font-bold text-[#0F2747]"
-				>
-					Konsultasi Gratis
-				</a>
-			</div>
-		</div>
-	</header>
-
-	<main>
+	<main class="overflow-hidden">
 		<!-- HERO -->
-		<section class="bg-[#0F2747] text-white">
-			<div class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
-				<div class="max-w-4xl">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
+		<section class="relative bg-[#f7f8fc]">
+			<div
+				class="absolute -right-24 top-6 h-80 w-80 rounded-full bg-[#f3bc34]/18 blur-3xl"
+				aria-hidden="true"
+			></div>
+
+			<div class="relative mx-auto grid max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-28">
+				<div>
+					<p class="section-label">
 						NOVA E-Learning
 					</p>
 
 					<h1
-						class="mt-5 text-5xl font-bold leading-[1.04] tracking-[-0.05em] sm:text-6xl lg:text-[70px]"
+						class="mt-5 max-w-4xl text-5xl font-extrabold leading-[1.03] tracking-[-0.05em] text-[#1d2f5c] sm:text-6xl lg:text-[70px]"
 					>
-						Belajar kapan saja.
-						<span class="text-[#F3BC34]">Tetap terarah.</span>
+						<span class="lang-id">
+							Belajar mandiri,
+							<span class="block">
+								tapi tetap&nbsp;
+								<span class="relative inline-block">
+									terarah.
+									<span
+										class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/70"
+										aria-hidden="true"
+									></span>
+								</span>
+							</span>
+						</span>
+
+						<span class="lang-en">
+							Learn independently,
+							<span class="block">
+								with a
+								<span class="relative inline-block">
+									clear structure.
+									<span
+										class="absolute -bottom-1 left-0 h-2 w-full bg-[#f3bc34]/70"
+										aria-hidden="true"
+									></span>
+								</span>
+							</span>
+						</span>
 					</h1>
 
-					<p class="mt-6 max-w-2xl text-lg leading-8 text-blue-100">
-						Kursus asynchronous dengan video, materi, latihan, dan kuis
-						yang dapat dipelajari sesuai ritme masing-masing.
+					<p class="mt-7 max-w-xl text-lg leading-8 text-slate-600">
+						<span class="lang-id">
+							NOVA E-Learning dirancang agar siswa dapat belajar ulang,
+							berlatih, dan mengecek pemahaman kapan saja melalui alur modul
+							yang sederhana dan mudah diikuti.
+						</span>
+
+						<span class="lang-en">
+							NOVA E-Learning is designed so students can revisit concepts,
+							practise and check their understanding at any time through a
+							simple, structured module flow.
+						</span>
 					</p>
+
+					<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+						<a
+							href="#how-it-works"
+							class="inline-flex items-center justify-center bg-[#f3bc34] px-6 py-3.5 font-extrabold text-[#1d2f5c] transition hover:-translate-y-0.5 hover:shadow-lg"
+						>
+							<span class="lang-id">Lihat Cara Kerjanya</span>
+							<span class="lang-en">See How It Works</span>
+							<span class="ml-2">↓</span>
+						</a>
+
+						<a
+							href={whatsappUrl}
+							target="_blank"
+							rel="noreferrer"
+							class="inline-flex items-center justify-center border border-[#1d2f5c]/20 bg-white px-6 py-3.5 font-bold text-[#1d2f5c] transition hover:border-[#1d2f5c] hover:bg-[#1d2f5c] hover:text-white"
+						>
+							<span class="lang-id">Tanya E-Learning</span>
+							<span class="lang-en">Ask About E-Learning</span>
+						</a>
+					</div>
+				</div>
+
+				<!-- PLATFORM PREVIEW -->
+				<div class="relative">
+					<div class="absolute -bottom-5 -left-5 h-24 w-24 bg-[#f3bc34]" aria-hidden="true"></div>
+
+					<div class="relative bg-[#1d2f5c] p-4 shadow-[0_28px_70px_rgba(29,47,92,0.18)]">
+						<div class="bg-white p-6">
+							<div class="flex items-center justify-between gap-5 border-b border-slate-100 pb-5">
+								<div>
+									<p class="text-xs font-extrabold uppercase tracking-[0.14em] text-slate-400">
+										<span class="lang-id">Lanjutkan Belajar</span>
+										<span class="lang-en">Continue Learning</span>
+									</p>
+
+									<h2 class="mt-2 text-xl font-extrabold text-[#1d2f5c]">
+										<span class="lang-id">Matematika Dasar Kelas 7</span>
+										<span class="lang-en">Year 7 Mathematics Foundations</span>
+									</h2>
+								</div>
+
+								<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f3bc34] font-bold text-[#1d2f5c]">
+									▶
+								</div>
+							</div>
+
+							<div class="mt-6 grid gap-3 sm:grid-cols-2">
+								<div class="border border-slate-200 p-4">
+									<p class="text-xs font-extrabold uppercase tracking-[0.12em] text-[#1d2f5c]/45">
+										Video
+									</p>
+									<p class="mt-2 text-sm font-extrabold text-[#1d2f5c]">
+										<span class="lang-id">Konsep & Contoh</span>
+										<span class="lang-en">Concepts & Examples</span>
+									</p>
+								</div>
+
+								<div class="border border-slate-200 p-4">
+									<p class="text-xs font-extrabold uppercase tracking-[0.12em] text-[#1d2f5c]/45">
+										Practice
+									</p>
+									<p class="mt-2 text-sm font-extrabold text-[#1d2f5c]">
+										Worksheet & Quiz
+									</p>
+								</div>
+							</div>
+
+							<div class="mt-6 bg-[#f7f8fc] p-5">
+								<div class="flex justify-between gap-4 text-sm">
+									<span class="font-bold text-[#1d2f5c]">
+										<span class="lang-id">Modul 4 dari 8</span>
+										<span class="lang-en">Module 4 of 8</span>
+									</span>
+									<span class="text-slate-500">50%</span>
+								</div>
+
+								<div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+									<div class="h-full w-1/2 rounded-full bg-[#f3bc34]"></div>
+								</div>
+							</div>
+
+							<p class="mt-5 text-xs leading-6 text-slate-400">
+								<span class="lang-id">
+									Tampilan di atas merupakan ilustrasi alur belajar E-Learning.
+								</span>
+								<span class="lang-en">
+									The interface above is an illustration of the E-Learning experience.
+								</span>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- COURSES -->
-		<section class="bg-[#F7F8FC] py-20">
+		<!-- HOW IT WORKS -->
+		<section id="how-it-works" class="scroll-mt-28 bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-					<div>
-						<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-							Kursus Asynchronous
-						</p>
+				<div class="max-w-3xl">
+					<p class="section-label">
+						<span class="lang-id">Cara Kerja</span>
+						<span class="lang-en">How It Works</span>
+					</p>
 
-						<h2 class="mt-3 text-4xl font-bold tracking-tight text-[#0F2747]">
-							Pilih kelas dan mulai belajar.
-						</h2>
-					</div>
+					<h2
+						class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+					>
+						<span class="lang-id">Satu modul. Empat langkah sederhana.</span>
+						<span class="lang-en">One module. Four simple steps.</span>
+					</h2>
 
-					<p class="max-w-md text-sm leading-6 text-slate-500">
-						Kursus dapat dipelajari secara mandiri tanpa harus mengikuti
-						jadwal kelas tetap.
+					<p class="mt-5 max-w-2xl text-base leading-7 text-slate-600">
+						<span class="lang-id">
+							Siswa tidak hanya menonton video. Setiap modul dirancang agar ada
+							penjelasan, contoh, latihan, dan pengecekan pemahaman.
+						</span>
+
+						<span class="lang-en">
+							Students do more than watch videos. Each module combines explanation,
+							examples, practice and a quick understanding check.
+						</span>
 					</p>
 				</div>
 
-				<div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+				<div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
 					{
-						courses.map((course, index) => (
-							<a
-								href="#"
-								class="group overflow-hidden border border-slate-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#F3BC34] hover:shadow-xl"
-							>
-								<div class="relative aspect-[16/9] overflow-hidden bg-[#0F2747]">
-									{course.thumbnail ? (
-										<img
-											src={course.thumbnail}
-											alt={course.title}
-											class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-											loading="lazy"
-										/>
-									) : (
-										<div class="flex h-full items-center justify-center bg-[linear-gradient(135deg,#0F2747,#17385F)]">
-											<div class="flex h-14 w-14 items-center justify-center bg-[#F3BC34] text-[#0F2747]">
-												<svg
-													width="25"
-													height="25"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="2"
-													aria-hidden="true"
-												>
-													<polygon points="8 5 19 12 8 19 8 5"></polygon>
-												</svg>
-											</div>
-										</div>
-									)}
+						learningContents.map((item) => (
+							<article class="border-t-4 border-[#f3bc34] bg-[#f7f8fc] p-6">
+								<p class="text-xs font-black tracking-[0.15em] text-[#1d2f5c]/35">
+									{item.number}
+								</p>
 
-									<span class="absolute left-4 top-4 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#0F2747]">
-										{course.category}
-									</span>
-								</div>
+								<h3 class="mt-5 text-xl font-extrabold text-[#1d2f5c]">
+									<span class="lang-id">{item.titleId}</span>
+									<span class="lang-en">{item.titleEn}</span>
+								</h3>
 
-								<div class="p-5">
-									<p class="text-xs font-semibold text-[#A87300]">
-										{course.level}
-									</p>
-
-									<h3 class="mt-2 text-lg font-bold text-[#0F2747]">
-										{course.title}
-									</h3>
-
-									<div class="mt-5 flex items-center gap-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
-										<span>{course.modules}</span>
-										<span>•</span>
-										<span>{course.duration}</span>
-									</div>
-								</div>
-							</a>
+								<p class="mt-3 text-sm leading-7 text-slate-500">
+									<span class="lang-id">{item.descriptionId}</span>
+									<span class="lang-en">{item.descriptionEn}</span>
+								</p>
+							</article>
 						))
 					}
 				</div>
 			</div>
 		</section>
 
-		<!-- HOW IT WORKS -->
-		<section class="bg-white py-14">
-			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="mx-auto max-w-3xl text-center">
-					<p class="text-sm font-bold uppercase tracking-[0.22em] text-[#A87300]">
-						Cara Belajar
+		<!-- WHAT VIDEOS -->
+		<section class="bg-[#1d2f5c] py-24 text-white">
+			<div class="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:px-8">
+				<div>
+					<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#f3bc34]">
+						<span class="lang-id">Video Apa yang Ada?</span>
+						<span class="lang-en">What Videos Are Included?</span>
 					</p>
 
-					<h2 class="mt-3 text-3xl font-bold tracking-tight text-[#0F2747] md:text-4xl">
-						Belajar online tanpa ribet.
+					<h2
+						class="mt-4 text-4xl font-extrabold tracking-[-0.035em] md:text-5xl"
+					>
+						<span class="lang-id">
+							Video dibuat pendek, fokus, dan langsung ke inti konsep.
+						</span>
+
+						<span class="lang-en">
+							Videos are short, focused and built around one clear learning goal.
+						</span>
 					</h2>
 
-					<p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-500">
-						Tiga langkah sederhana untuk mulai belajar secara mandiri.
+					<p class="mt-6 max-w-xl text-lg leading-8 text-white/70">
+						<span class="lang-id">
+							Tujuannya bukan menggantikan guru dengan video, tetapi memberi siswa
+							kesempatan untuk mengulang penjelasan dan contoh kapan pun dibutuhkan.
+						</span>
+
+						<span class="lang-en">
+							The goal is not to replace teachers with videos, but to give students
+							a way to revisit explanations and examples whenever they need them.
+						</span>
 					</p>
 				</div>
 
-				<div class="learning-steps mt-10">
-					<article class="learning-step-card">
-						<div class="step-number step-blue">01</div>
-
-						<div>
-							<h3 class="text-lg font-bold text-[#0F2747]">
-								Pilih Kursus
-							</h3>
-
-							<p class="mt-2 text-sm leading-6 text-slate-500">
-								Pilih topik dan level yang ingin dipelajari.
-							</p>
+				<div class="grid gap-5 sm:grid-cols-2">
+					<article class="border border-white/15 bg-white/[0.06] p-6">
+						<div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#f3bc34] font-black text-[#1d2f5c]">
+							▶
 						</div>
+
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Concept Explainer</span>
+							<span class="lang-en">Concept Explainer</span>
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">
+								Penjelasan konsep inti dengan bahasa sederhana, visual, dan contoh
+								yang relevan.
+							</span>
+
+							<span class="lang-en">
+								Key concepts explained using simple language, visuals and relevant examples.
+							</span>
+						</p>
 					</article>
 
-					<article class="learning-step-card">
-						<div class="step-number step-yellow">02</div>
-
-						<div>
-							<h3 class="text-lg font-bold text-[#0F2747]">
-								Belajar Mandiri
-							</h3>
-
-							<p class="mt-2 text-sm leading-6 text-slate-500">
-								Tonton materi, baca modul, dan kerjakan latihan.
-							</p>
+					<article class="border border-white/15 bg-white/[0.06] p-6">
+						<div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#f3bc34] font-black text-[#1d2f5c]">
+							✓
 						</div>
+
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Worked Example</span>
+							<span class="lang-en">Worked Example</span>
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">
+								Contoh pengerjaan langkah demi langkah agar siswa memahami cara
+								berpikir di balik solusi.
+							</span>
+
+							<span class="lang-en">
+								Step-by-step demonstrations that show the thinking behind a solution.
+							</span>
+						</p>
 					</article>
 
-					<article class="learning-step-card">
-						<div class="step-number step-navy">03</div>
-
-						<div>
-							<h3 class="text-lg font-bold text-[#0F2747]">
-								Selesaikan Modul
-							</h3>
-
-							<p class="mt-2 text-sm leading-6 text-slate-500">
-								Lanjutkan progres dan selesaikan kursus bertahap.
-							</p>
+					<article class="border border-white/15 bg-white/[0.06] p-6">
+						<div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#f3bc34] font-black text-[#1d2f5c]">
+							?
 						</div>
+
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Common Mistakes</span>
+							<span class="lang-en">Common Mistakes</span>
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">
+								Pembahasan kesalahan yang sering dilakukan agar siswa lebih sadar
+								dengan proses dan strategi belajar.
+							</span>
+
+							<span class="lang-en">
+								Explanations of common mistakes to help students become more aware
+								of their thinking and learning strategies.
+							</span>
+						</p>
+					</article>
+
+					<article class="border border-white/15 bg-white/[0.06] p-6">
+						<div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#f3bc34] font-black text-[#1d2f5c]">
+							★
+						</div>
+
+						<h3 class="mt-5 text-xl font-extrabold">
+							<span class="lang-id">Challenge & Extension</span>
+							<span class="lang-en">Challenge & Extension</span>
+						</h3>
+
+						<p class="mt-3 text-sm leading-7 text-white/70">
+							<span class="lang-id">
+								Video tambahan untuk siswa yang ingin mencoba soal atau aplikasi
+								yang lebih menantang.
+							</span>
+
+							<span class="lang-en">
+								Extension videos for students ready to try more challenging questions
+								or applications.
+							</span>
+						</p>
 					</article>
 				</div>
 			</div>
 		</section>
-		<!-- CTA -->
-		<section class="bg-[#F7F8FC] pb-20 pt-4">
+
+		<!-- COURSE PREVIEW -->
+		<section class="bg-white py-24">
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid overflow-hidden bg-[#0F2747] lg:grid-cols-[1.25fr_0.75fr]">
-					<div class="px-7 py-9 md:px-10 lg:px-12 lg:py-10">
-						<p class="text-xs font-bold uppercase tracking-[0.22em] text-[#F3BC34]">
-							NOVA E-Learning
+				<div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+					<div>
+						<p class="section-label">
+							<span class="lang-id">Contoh Materi</span>
+							<span class="lang-en">Sample Learning Areas</span>
 						</p>
 
-						<h2 class="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-white md:text-4xl">
-							Mulai dari satu kelas. Belajar dengan ritme sendiri.
+						<h2
+							class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+						>
+							<span class="lang-id">Belajar sesuai kebutuhan dan jenjang.</span>
+							<span class="lang-en">Learning matched to level and need.</span>
 						</h2>
+					</div>
 
-						<p class="mt-4 max-w-xl text-sm leading-7 text-blue-100">
-							Cocok untuk siswa yang ingin belajar lebih fleksibel tanpa
-							terikat jadwal kelas tetap.
+					<p class="max-w-xl text-base leading-7 text-slate-600 lg:justify-self-end">
+						<span class="lang-id">
+							Area berikut merupakan contoh jenis materi yang dapat dikembangkan
+							dalam NOVA E-Learning. Ketersediaan modul akan bertambah secara bertahap.
+						</span>
+
+						<span class="lang-en">
+							The areas below illustrate the types of learning modules being developed
+							for NOVA E-Learning. Module availability will expand progressively.
+						</span>
+					</p>
+				</div>
+
+				<div class="mt-12 grid gap-6 md:grid-cols-3">
+					{
+						courses.map((course) => (
+							<article class="group overflow-hidden border border-slate-200 bg-white transition hover:-translate-y-1 hover:border-[#f3bc34] hover:shadow-xl">
+								<div class="relative aspect-[16/10] overflow-hidden bg-slate-100">
+									<img
+										src={course.image}
+										alt={course.titleEn}
+										class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+										loading="lazy"
+									/>
+
+									<div class="absolute inset-0 bg-gradient-to-t from-[#1d2f5c]/65 via-transparent to-transparent"></div>
+
+									<span class="absolute bottom-4 left-4 bg-[#f3bc34] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#1d2f5c]">
+										{course.progress}
+									</span>
+								</div>
+
+								<div class="p-6">
+									<p class="text-xs font-extrabold uppercase tracking-[0.14em] text-slate-400">
+										<span class="lang-id">{course.levelId}</span>
+										<span class="lang-en">{course.levelEn}</span>
+									</p>
+
+									<h3 class="mt-2 text-xl font-extrabold text-[#1d2f5c]">
+										<span class="lang-id">{course.titleId}</span>
+										<span class="lang-en">{course.titleEn}</span>
+									</h3>
+
+									<p class="mt-3 text-sm leading-7 text-slate-500">
+										<span class="lang-id">{course.descriptionId}</span>
+										<span class="lang-en">{course.descriptionEn}</span>
+									</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- FOR PARENTS -->
+		<section class="bg-[#f7f8fc] py-24">
+			<div class="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
+				<div>
+					<p class="section-label">
+						<span class="lang-id">Untuk Orang Tua</span>
+						<span class="lang-en">For Parents</span>
+					</p>
+
+					<h2
+						class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+					>
+						<span class="lang-id">Bukan sekadar “nonton video”.</span>
+						<span class="lang-en">More than simply watching videos.</span>
+					</h2>
+
+					<p class="mt-5 max-w-md text-base leading-7 text-slate-600">
+						<span class="lang-id">
+							Setiap modul dirancang sebagai alur belajar yang jelas supaya siswa
+							tahu apa yang harus dilakukan selanjutnya.
+						</span>
+
+						<span class="lang-en">
+							Each module follows a clear learning sequence so students know what
+							to do next.
+						</span>
+					</p>
+				</div>
+
+				<div class="grid gap-px bg-slate-200 sm:grid-cols-2">
+					<div class="bg-white p-6">
+						<p class="text-lg font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Belajar Ulang Kapan Saja</span>
+							<span class="lang-en">Revisit Learning Anytime</span>
+						</p>
+						<p class="mt-3 text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Siswa dapat mengulang bagian yang belum dipahami tanpa harus menunggu
+								pertemuan berikutnya.
+							</span>
+							<span class="lang-en">
+								Students can revisit difficult concepts without waiting for the next lesson.
+							</span>
 						</p>
 					</div>
 
-					<div
-						class="flex items-center border-t border-white/10 bg-[#102D50] px-7 py-8 lg:border-l lg:border-t-0 lg:px-10"
-					>
-						<a
-							href="/contact"
-							class="inline-flex w-full items-center justify-between bg-[#F3BC34] px-6 py-4 text-sm font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							<span>Tanya tentang E-Learning</span>
-							<span aria-hidden="true">→</span>
-						</a>
+					<div class="bg-white p-6">
+						<p class="text-lg font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Alur yang Terstruktur</span>
+							<span class="lang-en">Structured Learning Flow</span>
+						</p>
+						<p class="mt-3 text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Video, latihan, worksheet, dan quiz ditempatkan dalam urutan yang mudah diikuti.
+							</span>
+							<span class="lang-en">
+								Videos, practice, worksheets and quizzes are organised in a clear sequence.
+							</span>
+						</p>
+					</div>
+
+					<div class="bg-white p-6">
+						<p class="text-lg font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Progress Lebih Mudah Dilihat</span>
+							<span class="lang-en">Clearer Progress</span>
+						</p>
+						<p class="mt-3 text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Siswa dapat melihat modul mana yang sudah selesai dan apa yang perlu dilanjutkan.
+							</span>
+							<span class="lang-en">
+								Students can see what they have completed and what comes next.
+							</span>
+						</p>
+					</div>
+
+					<div class="bg-white p-6">
+						<p class="text-lg font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Pendamping Tatap Muka</span>
+							<span class="lang-en">Supports Face-to-Face Learning</span>
+						</p>
+						<p class="mt-3 text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								E-Learning dapat digunakan sebagai pendamping kelas tatap muka, bukan harus berdiri sendiri.
+							</span>
+							<span class="lang-en">
+								E-Learning can complement face-to-face lessons rather than needing to stand alone.
+							</span>
+						</p>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<!-- FAQ -->
+		<section class="bg-white py-24">
+			<div class="mx-auto max-w-5xl px-6 lg:px-8">
+				<div class="text-center">
+					<p class="section-label justify-center">
+						FAQ
+					</p>
+
+					<h2 class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl">
+						<span class="lang-id">Pertanyaan yang sering ditanyakan.</span>
+						<span class="lang-en">Frequently asked questions.</span>
+					</h2>
+				</div>
+
+				<div class="mt-12 divide-y divide-slate-200 border-y border-slate-200">
+					<details class="group py-5">
+						<summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Apakah E-Learning menggantikan kelas tatap muka?</span>
+							<span class="lang-en">Does E-Learning replace face-to-face classes?</span>
+							<span class="text-xl font-light transition group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-4 max-w-3xl text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Tidak harus. NOVA E-Learning dapat digunakan sebagai pendamping kelas
+								tatap muka atau sebagai materi belajar mandiri.
+							</span>
+							<span class="lang-en">
+								Not necessarily. NOVA E-Learning can complement face-to-face lessons
+								or be used for independent learning.
+							</span>
+						</p>
+					</details>
+
+					<details class="group py-5">
+						<summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Apakah semua program sudah tersedia online?</span>
+							<span class="lang-en">Are all programs already available online?</span>
+							<span class="text-xl font-light transition group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-4 max-w-3xl text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Belum. Modul akan dikembangkan dan ditambahkan secara bertahap sesuai program dan jenjang.
+							</span>
+							<span class="lang-en">
+								Not yet. Modules will be developed and added progressively across programs and levels.
+							</span>
+						</p>
+					</details>
+
+					<details class="group py-5">
+						<summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Apakah siswa bisa mengulang video?</span>
+							<span class="lang-en">Can students replay videos?</span>
+							<span class="text-xl font-light transition group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-4 max-w-3xl text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Ya. Salah satu tujuan utama E-Learning adalah memberi kesempatan
+								siswa mengulang penjelasan sesuai kebutuhan mereka.
+							</span>
+							<span class="lang-en">
+								Yes. One of the main purposes of E-Learning is to let students
+								revisit explanations whenever needed.
+							</span>
+						</p>
+					</details>
+
+					<details class="group py-5">
+						<summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-extrabold text-[#1d2f5c]">
+							<span class="lang-id">Bagaimana cara mendapatkan akses?</span>
+							<span class="lang-en">How can students get access?</span>
+							<span class="text-xl font-light transition group-open:rotate-45">+</span>
+						</summary>
+						<p class="mt-4 max-w-3xl text-sm leading-7 text-slate-500">
+							<span class="lang-id">
+								Hubungi tim NOVA untuk informasi mengenai ketersediaan modul,
+								program yang didukung, dan akses E-Learning.
+							</span>
+							<span class="lang-en">
+								Contact the NOVA team for information about module availability,
+								supported programs and E-Learning access.
+							</span>
+						</p>
+					</details>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="bg-[#f3bc34] py-20">
+			<div class="mx-auto max-w-4xl px-6 text-center">
+				<p class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#1d2f5c]/60">
+					NOVA E-Learning
+				</p>
+
+				<h2
+					class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
+				>
+					<span class="lang-id">Ingin tahu program E-Learning yang tersedia?</span>
+					<span class="lang-en">Want to know which E-Learning modules are available?</span>
+				</h2>
+
+				<p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#1d2f5c]/70">
+					<span class="lang-id">
+						Hubungi tim NOVA untuk mengetahui modul, jenjang, dan cara mendapatkan akses.
+					</span>
+
+					<span class="lang-en">
+						Contact the NOVA team to learn about available modules, levels and access options.
+					</span>
+				</p>
+
+				<a
+					href={whatsappUrl}
+					target="_blank"
+					rel="noreferrer"
+					class="mt-8 inline-flex bg-[#1d2f5c] px-8 py-4 font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-xl"
+				>
+					<span class="lang-id">Tanya NOVA E-Learning</span>
+					<span class="lang-en">Ask About NOVA E-Learning</span>
+				</a>
 			</div>
 		</section>
 	</main>
-
-	<!-- FOOTER -->
-	<footer class="bg-[#091D36] text-white">
-		<div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-			<div class="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
-				<div>
-					<a href="/" aria-label="NOVA Learning Centre">
-						<img
-							src="/images/primary-logo.png"
-							alt="NOVA Learning Centre"
-							class="h-14 w-auto brightness-0 invert"
-						/>
-					</a>
-
-					<p class="mt-6 max-w-md text-sm leading-7 text-blue-100">
-						Pusat pembelajaran modern untuk anak, remaja, dan pembelajar
-						sepanjang hayat melalui kelas tatap muka dan e-learning.
-					</p>
-
-					<p class="mt-6 text-sm font-semibold text-[#F3BC34]">
-						Learn with purpose. Grow with confidence.
-					</p>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Navigasi
-					</h3>
-
-					<div class="mt-6 grid gap-3">
-						{
-							footerLinks.map((item) => (
-								<a href={item.href} class="text-sm text-blue-100 transition hover:text-white">
-									{item.name}
-								</a>
-							))
-						}
-					</div>
-				</div>
-
-				<div>
-					<h3 class="text-sm font-bold uppercase tracking-[0.18em] text-[#F3BC34]">
-						Hubungi Kami
-					</h3>
-
-					<div class="mt-6 space-y-5 text-sm text-blue-100">
-						<div>
-							<p class="font-semibold text-white">Lokasi</p>
-							<p class="mt-1 leading-6">Kelapa Gading, Jakarta Utara</p>
-						</div>
-
-						<div>
-							<p class="font-semibold text-white">Email</p>
-							<a
-								href="mailto:halo@novalearningcentre.id"
-								class="mt-1 block break-all transition hover:text-white"
-							>
-								halo@novalearningcentre.id
-							</a>
-						</div>
-
-						<a
-							href="/contact"
-							class="inline-flex bg-[#F3BC34] px-5 py-3 font-bold text-[#0F2747] transition hover:bg-[#DFA722]"
-						>
-							Hubungi NOVA
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div
-				class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-blue-200 sm:flex-row sm:items-center sm:justify-between"
-			>
-				<p>© {currentYear} NOVA Learning Centre. All rights reserved.</p>
-
-				<div class="flex gap-5">
-					<a href="/privacy" class="transition hover:text-white">
-						Kebijakan Privasi
-					</a>
-
-					<a href="/terms" class="transition hover:text-white">
-						Syarat & Ketentuan
-					</a>
-				</div>
-			</div>
-		</div>
-	</footer>
 </Layout>
 
-<script>
-	const mobileMenuButton =
-		document.querySelector<HTMLButtonElement>('#mobile-menu-button');
-	const mobileMenu =
-		document.querySelector<HTMLElement>('#mobile-menu');
-	const mobileNavLinks =
-		document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
-
-	const closeMobileMenu = () => {
-		mobileMenu?.classList.add('hidden');
-		mobileMenuButton?.setAttribute('aria-expanded', 'false');
-	};
-
-	mobileMenuButton?.addEventListener('click', () => {
-		const isNowHidden = mobileMenu?.classList.toggle('hidden') ?? true;
-		mobileMenuButton.setAttribute('aria-expanded', String(!isNowHidden));
-	});
-
-	mobileNavLinks.forEach((link) => {
-		link.addEventListener('click', closeMobileMenu);
-	});
-</script>
-
 <style>
-	.learning-steps {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem;
-	}
-
-	.learning-step-card {
-		display: grid;
-		grid-template-columns: 52px minmax(0, 1fr);
-		gap: 1rem;
-		align-items: start;
-		border: 1px solid #e2e8f0;
-		background: #f8fafc;
-		padding: 1.25rem;
-	}
-
-	.step-number {
-		display: flex;
-		width: 52px;
-		height: 52px;
+	.section-label {
+		display: inline-flex;
 		align-items: center;
-		justify-content: center;
+		gap: 0.65rem;
+		font-size: 0.875rem;
 		font-weight: 800;
-		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: #1d2f5c;
 	}
 
-	.step-blue {
-		border: 2px solid #8FB7E8;
-		background: #ffffff;
-		color: #0F2747;
+	.section-label::before {
+		content: '';
+		width: 2.2rem;
+		height: 0.22rem;
+		background: #f3bc34;
 	}
 
-	.step-yellow {
-		background: #F3BC34;
-		color: #0F2747;
-	}
-
-	.step-navy {
-		background: #0F2747;
-		color: #ffffff;
-	}
-
-	@media (max-width: 767px) {
-		.learning-steps {
-			grid-template-columns: 1fr;
-		}
-	}
-
-
-	@media (prefers-reduced-motion: reduce) {
-		* {
-			scroll-behavior: auto !important;
-		}
-
-		a,
-		button,
-		img {
-			transition-duration: 0.01ms !important;
-		}
+	details summary::-webkit-details-marker {
+		display: none;
 	}
 </style>
