@@ -244,72 +244,7 @@ const coreValues: CoreValue[] = [
 		</section>
 
 		<!-- FOUNDING TEAM -->
-		<section class="bg-white py-24">
-			<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				<div class="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-					<div class="reveal">
-						<p class="section-label">
-							<span class="lang-id">Founders & Leadership</span>
-							<span class="lang-en">Founders & Leadership</span>
-						</p>
-
-						<h2
-							class="mt-4 text-4xl font-extrabold tracking-[-0.035em] text-[#1d2f5c] md:text-5xl"
-						>
-							<span class="lang-id">Sebuah visi yang dibangun bersama.</span>
-							<span class="lang-en">A vision built together.</span>
-						</h2>
-					</div>
-
-					<p class="reveal max-w-2xl text-lg leading-8 text-slate-600 lg:justify-self-end">
-						<span class="lang-id">
-							NOVA dikembangkan dengan menggabungkan perspektif pendidikan dan
-							bisnis untuk membangun learning centre yang berkualitas, relevan,
-							dan berkelanjutan bagi siswa dan keluarga.
-						</span>
-
-						<span class="lang-en">
-							NOVA brings together education and business perspectives to build
-							a high-quality, relevant and sustainable learning centre for
-							students and families.
-						</span>
-					</p>
-				</div>
-
-				<div class="mt-12 grid gap-6 md:grid-cols-2">
-					{
-						founders.map((founder) => (
-							<article class="founder-card reveal grid overflow-hidden border border-slate-200 bg-[#f7f8fc] sm:grid-cols-[210px_1fr]">
-								<div class="relative min-h-[270px] bg-[#f3bc34]">
-									<img
-										src={founder.photo}
-										alt={founder.name}
-										class="absolute inset-0 h-full w-full object-cover"
-										loading="lazy"
-									/>
-								</div>
-
-								<div class="p-7">
-									<p class="text-xs font-extrabold uppercase tracking-[0.16em] text-[#1d2f5c]/50">
-										<span class="lang-id">{founder.roleId}</span>
-										<span class="lang-en">{founder.roleEn}</span>
-									</p>
-
-									<h3 class="mt-2 text-2xl font-extrabold text-[#1d2f5c]">
-										{founder.name}
-									</h3>
-
-									<p class="mt-4 text-sm leading-7 text-slate-600">
-										<span class="lang-id">{founder.descriptionId}</span>
-										<span class="lang-en">{founder.descriptionEn}</span>
-									</p>
-								</div>
-							</article>
-						))
-					}
-				</div>
-			</div>
-		</section>
+		
 
 		<!-- NOVA NAME + VALUES -->
 		<section class="bg-[#1d2f5c] py-24 text-white">
